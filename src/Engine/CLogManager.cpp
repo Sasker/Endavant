@@ -19,10 +19,10 @@ void	CLogManager::StartUp()
 {
 	m_Loggers.clear();
 
-	XMLParserPUGI Parser(LOG_CONFIG_XML);
+	XMLParserPUGI Parser(EVTENGINE::CONFIG::LOG_CONFIG_XML_PATH);
 	if (!Parser.Ready())
 	{
-		std::cout<< "[FATAL ERROR]FAILED LOADING LOGSYSTEM XML CONFIG " << LOG_CONFIG_XML << std::endl << std::flush;
+		std::cout<< "[FATAL ERROR]FAILED LOADING LOGSYSTEM XML CONFIG " << EVTENGINE::CONFIG::LOG_CONFIG_XML_PATH << std::endl << std::flush;
 		return;
 	}
 

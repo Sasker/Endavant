@@ -36,7 +36,7 @@ void	CRenderManager::StartUp()
 {
 	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"Starting Up! (LOADING VIDEO XML CONFIG)");
 
-	XMLParserPUGI Parser(VIDEO_XML_DATA);
+	XMLParserPUGI Parser(EVTENGINE::CONFIG::VIDEO_CONFIG_XML_PATH);
 	int l_WinWidth = Parser.GetIntAttributeValue("WINDOW","WinWidth");
 	int l_WinHeight = Parser.GetIntAttributeValue("WINDOW","WinHeight");
 	int l_WinPosX = Parser.GetIntAttributeValue("WINDOW","WinPosX");

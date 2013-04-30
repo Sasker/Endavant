@@ -89,7 +89,10 @@ void CResourceManager::FreeTextures()
 
 void CResourceManager::ParseXMLAudioGroup(XMLParserPUGI& a_Parser, const std::string& a_NodePath, std::vector< std::string >& a_IDs, std::vector< std::string >& a_Paths)
 {
-	a_IDs.clear();
+	/*
+	 * TODO OOOOOOOOOOOOOOOOOOOOOOOOOO
+	 */
+	/*a_IDs.clear();
 	a_Paths.clear();
 
 	uint Elements = a_Parser.GetNodeNameCount(a_NodePath);
@@ -106,11 +109,12 @@ void CResourceManager::ParseXMLAudioGroup(XMLParserPUGI& a_Parser, const std::st
 		Path.append(a_Parser.GetStringAttributeValue(NodePath,"Path"));
 		a_Paths.push_back(Path);
 	}
+	*/
 }
 
 bool CResourceManager::LoadAudio()
 {
-	XMLParserPUGI Parser(AUDIO_XML_DATA);
+	XMLParserPUGI Parser(EVTENGINE::CONFIG::AUDIO_CONFIG_XML_PATH);
 
 	std::vector< std::string > IDs, Paths;
 

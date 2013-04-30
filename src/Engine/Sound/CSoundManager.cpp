@@ -31,7 +31,7 @@ CSoundManager::~CSoundManager()
 
 void CSoundManager::StartUp(void)
 {
-	XMLParserPUGI Parser(AUDIO_XML_DATA);
+	XMLParserPUGI Parser(EVTENGINE::CONFIG::AUDIO_CONFIG_XML_PATH);
 
 	if (Mix_OpenAudio(Parser.GetIntAttributeValue("AUDIO/OPTIONS", "Frequency"),
 				MIX_DEFAULT_FORMAT,
