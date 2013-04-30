@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<AUDIO>
+	<OPTIONS Frequency="22050" Channels="2" ChunkSize="4096" MixingChannels="64"/>
+
+	<SOUNDS>
+		<SOUND Id="sndtest1" Path="sndtest1.ogg" />
+	</SOUNDS>
+	
+	<TRACKS>
+		<MUSIC Id="mustest1" Path="mustest1.ogg" />
+	</TRACKS>
+</AUDIO>

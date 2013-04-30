@@ -1,0 +1,10 @@
+#ifndef ENGINE_H_
+#define ENGINE_H_
+
+// CUIDADO AL INCLUIR COSAS AQUI QUE SE INCLUIRAN EN LA MAYORIA DE LOS FICHEROS..
+#include "CBasicTypes.h"
+
+
+
+
+#endif /* ENGINE_H_ */
