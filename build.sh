@@ -80,6 +80,7 @@ fi
 
 if [ $CLEAN -eq 1 ]; then
 	BUILD_STR="cd build/debug && rm -rf * && cd ../release && rm -rf * && cd ../../ && "
+	echo "Clean OK!"
 else
 	BUILD_STR=""
 	CMAKE_THREADS='-j4 '

@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 2.6)
 
 
 ####################### ENGINE #####################
-project (Dirt5)
+project (Endavant)
 
 INCLUDE_DIRECTORIES(${${PROJECT_NAME}_SOURCE_DIR}/src/Engine)
 INCLUDE_DIRECTORIES(${${PROJECT_NAME}_SOURCE_DIR}/src/Externals)
@@ -51,33 +51,16 @@ endif()
 
 
 
-####################### EXAMPLES #####################
-file(GLOB_RECURSE APP1_SOURCE_FILES
-	${${PROJECT_NAME}_SOURCE_DIR}/src/Apps/App1/*.cpp	
-	)
-ADD_EXECUTABLE(App1 ${APP1_SOURCE_FILES})
-ADD_DEPENDENCIES(App1 ${PROJECT_NAME})
-TARGET_LINK_LIBRARIES(App1 ${PROJECT_NAME} )
+####################### TESTS #####################
+file(GLOB_RECURSE TEST1_SOURCE_FILES
+	${${PROJECT_NAME}_SOURCE_DIR}/src/Tests/Test1/*.cpp	
+)
+
+ADD_EXECUTABLE(Test1 ${TEST1_SOURCE_FILES})
+ADD_DEPENDENCIES(Test1 ${PROJECT_NAME})
+TARGET_LINK_LIBRARIES(Test1 ${PROJECT_NAME} )
 
 	
-	
-file(GLOB_RECURSE APP2_SOURCE_FILES
-	${${PROJECT_NAME}_SOURCE_DIR}/src/Apps/App2/*.cpp	
-	)	
-ADD_EXECUTABLE(App2 ${APP2_SOURCE_FILES})
-ADD_DEPENDENCIES(App2 ${PROJECT_NAME})
-TARGET_LINK_LIBRARIES(App2 ${PROJECT_NAME} )
-
-
-file(GLOB_RECURSE PONG_SOURCE_FILES
-	${${PROJECT_NAME}_SOURCE_DIR}/src/Apps/Pong/*.cpp	
-	)
-ADD_EXECUTABLE(pong ${PONG_SOURCE_FILES})
-ADD_DEPENDENCIES(pong  ${PROJECT_NAME})
-TARGET_LINK_LIBRARIES(pong ${PROJECT_NAME} )
-
-
-
 
 
 
