@@ -1,11 +1,11 @@
 #include "CRenderManager.h"
 #include "CWindow.h"
 #include "Base_Nodes/CScene.h"
-#include "CLogManager.h"
+#include "Core/CLogManager.h"
 
-#include "CCoreEngine.h"
-#include "Utils/XMLParserPUGI.h"
-#include "Utils/Conversions.h"
+#include "Core/CCoreEngine.h"
+#include "Utils/CXMLParserPUGI.h"
+#include "Utils/CConversions.h"
 
 #include <GL/glew.h>
 
@@ -36,7 +36,7 @@ void	CRenderManager::StartUp()
 {
 	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"Starting Up! (LOADING VIDEO XML CONFIG)");
 
-	XMLParserPUGI Parser(EVTENGINE::CONFIG::VIDEO_CONFIG_XML_PATH);
+	CXMLParserPUGI Parser(EVTENGINE::CONFIG::VIDEO_CONFIG_XML_PATH);
 	int l_WinWidth = Parser.GetIntAttributeValue("WINDOW","WinWidth");
 	int l_WinHeight = Parser.GetIntAttributeValue("WINDOW","WinHeight");
 	int l_WinPosX = Parser.GetIntAttributeValue("WINDOW","WinPosX");

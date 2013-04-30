@@ -2,7 +2,7 @@
 #define CINPUT_MOUSE_H_
 
 #include "Events/CEventHandler.h"
-#include "ISubSystem.h"
+#include "Core/ISubSystem.h"
 
 enum MOUSE_BUTTONS
 {

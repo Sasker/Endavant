@@ -1,6 +1,6 @@
 #include "CSoundEffect.h"
-#include "CCoreEngine.h"
-#include "CLogManager.h"
+#include "Core/CCoreEngine.h"
+#include "Core/CLogManager.h"
 
 CSoundEffect::CSoundEffect(const std::string& a_ID, const std::string& a_Path) :
 	m_Chunk(NULL),

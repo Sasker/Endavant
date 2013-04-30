@@ -1,8 +1,8 @@
 #include <sstream>
 #include "CResourceManager.h"
 #include "Renderer/Base_Nodes/CTextureNode.h"
-#include "Utils/XMLParserPUGI.h"
-#include "Defines.h"
+#include "Utils/CXMLParserPUGI.h"
+#include "Core/Defines.h"
 #include "CSoundEffect.h"
 #include "CMusicTrack.h"
 
@@ -87,7 +87,7 @@ void CResourceManager::FreeTextures()
 	*/
 }
 
-void CResourceManager::ParseXMLAudioGroup(XMLParserPUGI& a_Parser, const std::string& a_NodePath, std::vector< std::string >& a_IDs, std::vector< std::string >& a_Paths)
+void CResourceManager::ParseXMLAudioGroup(CXMLParserPUGI& a_Parser, const std::string& a_NodePath, std::vector< std::string >& a_IDs, std::vector< std::string >& a_Paths)
 {
 	/*
 	 * TODO OOOOOOOOOOOOOOOOOOOOOOOOOO
@@ -114,7 +114,7 @@ void CResourceManager::ParseXMLAudioGroup(XMLParserPUGI& a_Parser, const std::st
 
 bool CResourceManager::LoadAudio()
 {
-	XMLParserPUGI Parser(EVTENGINE::CONFIG::AUDIO_CONFIG_XML_PATH);
+	CXMLParserPUGI Parser(EVTENGINE::CONFIG::AUDIO_CONFIG_XML_PATH);
 
 	std::vector< std::string > IDs, Paths;
 

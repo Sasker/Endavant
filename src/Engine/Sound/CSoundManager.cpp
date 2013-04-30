@@ -2,12 +2,12 @@
 #include "Resources/CMusicTrack.h"
 #include "Resources/CResourceManager.h"
 #include "CSoundManager.h"
-#include "CCoreEngine.h"
-#include "Defines.h"
-#include "Utils/XMLParserPUGI.h"
+#include "Core/CCoreEngine.h"
+#include "Core/Defines.h"
+#include "Utils/CXMLParserPUGI.h"
 #include "SDL2/SDL_mutex.h"
 #include "SDL2/SDL_mixer.h"
-#include "CLogManager.h"
+#include "Core/CLogManager.h"
 #include <algorithm>
 #include <set>
 
@@ -31,7 +31,7 @@ CSoundManager::~CSoundManager()
 
 void CSoundManager::StartUp(void)
 {
-	XMLParserPUGI Parser(EVTENGINE::CONFIG::AUDIO_CONFIG_XML_PATH);
+	CXMLParserPUGI Parser(EVTENGINE::CONFIG::AUDIO_CONFIG_XML_PATH);
 
 	if (Mix_OpenAudio(Parser.GetIntAttributeValue("AUDIO/OPTIONS", "Frequency"),
 				MIX_DEFAULT_FORMAT,

@@ -5,7 +5,8 @@
 #include <string>
 #include "SDL2/SDL.h"
 #include "Events/CEventHandler.h"
-#include "ISubSystem.h"
+#include "Core/ISubSystem.h"
+
 
 class CJoystick;
 

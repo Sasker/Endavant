@@ -1,11 +1,11 @@
 #include "CTimeManager.h"
-#include "CCoreEngine.h"
-#include "CLogManager.h"
+#include "Core/CCoreEngine.h"
+#include "Core/CLogManager.h"
 #include "SDL2/SDL.h"
 
-static const uint 	FRAME_SAMPLES_COUNT = 1;
-static float		m_pLastFramesTime[FRAME_SAMPLES_COUNT];
-
+//static const uint 	FRAME_SAMPLES_COUNT = 1;
+//static float		m_pLastFramesTime[FRAME_SAMPLES_COUNT];
+/*
 CTimeManager::CTimeManager()
 {
 	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_TIMER,"Object Created!");
@@ -139,3 +139,4 @@ void CTimeManager::UpdateTimers()
 		itTimers++;
 	}
 }
+*/

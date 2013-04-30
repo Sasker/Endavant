@@ -8,15 +8,15 @@
 #ifndef XMLPARSERPUGI_H_
 #define XMLPARSERPUGI_H_
 #include "pugixml/pugixml.hpp"
-#include "CBaseEngine.h"
 #include <string>
 #include <vector>
+#include "Core/CBasicTypes.h"
 
-class XMLParserPUGI
+class CXMLParserPUGI
 {
 public:
-	XMLParserPUGI(std::string);
-	~XMLParserPUGI();
+	CXMLParserPUGI(std::string);
+	~CXMLParserPUGI();
 
 	bool 			Ready();
 
@@ -27,7 +27,7 @@ public:
 	bool			GetBoolAttributeValue	(const std::string &NodePath, const std::string &Attribute, const bool DefaultValue = false );
 
 
-	uint			GetNodeNameCount		(const std::string &NodePath);	//Cuenta el numero de nodos hijos en la ruta NodePath -> ROOTNODE/CHILDNODE_A/CHILDNODE_b -> devuelve #N de posibles CHILDNODE_B dentro de CHILDONE_A
+	u32				GetNodeNameCount		(const std::string &NodePath);	//Cuenta el numero de nodos hijos en la ruta NodePath -> ROOTNODE/CHILDNODE_A/CHILDNODE_b -> devuelve #N de posibles CHILDNODE_B dentro de CHILDONE_A
 
 private:
 	inline bool 	GetAttribute( const std::string &NodePath, const std::string &Attribute, pugi::xml_attribute &xmlAttrib );

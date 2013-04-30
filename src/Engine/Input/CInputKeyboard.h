@@ -2,7 +2,7 @@
 #define CINPUT_KEYBOARD_H_
 
 #include <string>
-#include "ISubSystem.h"
+#include "Core/ISubSystem.h"
 #include "SDL2/SDL.h"
 
 class CInputKeyboard : public ISubSystem

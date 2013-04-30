@@ -5,7 +5,7 @@
 #include <map>
 #include <list>
 #include <SDL2/SDL.h>
-#include "../ISubSystem.h"
+#include "Core/ISubSystem.h"
 #include "CEventHandler.h"
 
 class CEventManager : public ISubSystem

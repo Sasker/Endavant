@@ -1,6 +1,6 @@
 #include "CInputManager.h"
-#include "CCoreEngine.h"
-#include "CLogManager.h"
+#include "Core/CCoreEngine.h"
+#include "Core/CLogManager.h"
 using namespace std;
 
 CInputManager::CInputManager()

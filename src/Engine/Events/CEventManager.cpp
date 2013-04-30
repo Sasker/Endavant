@@ -1,8 +1,8 @@
 #include <iostream>
 #include "CEventManager.h"
-#include "CCoreEngine.h"
+#include "Core/CCoreEngine.h"
 #include "CEventCodes.h"
-#include "CLogManager.h"
+#include "Core/CLogManager.h"
 
 CEventManager::CEventManager()
 {

@@ -5,15 +5,15 @@
  *      Author: Dani
  */
 
-#include "XMLParserPUGI.h"
+#include "CXMLParserPUGI.h"
 #include "pugixml/pugixml.hpp"
-#include "CCoreEngine.h"
-#include "CLogManager.h"
-#include "Utils/Conversions.h"
+#include "Core/CCoreEngine.h"
+#include "Core/CLogManager.h"
+#include "Utils/CConversions.h"
 
 using namespace std;
 
-XMLParserPUGI::XMLParserPUGI(string l_XMLFile)
+CXMLParserPUGI::CXMLParserPUGI(string l_XMLFile)
 {
 	m_resultat = m_doc.load_file(l_XMLFile.c_str());
 	if (!m_resultat)
@@ -22,13 +22,13 @@ XMLParserPUGI::XMLParserPUGI(string l_XMLFile)
 	}
 }
 
-XMLParserPUGI::~XMLParserPUGI()
+CXMLParserPUGI::~CXMLParserPUGI()
 {
 	m_doc.reset();
 	m_resultat.status = pugi::status_file_not_found;
 }
 
-string XMLParserPUGI::GetStringAttributeValue(const string &NodePath, const string &Attribute, const string DefaultValue)
+string CXMLParserPUGI::GetStringAttributeValue(const string &NodePath, const string &Attribute, const string DefaultValue)
 {
 	string retValue(DefaultValue);
 	pugi::xml_attribute xmlAttrib;
@@ -39,7 +39,7 @@ string XMLParserPUGI::GetStringAttributeValue(const string &NodePath, const stri
 	return retValue;
 }
 
-int XMLParserPUGI::GetIntAttributeValue(const string &NodePath, const string &Attribute, const int DefaultValue)
+int CXMLParserPUGI::GetIntAttributeValue(const string &NodePath, const string &Attribute, const int DefaultValue)
 {
 	int retValue(DefaultValue);
 	pugi::xml_attribute xmlAttrib;
@@ -50,7 +50,7 @@ int XMLParserPUGI::GetIntAttributeValue(const string &NodePath, const string &At
 	return retValue;
 }
 
-float XMLParserPUGI::GetFloatAttributeValue(const string &NodePath, const string &Attribute, const float DefaultValue)
+float CXMLParserPUGI::GetFloatAttributeValue(const string &NodePath, const string &Attribute, const float DefaultValue)
 {
 	float retValue(DefaultValue);
 	pugi::xml_attribute xmlAttrib;
@@ -61,7 +61,7 @@ float XMLParserPUGI::GetFloatAttributeValue(const string &NodePath, const string
 	return retValue;
 }
 
-bool XMLParserPUGI::GetBoolAttributeValue(const string &NodePath, const string &Attribute, const bool DefaultValue)
+bool CXMLParserPUGI::GetBoolAttributeValue(const string &NodePath, const string &Attribute, const bool DefaultValue)
 {
 	bool retValue(DefaultValue);
 	pugi::xml_attribute xmlAttrib;
@@ -72,7 +72,7 @@ bool XMLParserPUGI::GetBoolAttributeValue(const string &NodePath, const string &
 	return retValue;
 }
 
-inline bool XMLParserPUGI::GetAttribute(const string &NodePath, const string &Attribute, pugi::xml_attribute &xmlAttrib)
+inline bool CXMLParserPUGI::GetAttribute(const string &NodePath, const string &Attribute, pugi::xml_attribute &xmlAttrib)
 {
 	vector< pair<string,int> > Nodes;
 	GetNodes(NodePath, Nodes);
@@ -103,7 +103,7 @@ inline bool XMLParserPUGI::GetAttribute(const string &NodePath, const string &At
 	return false;
 }
 
-uint XMLParserPUGI::GetNodeNameCount(const string& NodePath)
+uint CXMLParserPUGI::GetNodeNameCount(const string& NodePath)
 {
 	int retValue = 0;
 	vector< pair<string,int> > Nodes;
@@ -140,12 +140,12 @@ uint XMLParserPUGI::GetNodeNameCount(const string& NodePath)
 	return retValue;
 }
 
-bool XMLParserPUGI::Ready()
+bool CXMLParserPUGI::Ready()
 {
 	return (m_resultat.status == pugi::status_ok);
 }
 
-inline void XMLParserPUGI::GetNodes(string NodePath, vector< pair<string,int> > &AllNodes)
+inline void CXMLParserPUGI::GetNodes(string NodePath, vector< pair<string,int> > &AllNodes)
 {
 	vector<string> Nodes;
 

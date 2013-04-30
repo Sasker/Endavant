@@ -6,8 +6,8 @@
  */
 
 #include "CWindow.h"
-#include "CCoreEngine.h"
-#include "CLogManager.h"
+#include "Core/CCoreEngine.h"
+#include "Core/CLogManager.h"
 
 CWindow::CWindow(SDL_WindowFlags l_SDLlWinFlags, std::string l_WinTitle, int l_WinPosX,
 		int l_WinPosY, int l_WinWidth, int l_WinHeight, bool l_WinFullscreen):

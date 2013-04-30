@@ -1,6 +1,6 @@
 #include "CMusicTrack.h"
-#include "CCoreEngine.h"
-#include "CLogManager.h"
+#include "Core/CCoreEngine.h"
+#include "Core/CLogManager.h"
 
 CMusicTrack::CMusicTrack(const std::string& a_ID, const std::string& a_Path) :
 	m_Music(NULL),

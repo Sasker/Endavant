@@ -1,9 +1,6 @@
 #ifndef CCOREENGINE_H_
 #define CCOREENGINE_H_
 
-//Moduls
-#include "CBaseEngine.h"
-
 class CRenderManager;
 class CInputManager;
 class CLogManager;

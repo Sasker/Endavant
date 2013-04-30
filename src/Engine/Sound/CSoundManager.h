@@ -1,7 +1,7 @@
 #ifndef CSOUNDMANAGER_H_
 #define CSOUNDMANAGER_H_
 
-#include "ISubSystem.h"
+#include "Core/ISubSystem.h"
 #include <map>
 #include <string>
 

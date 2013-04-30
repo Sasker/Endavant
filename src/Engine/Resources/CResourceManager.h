@@ -1,8 +1,8 @@
 #ifndef CRESOURCEMANAGER_H_
 #define CRESOURCEMANAGER_H_
 
-#include "ISubSystem.h"
-#include "CBasicTypes.h"
+#include "Core/ISubSystem.h"
+#include "Core/CBasicTypes.h"
 #include <map>
 #include <string>
 #include <vector>
@@ -10,7 +10,7 @@
 class CTexture;
 class CSoundEffect;
 class CMusicTrack;
-class XMLParserPUGI;
+class CXMLParserPUGI;
 
 class CResourceManager: public ISubSystem
 {
@@ -39,7 +39,7 @@ private:
 	bool LoadTextures();
 	void FreeTextures();
 
-	void ParseXMLAudioGroup(XMLParserPUGI& a_Parser, const std::string& a_NodePath,
+	void ParseXMLAudioGroup(CXMLParserPUGI& a_Parser, const std::string& a_NodePath,
 			std::vector< std::string >& a_IDs, std::vector< std::string >& a_Paths);
 	bool LoadAudio();
 	void FreeAudio();

@@ -1,5 +1,5 @@
 #include "CEventHandler.h"
-#include "CCoreEngine.h"
+#include "Core/CCoreEngine.h"
 #include "CEventManager.h"
 
 CEventHandler::CEventHandler() :

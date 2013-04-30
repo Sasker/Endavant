@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 #include <vector>
-#include "../ISubSystem.h"
+#include "Core/ISubSystem.h"
 #include "CInputMouse.h"
 #include "CInputKeyboard.h"
 #include "CInputJoystick.h"

@@ -1,6 +1,6 @@
 #ifndef CRENDERMANAGER_H_
 #define CRENDERMANAGER_H_
-#include "ISubSystem.h"
+#include "Core/ISubSystem.h"
 #include <SDL2/SDL.h>
 #include <glm/glm.hpp>
 

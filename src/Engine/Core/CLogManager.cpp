@@ -1,9 +1,12 @@
 #include "CLogManager.h"
 #include <ctime>
-#include "Utils/XMLParserPUGI.h"
-#include "Utils/Conversions.h"
+#include "Utils/CXMLParserPUGI.h"
+#include "Utils/CConversions.h"
 
 using namespace std;
+
+
+
 
 CLogManager::CLogManager()
 {
@@ -19,15 +22,15 @@ void	CLogManager::StartUp()
 {
 	m_Loggers.clear();
 
-	XMLParserPUGI Parser(EVTENGINE::CONFIG::LOG_CONFIG_XML_PATH);
+	CXMLParserPUGI Parser(EVTENGINE::CONFIG::LOG_CONFIG_XML_PATH);
 	if (!Parser.Ready())
 	{
 		std::cout<< "[FATAL ERROR]FAILED LOADING LOGSYSTEM XML CONFIG " << EVTENGINE::CONFIG::LOG_CONFIG_XML_PATH << std::endl << std::flush;
 		return;
 	}
 
-	int loggersCount = Parser.GetNodeNameCount("LOGSYSTEM/LOGGER");
-	for ( int c = 0; c < loggersCount; c++ )
+	u32 loggersCount = Parser.GetNodeNameCount("LOGSYSTEM/LOGGER");
+	for ( u32 c = 0; c < loggersCount; c++ )
 	{
 		std::string LoggerNode("LOGSYSTEM/LOGGER#");
 		LoggerNode += to_string( c );
@@ -37,7 +40,7 @@ void	CLogManager::StartUp()
 		std::string l_Types = Parser.GetStringAttributeValue( LoggerNode, "Types");
 		std::string l_Systems = Parser.GetStringAttributeValue( LoggerNode, "Systems");
 
-		LogType LoggerN;
+		CLogType LoggerN;
 		if ( l_Mode == "File" )
 		{
 			LoggerN.m_IsConsole = false;
@@ -62,7 +65,7 @@ void	CLogManager::StartUp()
 
 void	CLogManager::ShutDown()
 {
-	std::vector< LogType >::iterator LoggerIt = m_Loggers.begin();
+	std::vector< CLogType >::iterator LoggerIt = m_Loggers.begin();
 	while (LoggerIt != m_Loggers.end())
 	{
 		if (!LoggerIt->m_IsConsole)
@@ -153,7 +156,7 @@ void	CLogManager::LogOutput(TLogLevel _level, TLogSubsystem _subs, std::string _
 void	CLogManager::WriteOutputLog(TLogLevel _level, TLogSubsystem _subs, std::string _msg)
 {
 
-	std::vector< LogType >::iterator LoggerIt = m_Loggers.begin();
+	std::vector< CLogType >::iterator LoggerIt = m_Loggers.begin();
 	while (LoggerIt != m_Loggers.end())
 	{
 		if ( (LoggerIt->m_loglevel & _level) && (LoggerIt->m_logsubsystem & _subs ) )

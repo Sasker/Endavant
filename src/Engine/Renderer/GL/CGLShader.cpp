@@ -1,6 +1,6 @@
 #include "CGLShader.h"
-#include "CCoreEngine.h"
-#include "CLogManager.h"
+#include "Core/CCoreEngine.h"
+#include "Core/CLogManager.h"
 #include <iostream>
 #include <fstream>
 
