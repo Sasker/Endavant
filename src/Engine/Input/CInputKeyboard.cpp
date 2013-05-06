@@ -24,7 +24,7 @@ void CInputKeyboard::ShutDown(void)
 
 }
 
-void CInputKeyboard::Update(float dt)
+void CInputKeyboard::Update(f64 dt)
 {
 	m_KeyBoardState = SDL_GetKeyboardState(0);
 }

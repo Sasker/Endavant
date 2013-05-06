@@ -31,7 +31,7 @@ void CInputManager::ShutDown()
 	m_JoystickInput.ShutDown();
 }
 
-void CInputManager::Update(float dt)
+void CInputManager::Update(f64 dt)
 {
 	m_MouseInput.Update(dt);
 	m_KeyboardInput.Update(dt);

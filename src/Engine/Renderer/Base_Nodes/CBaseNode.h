@@ -3,6 +3,7 @@
 
 #include <GL/glew.h>
 #include "Renderer/GL/CGLTypes.h"
+#include "Core/CBasicTypes.h"
 #include <vector>
 
 /*
@@ -20,7 +21,7 @@ public:
 	virtual ~CBaseNode();
 
 	virtual void					Render();
-	virtual void					Update(float dt);
+	virtual void					Update(f64 dt);
 
 	virtual const 					std::vector<CBaseNode*>& GetChildrens() const;
 	virtual void					AddChild(CBaseNode *child);

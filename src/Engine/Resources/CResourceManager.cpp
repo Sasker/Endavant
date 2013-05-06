@@ -28,7 +28,7 @@ void CResourceManager::ShutDown(void)
 	FreeAudio();
 }
 
-void CResourceManager::Update(float dt)
+void CResourceManager::Update(f64 dt)
 {
 
 }

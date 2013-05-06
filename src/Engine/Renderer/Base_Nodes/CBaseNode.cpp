@@ -117,7 +117,7 @@ void CBaseNode::Render()
 	}
 }
 
-void CBaseNode::Update(float dt)
+void CBaseNode::Update(f64 dt)
 {
 	// OVERRIDE ME
 	// Only use this to update game logic!

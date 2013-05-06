@@ -21,7 +21,7 @@ public:
 	// ISubSystem
 	void StartUp(void);
 	void ShutDown(void);
-	void Update(float dt);
+	void Update(f64 dt);
 
 	// CEventHandler
 	void HandleEvent(Uint32 a_Type, Uint32 a_Code, SDL_Event* a_Event = NULL);

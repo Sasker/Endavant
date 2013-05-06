@@ -17,7 +17,7 @@ public:
 	// ISubSystem
 	void	StartUp(void);
 	void	ShutDown(void);
-	void 	Update(float dt);
+	void 	Update(f64 dt);
 
 	inline const CInputMouse& 		GetMouse() { return m_MouseInput; }
 	inline const CInputKeyboard& 	GetKeyboard() { return m_KeyboardInput; }

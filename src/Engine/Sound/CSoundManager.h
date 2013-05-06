@@ -21,7 +21,7 @@ public:
 
 	void StartUp(void);
 	void ShutDown(void);
-	void Update(float dt);
+	void Update(f64 dt);
 
 	void PlaySound(const std::string& a_ID, int a_Loops = 0);
 	void StopSound(const std::string& a_ID);

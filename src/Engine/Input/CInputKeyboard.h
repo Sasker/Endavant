@@ -14,7 +14,7 @@ public:
 	// ISubSystem
 	void StartUp(void);
 	void ShutDown(void);
-	void Update(float dt);
+	void Update(f64 dt);
 
 	bool IsKeyPressed(const std::string& key) const;
 

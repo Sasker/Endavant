@@ -24,7 +24,7 @@ public:
 
 	void StartUp(void);
 	void ShutDown(void);
-	void Update(float dt);
+	void Update(f64 dt);
 
 	CTexture* GetTexture(const std::string& a_ID);
 	bool LoadTexture(const std::string& a_PathToTexture);

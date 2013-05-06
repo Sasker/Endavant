@@ -55,7 +55,7 @@ void CSoundManager::ShutDown(void)
 	Mix_CloseAudio();
 }
 
-void CSoundManager::Update(float dt)
+void CSoundManager::Update(f64 dt)
 {
 
 }

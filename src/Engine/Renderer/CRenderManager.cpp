@@ -186,7 +186,7 @@ void CRenderManager::Render(void)
 
 }
 
-void CRenderManager::Update(float dt)
+void CRenderManager::Update(f64 dt)
 {
 
 }

@@ -20,7 +20,7 @@ public:
 	// ISubSystem
 	void StartUp(void);
 	void ShutDown(void);
-	void Update(float dt);
+	void Update(f64 dt);
 
 	void Register(const CEventHandler::t_TypeList& a_TypeList, CEventHandler* a_Listener);
 	void UnRegister(const CEventHandler::t_TypeList& a_TypeList, CEventHandler* a_Listener);

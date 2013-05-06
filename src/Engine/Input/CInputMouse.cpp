@@ -31,7 +31,7 @@ void CInputMouse::ShutDown(void)
 	UnRegisterEventManager();
 }
 
-void CInputMouse::Update(float dt)
+void CInputMouse::Update(f64 dt)
 {
 	SDL_GetMouseState(&m_mouse_pos_X,&m_mouse_pos_Y); //Actualitzem les coordenades del ratoli
 }

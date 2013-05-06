@@ -24,7 +24,7 @@ void CEventManager::ShutDown(void)
 
 }
 
-void CEventManager::Update(float dt)
+void CEventManager::Update(f64 dt)
 {
 	SDL_Event l_Event;
 

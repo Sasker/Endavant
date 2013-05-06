@@ -15,7 +15,7 @@ class CRenderManager: public ISubSystem
 
 		void	StartUp(void);
 		void	ShutDown(void);
-		void	Update(float dt);
+		void	Update(f64 dt);
 		void	Render(void);
 		void	ResizeWindow(int, int);
 

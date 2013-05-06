@@ -30,7 +30,7 @@ void CInputJoystick::ShutDown(void)
 	CloseAllJoysticks();
 }
 
-void CInputJoystick::Update(float dt)
+void CInputJoystick::Update(f64 dt)
 {
 	if (SDL_NumJoysticks() != (int)m_Joysticks.size())
 	{
