@@ -7,13 +7,12 @@
 #include "Utils/CXMLParserPUGI.h"
 #include "Utils/CConversions.h"
 
-#include <GL/glew.h>
-
-
-
 // FOR OPENGL DEBUG ONLY
 #include "Renderer/GL/CGLError.h"
 
+
+#include "GLLoad/GLFuncs.h"
+#include "GLLoad/gl_core_2_1.h"
 
 
 
@@ -101,61 +100,56 @@ void	CRenderManager::InitGL()
 	SDL_GL_SetSwapInterval(0);
 
 
-	GLenum err = glewInit();
-	if(err != GLEW_OK)
-	{
-
-		CCoreEngine::Instance().GetLogManager().LogOutput( LOG_ERROR, LOGSUB_VIDEO,"ERROR LOADING GLEW LIBRARY: %s", glewGetErrorString(err));
-
-	}
-	else
-	{
-		if (InitGLDebugFunctions())	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"OpenGL Error Checking: ENABLED");
+	ogl_LoadFunctions();
 
 
-		char *l_vendor = (char*) glGetString(GL_VENDOR);
-		char *l_renderer =(char*) glGetString(GL_RENDERER);
-		char *l_version = (char*)glGetString(GL_VERSION);
-		char *l_glsl = (char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
-		CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"Renderer: %s", l_renderer);
-		CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"Vendor: %s", l_vendor);
-		CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"Version: %s", l_version);
-		CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"GLSL: %s", l_glsl);
+	// DEBUG OPENGL... not ready yet
+	//if (InitGLDebugFunctions())	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"OpenGL Error Checking: ENABLED");
 
-		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_TEXTURE_2D);
 
-		// TODO: Set antialiasing/multisampling
-		/*glEnable( GL_MULTISAMPLE );
+	char *l_vendor = (char*) glGetString(GL_VENDOR);
+	char *l_renderer =(char*) glGetString(GL_RENDERER);
+	char *l_version = (char*)glGetString(GL_VERSION);
+	char *l_glsl = (char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
+	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"Renderer: %s", l_renderer);
+	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"Vendor: %s", l_vendor);
+	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"Version: %s", l_version);
+	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"GLSL: %s", l_glsl);
+
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_TEXTURE_2D);
+
+	// TODO: Set antialiasing/multisampling
+	/*glEnable( GL_MULTISAMPLE );
 		glEnable( GL_LINE_SMOOTH );
 		glEnable( GL_POLYGON_SMOOTH );
 		glHint( GL_LINE_SMOOTH_HINT, GL_NICEST );
 		glHint( GL_POLYGON_SMOOTH_HINT, GL_NICEST );
-		*/
+	 */
 
-		/*set our viewing volume. */
-		glViewport( 0, 0, m_Window->GetWidth(), m_Window->GetHeight());
+	/*set our viewing volume. */
+	glViewport( 0, 0, m_Window->GetWidth(), m_Window->GetHeight());
 
 
-		/* Set our perspective */
-		/*
-		 * 		________ (width,height)
-		 *     |		|
-		 *     |		|
-		 *     |		|
-		 *     |________|
-		 *  (0,0)
-		 *
-		 */
-		glMatrixMode( GL_PROJECTION );
-		glLoadIdentity();
-		glOrtho(0, (GLfloat) m_Window->GetWidth(),	0, (GLfloat) m_Window->GetHeight(),	-1000, 1000);
+	/* Set our perspective */
+	/*
+	 * 		________ (width,height)
+	 *     |		|
+	 *     |		|
+	 *     |		|
+	 *     |________|
+	 *  (0,0)
+	 *
+	 */
+	glMatrixMode( GL_PROJECTION );
+	glLoadIdentity();
+	glOrtho(0, (GLfloat) m_Window->GetWidth(),	0, (GLfloat) m_Window->GetHeight(),	-1000, 1000);
 
-		/* Make sure we're chaning the model view and not the projection */
-		glMatrixMode( GL_MODELVIEW );
-		glLoadIdentity( );
+	/* Make sure we're chaning the model view and not the projection */
+	glMatrixMode( GL_MODELVIEW );
+	glLoadIdentity( );
 
-	}
+
 
 }
 

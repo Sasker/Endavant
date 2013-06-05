@@ -34,13 +34,13 @@ void CResourceManager::Update(f64 dt)
 }
 
 CTexture* CResourceManager::GetTexture(const std::string& a_ID)
-{
+{/*
 	t_Textures::iterator itTexture = m_Textures.find(a_ID);
 	if (itTexture != m_Textures.end())
 	{
 		return itTexture->second;
 	}
-
+*/
 	return NULL;
 }
 
@@ -114,6 +114,8 @@ void CResourceManager::ParseXMLAudioGroup(CXMLParserPUGI& a_Parser, const std::s
 
 bool CResourceManager::LoadAudio()
 {
+	//TODO
+	/*
 	CXMLParserPUGI Parser(EVTENGINE::CONFIG::AUDIO_CONFIG_XML_PATH);
 
 	std::vector< std::string > IDs, Paths;
@@ -129,12 +131,13 @@ bool CResourceManager::LoadAudio()
 	{
 		m_Music[IDs[index]] = new CMusicTrack(IDs[index], Paths[index]);
 	}
-
-	return true;
+	 */
+	return false;
 }
 
 void CResourceManager::FreeAudio()
 {
+	/*
 	for (t_Sounds::iterator itSnd = m_Sounds.begin(); itSnd != m_Sounds.end(); itSnd++)
 	{
 		delete itSnd->second; // liberamos si o si
@@ -146,10 +149,11 @@ void CResourceManager::FreeAudio()
 		delete itMus->second;
 	}
 	m_Music.clear();
+	*/
 }
 
 CSoundEffect* CResourceManager::GrabSound(const std::string& a_ID)
-{
+{/*
 	t_Sounds::iterator itSnd = m_Sounds.find(a_ID);
 	if (itSnd != m_Sounds.end())
 	{
@@ -161,12 +165,13 @@ CSoundEffect* CResourceManager::GrabSound(const std::string& a_ID)
 		Sound->Grab();
 		return Sound;
 	}
-
+*/
 	return NULL;
 }
 
 void CResourceManager::DropSound(const std::string& a_ID)
 {
+	/*
 	t_Sounds::iterator itSnd = m_Sounds.find(a_ID);
 	if (itSnd != m_Sounds.end())
 	{
@@ -177,16 +182,18 @@ void CResourceManager::DropSound(const std::string& a_ID)
 		else
 			Sound->UnLoad();
 	}
+	*/
 }
 
-void CResourceManager::DropSound(const std::string& a_ID, uint a_Count)
+void CResourceManager::DropSound(const std::string& a_ID, u32 a_Count)
 {
+	/*
 	t_Sounds::iterator itSnd = m_Sounds.find(a_ID);
 	if (itSnd != m_Sounds.end())
 	{
 		CSoundEffect* Sound = itSnd->second;
 
-		uint cnt = a_Count;
+		u32 cnt = a_Count;
 		while(cnt)
 		{
 			if (Sound->GetCount() > 1)
@@ -200,10 +207,12 @@ void CResourceManager::DropSound(const std::string& a_ID, uint a_Count)
 			cnt--;
 		}
 	}
+	*/
 }
 
 CMusicTrack* CResourceManager::GetTrack(const std::string& a_ID)
 {
+	/*
 	CMusicTrack* Track = NULL;
 
 	t_Music::iterator itMus = m_Music.find(a_ID);
@@ -215,4 +224,6 @@ CMusicTrack* CResourceManager::GetTrack(const std::string& a_ID)
 	}
 
 	return Track;
+	*/
+	return nullptr;
 }

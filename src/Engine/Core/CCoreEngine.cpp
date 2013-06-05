@@ -95,8 +95,8 @@ bool	CCoreEngine::StartUpSDL()
 	SDL_VERSION(&compiled);
 	SDL_GetVersion(&linked);
 
-	std::cout<<"We compiled against SDL version: "<< (uint) compiled.major<<"."<<(uint) compiled.minor<<"."<<(uint) compiled.patch<<std::endl;
-	std::cout<<"And we are linking against SDL version: "<< (uint) linked.major<<"."<<(uint) linked.minor<<"."<<(uint) linked.patch<<std::endl;
+	std::cout<<"We compiled against SDL version: "<< (u32) compiled.major<<"."<<(u32) compiled.minor<<"."<<(u32) compiled.patch<<std::endl;
+	std::cout<<"And we are linking against SDL version: "<< (u32) linked.major<<"."<<(u32) linked.minor<<"."<<(u32) linked.patch<<std::endl;
 
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) != 0)
 	{
@@ -118,8 +118,8 @@ void	CCoreEngine::StartUp()
 	m_rendermngr = new CRenderManager();
 	m_rendermngr->StartUp();
 
-	m_soundmngr = new CSoundManager();
-	m_soundmngr->StartUp();
+	//m_soundmngr = new CSoundManager();
+	//m_soundmngr->StartUp();
 
 	m_resourcemngr = new CResourceManager();
 	m_resourcemngr->StartUp();

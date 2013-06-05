@@ -26,7 +26,7 @@ void CRefCounter::Drop()
 	}
 }
 
-uint CRefCounter::GetCount()
+u32 CRefCounter::GetCount()
 {
 	return m_Count;
 }

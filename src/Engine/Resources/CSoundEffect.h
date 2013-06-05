@@ -2,8 +2,8 @@
 #define CSOUND_EFFECT_H_
 
 #include <string>
-#include "SDL2/SDL_mixer.h"
 #include "CRefCounter.h"
+//#include "SDL2/SDL_mixer.h"
 
 class CSoundEffect : public CRefCounter
 {
@@ -20,10 +20,10 @@ public:
 	int GetVolume(int a_Volume);
 
 	const std::string& GetID();
-	Mix_Chunk* GetChunk();
+	//TODO Mix_Chunk* GetChunk();
 
 private:
-	Mix_Chunk* 	m_Chunk;
+	//TODO Mix_Chunk* 	m_Chunk;
 	int			m_Volume;
 	std::string	m_ID;
 	std::string	m_Path;

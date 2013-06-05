@@ -141,7 +141,7 @@ TimerID CTimeManager::CreateTimer(ITimerListener const*  a_pListener,const f64 a
 }
 
 TimerID CTimeManager::CreateDelayedTimer(ITimerListener const*  a_pListener,const f64 a_duration,
-		const bool a_looped = false, float delay = 0.0f, void (*a_func)(TimerID id) = nullptr)
+		const bool a_looped, const float delay, void (*a_func)(TimerID id))
 {
 	TimerInfo	l_Timer;
 

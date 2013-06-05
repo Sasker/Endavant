@@ -1,5 +1,5 @@
 #include "CSprite.h"
-#include "GL/glew.h"
+#include "GLLoad/GLFuncs.h"
 
 
 CSprite::CSprite():

@@ -73,16 +73,20 @@ void CJoystick::HandleHatMotion(SDL_Event* a_Event)
 
 void CJoystick::HandleButtonDown(SDL_Event* a_Event)
 {
+	/* TODO
 	if (a_Event->jaxis.which < m_PressedButtons.size())
 	{
 		m_PressedButtons[a_Event->jaxis.which] = true;
 	}
+	*/
 }
 
 void CJoystick::HandleButtonUp(SDL_Event* a_Event)
 {
+	/* TODO
 	if (a_Event->jaxis.which < m_PressedButtons.size())
 	{
 		m_PressedButtons[a_Event->jaxis.which] = false;
 	}
+	*/
 }

@@ -10,7 +10,9 @@ INCLUDE_DIRECTORIES(${${PROJECT_NAME}_SOURCE_DIR}/src/Externals)
 
 file(GLOB_RECURSE SOURCE_FILES
 	${${PROJECT_NAME}_SOURCE_DIR}/src/Engine/*.cpp	
+	${${PROJECT_NAME}_SOURCE_DIR}/src/Engine/*.c
 	${${PROJECT_NAME}_SOURCE_DIR}/src/Externals/*.cpp	
+	${${PROJECT_NAME}_SOURCE_DIR}/src/Externals/*.c
 	)
 	
 if(CMAKE_BUILD_TYPE MATCHES release)
@@ -31,9 +33,11 @@ ADD_LIBRARY(${PROJECT_NAME} ${SOURCE_FILES})
 
 if(WIN32)
 	if(WIN32 AND NOT MINGW)
-		TARGET_LINK_LIBRARIES(${PROJECT_NAME} sdlmain sdl sdl2_mixer sdl_image opengl32 GLEW)
+		#TARGET_LINK_LIBRARIES(${PROJECT_NAME} sdlmain sdl sdl2_mixer sdl_image opengl32 GLEW)
+		TARGET_LINK_LIBRARIES(${PROJECT_NAME} sdlmain sdl opengl32 )
 	else(WIN32 AND NOT MINGW)
-		TARGET_LINK_LIBRARIES(${PROJECT_NAME} mingw32 sdl2main sdl2 sdl2_mixer sdl2_image opengl32 GLEW)	
+		#TARGET_LINK_LIBRARIES(${PROJECT_NAME} mingw32 sdl2main sdl2 sdl2_mixer sdl2_image opengl32 GLEW)
+		TARGET_LINK_LIBRARIES(${PROJECT_NAME} mingw32 sdl2main sdl2 opengl32 )
 	endif()
 elseif(UNIX AND NOT APPLE)
 	TARGET_LINK_LIBRARIES(${PROJECT_NAME} SDL2 SDL2_mixer SDL2_image GL GLEW)

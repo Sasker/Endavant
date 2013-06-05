@@ -2,7 +2,8 @@
 #define CMUSIC_TRACK_H_
 
 #include <string>
-#include "SDL2/SDL_mixer.h"
+// TODO
+//#include "SDL2/SDL_mixer.h"
 
 class CMusicTrack
 {
@@ -24,7 +25,7 @@ public:
 	const std::string& GetID();
 
 private:
-	Mix_Music* 	m_Music;
+	//TODO Mix_Music* 	m_Music;
 	int			m_Volume;
 	bool		m_Playing;
 	std::string	m_ID;

@@ -6,8 +6,7 @@
 #define CGLERROR_H_
 
 
-
-#include <GL/glew.h>
+#include "GLLoad/GLFuncs.h"
 
 //
 bool InitGLDebugFunctions();

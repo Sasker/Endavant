@@ -32,7 +32,7 @@ struct TimerInfo
 	TimerID m_id;				// unsigned integer timer identifier, set by CTimeManager
 	bool 	m_delayed;				// indicates if a timer is a delayed timer, set by CTimeManager
 	bool 	m_started;				// indicates if a delayed timer is already started, set by CTimeManager
-	f64 	m_startTime;			// actual start time of the timer in seconds, set by CTimeManager
+	f64 	m_startTicks;			// actual start time of the timer in Ticks, set by CTimeManager
 	f64 	m_delay;				// time (in seconds) after which a delayed timer starts automatically
 	f64 	m_duration;				// duration of the timer in seconds
 
@@ -40,13 +40,13 @@ struct TimerInfo
 	bool m_looped;				// indicates if it is a looped timer
 	ITimerListener const* m_listener;	// the listener this timer belongs to
 
-	TimerInfo(const TimerID a_ID, const f64 a_duration, const f64 a_delay,  )
+	TimerInfo()
 	{
 		m_id			= 0;
+		m_duration		= 0.0f;
 		m_delayed		= false;
 		m_started		= false;
-		m_startTicks	= 0;
-		m_duration		= 0.0f;
+		m_startTicks	= 0.0;
 		m_func			= nullptr;
 		m_delay			= 0.0f;
 		m_looped        = false;
@@ -88,7 +88,7 @@ public:
 
 	// Creates a delayed timer, which is either started automatically after the optional delay time is expired or
 	// (if the delay time is set to 0.0f) will be started after a StartDelayedTimer call.
-    TimerID CreateDelayedTimer(ITimerListener const*  a_pListener,const f64 a_duration,const bool a_looped = false, float delay = 0.0f, void (*a_func)(TimerID id) = nullptr);
+    TimerID CreateDelayedTimer(ITimerListener const*  a_pListener,const f64 a_duration,const bool a_looped = false, const float delay = 0.0f, void (*a_func)(TimerID id) = nullptr);
 	TimerID CreateDelayedTimer(float duration, bool looped = false, float delay = 0.0f, void (*func) (TimerID id) = NULL)
 	{
 		return CreateDelayedTimer(NULL, duration, looped, delay, func);

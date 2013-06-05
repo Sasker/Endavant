@@ -103,7 +103,7 @@ inline bool CXMLParserPUGI::GetAttribute(const string &NodePath, const string &A
 	return false;
 }
 
-uint CXMLParserPUGI::GetNodeNameCount(const string& NodePath)
+u32 CXMLParserPUGI::GetNodeNameCount(const string& NodePath)
 {
 	int retValue = 0;
 	vector< pair<string,int> > Nodes;

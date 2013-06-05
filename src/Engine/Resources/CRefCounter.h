@@ -11,10 +11,10 @@ public:
 
 	void Grab();
 	void Drop();
-	uint GetCount();
+	u32 GetCount();
 
 private:
-	uint m_Count;
+	u32 m_Count;
 };
 
 #endif

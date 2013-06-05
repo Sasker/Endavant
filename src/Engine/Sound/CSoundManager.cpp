@@ -6,11 +6,11 @@
 #include "Core/Defines.h"
 #include "Utils/CXMLParserPUGI.h"
 #include "SDL2/SDL_mutex.h"
-#include "SDL2/SDL_mixer.h"
+//#include "SDL2/SDL_mixer.h"
 #include "Core/CLogManager.h"
 #include <algorithm>
 #include <set>
-
+/*
 void OnSoundStop(int a_Channel)
 {
 	CCoreEngine::Instance().GetSoundManager().StopSound(a_Channel);
@@ -206,4 +206,4 @@ void CSoundManager::Mute()
 	StopSounds();
 	StopMusic();
 }
-
+*/

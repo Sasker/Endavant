@@ -43,7 +43,7 @@ void CInputJoystick::HandleEvent(Uint32 a_Type, Uint32 a_Code, SDL_Event* a_Even
 {
 	if (a_Event == NULL)
 		return;
-
+/* TODO
 	switch(a_Event->type)
 	{
 	case SDL_JOYAXISMOTION:
@@ -67,6 +67,7 @@ void CInputJoystick::HandleEvent(Uint32 a_Type, Uint32 a_Code, SDL_Event* a_Even
 			m_Joysticks[a_Event->jaxis.which].HandleButtonUp(a_Event);
 		break;
 	}
+	*/
 }
 
 std::string CInputJoystick::GetJoystickName(Uint32 a_Index)

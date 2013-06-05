@@ -1,6 +1,7 @@
 #ifndef CGLBUFFEROBJECT_H_
 #define CGLBUFFEROBJECT_H_
-#include <GL/glew.h>
+
+#include "GLLoad/GLFuncs.h"
 
 template<typename TBData>
 class CGLBufferObject

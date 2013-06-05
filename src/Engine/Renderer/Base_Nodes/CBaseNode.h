@@ -1,7 +1,6 @@
 #ifndef CBASENODE_H_
 #define CBASENODE_H_
 
-#include <GL/glew.h>
 #include "Renderer/GL/CGLTypes.h"
 #include "Core/CBasicTypes.h"
 #include <vector>

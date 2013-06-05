@@ -1,7 +1,7 @@
 #include "CSoundEffect.h"
 #include "Core/CCoreEngine.h"
 #include "Core/CLogManager.h"
-
+/*
 CSoundEffect::CSoundEffect(const std::string& a_ID, const std::string& a_Path) :
 	m_Chunk(NULL),
 	m_Volume(MIX_MAX_VOLUME),
@@ -78,3 +78,4 @@ Mix_Chunk* CSoundEffect::GetChunk()
 {
 	return m_Chunk;
 }
+*/

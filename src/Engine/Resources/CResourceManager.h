@@ -31,7 +31,7 @@ public:
 
 	CSoundEffect* GrabSound(const std::string& a_ID);
 	void DropSound(const std::string& a_ID);
-	void DropSound(const std::string& a_ID, uint a_Count);
+	void DropSound(const std::string& a_ID, u32 a_Count);
 
 	CMusicTrack* GetTrack(const std::string& a_ID);
 

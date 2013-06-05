@@ -4,6 +4,8 @@
 #include "Renderer/Base_Nodes/CBaseNode.h"
 #include "Renderer/GL/CGLTexture.h"
 
+#include "GLLoad/GLFuncs.h"
+
 #include <string>
 
 class CTextureNode: public CBaseNode
@@ -11,9 +13,9 @@ class CTextureNode: public CBaseNode
 public:
 	CTextureNode();
 
-	bool 		LoadTexture(const std::string &aPath);
-	inline uint GetTextureWidth() { return m_Width; }
-	inline uint GetTextureHeight() { return m_Height; }
+	bool		LoadTexture(const std::string &aPath);
+	inline u32	GetTextureWidth() { return m_Width; }
+	inline u32	GetTextureHeight() { return m_Height; }
 
 	virtual ~CTextureNode();
 
@@ -25,8 +27,8 @@ private:
 	inline bool IsPowerOf2(int a_Value) { return !(a_Value & (a_Value - 1)); }
 
 	std::string	m_PathToTexture;
-	uint		m_Width;
-	uint		m_Height;
+	u32			m_Width;
+	u32			m_Height;
 };
 
 #endif /* CTEXTURE_H_ */

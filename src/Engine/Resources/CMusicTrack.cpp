@@ -1,7 +1,8 @@
 #include "CMusicTrack.h"
 #include "Core/CCoreEngine.h"
 #include "Core/CLogManager.h"
-
+//TODO!!!
+/*
 CMusicTrack::CMusicTrack(const std::string& a_ID, const std::string& a_Path) :
 	m_Music(NULL),
 	m_Volume(MIX_MAX_VOLUME),
@@ -61,3 +62,4 @@ bool CMusicTrack::IsPlaying()
 {
 	return m_Playing;
 }
+*/

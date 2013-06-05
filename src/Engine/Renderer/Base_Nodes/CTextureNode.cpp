@@ -1,5 +1,6 @@
 #include "CTextureNode.h"
-#include <SDL2/SDL_image.h>
+//TODO
+//#include <SDL2/SDL_image.h>
 
 // TODO: mipmaps
 // TODO: Check power of 2 ?
@@ -17,8 +18,10 @@ CTextureNode::~CTextureNode()
 
 bool CTextureNode::LoadTexture(const std::string& a_PathToTexture)
 {
+	// TODO
+	/*
 	GLenum TextureFormat;
-	SDL_Surface* Surface = IMG_Load(a_PathToTexture.c_str());
+	//SDL_Surface* Surface = IMG_Load(a_PathToTexture.c_str());
 	if (!Surface)
 		return false;
 
@@ -47,7 +50,7 @@ bool CTextureNode::LoadTexture(const std::string& a_PathToTexture)
 
 	m_GLTexture.InitWithData(Surface->pixels,Surface->format->BytesPerPixel,m_Width,m_Height,TextureFormat);
 	SDL_FreeSurface(Surface);
-
+*/
 	return true;
 }
 

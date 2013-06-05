@@ -1,7 +1,7 @@
 #ifndef CGLSHADER_H_
 #define CGLSHADER_H_
 
-#include <GL/glew.h>
+#include "GLLoad/GLFuncs.h"
 #include <string>
 
 class CGLShader

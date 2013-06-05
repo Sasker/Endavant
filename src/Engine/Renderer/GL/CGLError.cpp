@@ -1,10 +1,13 @@
 #include "CGLError.h"
 #include "cstdio"
-#include "GL/glew.h"
+
+// TODO
+//#include "GL/glew.h"
+
 
 bool InitGLDebugFunctions()
 {
-
+/*
 	if (glewIsSupported("GL_ARB_debug_output"))
 	{
 		glDebugMessageCallbackARB(DebugCallbackARB,stderr);
@@ -18,7 +21,7 @@ bool InitGLDebugFunctions()
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB);
 		return true;
 	}
-
+*/
 	return false;
 }
 
@@ -26,15 +29,17 @@ bool InitGLDebugFunctions()
 
 void DebugCallbackARB(GLenum source, GLenum type, GLuint id, GLenum severity,GLsizei length, const GLchar *message, GLvoid *userParam)
 {
-	(void)length;
+	/*(void)length;
 	FILE *outFile = (FILE*)userParam;
 	char finalMessage[256];
 	FormatDebugOutputARB(finalMessage, 256, source, type, id, severity, message);
 	fprintf(outFile, "%s\n", finalMessage);
+	*/
 }
 
 void FormatDebugOutputARB(char outStr[], size_t outStrSize, GLenum source, GLenum type,  GLuint id, GLenum severity, const char *msg)
 {
+	/*
 	char sourceStr[32];
 	const char *sourceFmt = "UNDEFINED(0x%04X)";
 	switch(source)
@@ -78,21 +83,26 @@ void FormatDebugOutputARB(char outStr[], size_t outStrSize, GLenum source, GLenu
 
 	snprintf(outStr, outStrSize, "OpenGL: %s [source=%s type=%s severity=%s id=%d]",
 			msg, sourceStr, typeStr, severityStr, id);
+			*/
 }
 
 
 void DebugCallbackAMD(GLuint id, GLenum category, GLenum severity, GLsizei length,const GLchar *message, GLvoid *userParam)
 {
+	/*
+
 	(void)length;
 	FILE *outFile = (FILE*)userParam;
 	char finalMsg[256];
 	FormatDebugOutputAMD(finalMsg, 256, category, id, severity, message);
 	fprintf(outFile, "%s\n", finalMsg);
+	*/
 }
 
 
 void FormatDebugOutputAMD(char outStr[], size_t outStrSize, GLenum category, GLuint id,GLenum severity, const char *msg)
 {
+	/*
 	char categoryStr[32];
 	const char *categoryFmt = "UNDEFINED(0x%04X)";
 	switch(category)
@@ -120,6 +130,8 @@ void FormatDebugOutputAMD(char outStr[], size_t outStrSize, GLenum category, GLu
 
 	snprintf(outStr, outStrSize, "OpenGL: %s [category=%s severity=%s id=%d]",
 			msg, categoryStr, severityStr, id);
+
+			*/
 }
 
 

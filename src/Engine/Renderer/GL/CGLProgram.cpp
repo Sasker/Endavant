@@ -1,5 +1,5 @@
 #include "CGLProgram.h"
-#include <GL/glew.h>
+#include "GLLoad/GLFuncs.h"
 /*
 CGLProgram::CGLProgram()
 m_Linked(false),
