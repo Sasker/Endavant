@@ -9,9 +9,7 @@ int main ()
 	{
 		CCoreEngine::Instance().Update();
 
-		//App CODE
-		//App CODE
-		//App CODE
+
 
 
 

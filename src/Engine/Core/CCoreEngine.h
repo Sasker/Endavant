@@ -39,7 +39,6 @@ private:
 	CRenderManager		*m_rendermngr;
 	CInputManager 		*m_inputmngr;
 	CLogManager	 		*m_logmngr;
-//	SoundManager		*m_soundmngr;
 	CTimeManager		*m_timermngr;
 	CEventManager		*m_eventmngr;
 	CResourceManager 	*m_resourcemngr;

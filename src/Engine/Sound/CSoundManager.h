@@ -13,6 +13,7 @@ void OnSoundStop(int a_Channel);
 
 class CSoundManager: public ISubSystem
 {
+		/*
 public:
 	typedef std::map< int, CSoundEffect* > t_PlayingSnds;
 
@@ -47,6 +48,7 @@ private:
 	t_PlayingSnds	m_PlayingSnds;
 	int				m_MusicVolume;
 	SDL_mutex*		m_SndMutex;
+	*/
 };
 
 #endif /* CSOUNDMANAGER_H_ */

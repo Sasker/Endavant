@@ -1,7 +1,7 @@
 #ifndef CINPUTMANAGER_H_
 #define CINPUTMANAGER_H_
 #include <SDL2/SDL.h>
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <vector>
 #include "Core/ISubSystem.h"
@@ -9,7 +9,10 @@
 #include "CInputKeyboard.h"
 #include "CInputJoystick.h"
 
-class CInputManager : public ISubSystem
+
+
+
+class CInputManager : public ISubSystem//,  public CEventHandler
 {
 public:
 	~CInputManager();
@@ -19,17 +22,26 @@ public:
 	void	ShutDown(void);
 	void 	Update(f64 dt);
 
-	inline const CInputMouse& 		GetMouse() { return m_MouseInput; }
+	bool	RegisterAction(std::string a_ActionID);
+	//inline const CInputMouse& 	GetMouse() { return m_MouseInput; }
 	inline const CInputKeyboard& 	GetKeyboard() { return m_KeyboardInput; }
-	inline const CInputJoystick& 	GetJoysticks() { return m_JoystickInput; }
+	//inline const CInputJoystick& 	GetJoysticks() { return m_JoystickInput; }
+
+	// CEventHandler
+//	void HandleEvent(Uint32 a_Type, Uint32 a_Code, SDL_Event* a_Event = NULL);
 
 private:
-	friend class CCoreEngine;
-	CInputManager();
 
-	CInputMouse 	m_MouseInput;
+	CInputManager(); friend class CCoreEngine;
+
+
+
+
+	//CInputMouse 	m_MouseInput;
 	CInputKeyboard 	m_KeyboardInput;
-	CInputJoystick	m_JoystickInput;
+	//CInputJoystick	m_JoystickInput;
+
+
 
 };
 

@@ -11,7 +11,7 @@ enum MOUSE_BUTTONS
 	MOUSE_RIGHT_BUTTON
 };
 
-class CInputMouse : public ISubSystem, public CEventHandler
+class CInputMouse : public CEventHandler
 {
 public:
 	CInputMouse();
@@ -22,13 +22,15 @@ public:
 	void ShutDown(void);
 	void Update(f64 dt);
 
-	// CEventHandler
-	void HandleEvent(Uint32 a_Type, Uint32 a_Code, SDL_Event* a_Event = NULL);
+
 
 	inline int	GetMousePosX() {return m_mouse_pos_X;};
 	inline int	GetMousePosY() {return m_mouse_pos_Y;};
 	SDL_Rect 	GetMousePosRect();
 	bool 		IsMouseButtonPressed(MOUSE_BUTTONS mouse_button);
+
+	//CEventHandler
+	void HandleEvent(Uint32 a_Type, Uint32 a_Code, SDL_Event* a_Event=NULL);
 
 private:
 	int 	m_mouse_pos_X, m_mouse_pos_Y;

@@ -33,6 +33,8 @@ void CEventManager::Update(f64 dt)
 		Uint32 l_Type = EVENT_TYPE_SDL;
 		Uint32 l_Code = l_Event.type;
 
+
+
 		switch(l_Event.type)
 		{
 			case SDL_QUIT:
@@ -45,7 +47,6 @@ void CEventManager::Update(f64 dt)
 				l_Code = l_Event.user.code;
 				delete (Uint32*)l_Event.user.data1;
 				break;
-
 			default:
 				break;
 		}

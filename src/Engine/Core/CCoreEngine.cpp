@@ -14,16 +14,14 @@
 
 CCoreEngine::CCoreEngine():
 m_run(false),
-m_rendermngr(NULL),
-m_inputmngr(NULL),
-m_logmngr(NULL),
-//m_soundmngr(NULL),
-m_timermngr(NULL),
-m_eventmngr(NULL),
-m_resourcemngr(NULL),
-m_soundmngr(NULL)
+m_rendermngr(nullptr),
+m_inputmngr(nullptr),
+m_logmngr(nullptr),
+m_timermngr(nullptr),
+m_eventmngr(nullptr),
+m_resourcemngr(nullptr),
+m_soundmngr(nullptr)
 {
-
 }
 
 CCoreEngine::~CCoreEngine()
@@ -121,8 +119,8 @@ void	CCoreEngine::StartUp()
 	//m_soundmngr = new CSoundManager();
 	//m_soundmngr->StartUp();
 
-	m_resourcemngr = new CResourceManager();
-	m_resourcemngr->StartUp();
+	//m_resourcemngr = new CResourceManager();
+	//m_resourcemngr->StartUp();
 
 	//m_soundmngr = new SoundManager();
 	//m_soundmngr->StartUp();
@@ -145,15 +143,15 @@ void	CCoreEngine::Update()
 	if (m_run)
 	{
 		// UPDATES
-		float dt = 0.0F;
+		f64 dt = 0.0F;
 		m_timermngr->Update(dt);
 		dt = m_timermngr->GetElapsedTime();
 
 
 		m_inputmngr->Update(dt);
 		m_eventmngr->Update(dt);
-		m_soundmngr->Update(dt);
-		m_resourcemngr->Update(dt);
+		//m_soundmngr->Update(dt);
+		//m_resourcemngr->Update(dt);
 
 		m_rendermngr->Update(dt);
 
@@ -173,10 +171,11 @@ void	CCoreEngine::ShutDown()
 	//EN ORDRE INVERS AL DE CREACIO
 	m_logmngr->LogOutput( LOG_INFO, LOGSUB_ENGINE,"ShutDown all subsystems:  ");
 	m_timermngr->ShutDown();
-	m_inputmngr->ShutDown();
-	m_eventmngr->ShutDown();
-	m_resourcemngr->ShutDown();
-	m_soundmngr->ShutDown();
+	//TODO
+	//m_inputmngr->ShutDown();
+	//m_eventmngr->ShutDown();
+	//m_resourcemngr->ShutDown();
+	//m_soundmngr->ShutDown();
 	m_rendermngr->ShutDown();
 	m_logmngr->ShutDown();
 

@@ -1,11 +1,10 @@
 #include "CInputKeyboard.h"
-#include "Core/CCoreEngine.h"
-#include "Time/CTimeManager.h"
+#include <utility>
 
-
-CInputKeyboard::CInputKeyboard() :
-	m_KeyBoardState(NULL)
+CInputKeyboard::CInputKeyboard():
+m_KeyBoardState(nullptr)
 {
+
 
 }
 
@@ -14,30 +13,34 @@ CInputKeyboard::~CInputKeyboard()
 
 }
 
-void CInputKeyboard::StartUp(void)
+void CInputKeyboard::Update()
 {
+
 	m_KeyBoardState = SDL_GetKeyboardState(0);
-}
 
-void CInputKeyboard::ShutDown(void)
-{
-
-}
-
-void CInputKeyboard::Update(f64 dt)
-{
-	m_KeyBoardState = SDL_GetKeyboardState(0);
-}
-
-bool CInputKeyboard::IsKeyPressed(const std::string& key) const
-{
-	if (m_KeyBoardState == NULL)
-		return false;
-
-	if (m_KeyBoardState[SDL_GetScancodeFromName(key.c_str())])
+	//Update all registered actions state.
+	for (auto& l_action : m_RegisteredKeyActions )
 	{
+
+		if ( m_KeyBoardState[l_action.second.m_SDLScancode] )
+		{
+			CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_EVENTS, "ACTION: %s Active | Key: %s", l_action.first.c_str(), l_action.second.m_RawKey.c_str());
+		}
+	}
+}
+
+
+bool CInputKeyboard::InsertKeyAction(const std::string &a_ActionName, const std::string &a_RawKeyName )
+{
+	auto l_itAction = m_RegisteredKeyActions.find(a_ActionName);
+
+	if (l_itAction == m_RegisteredKeyActions.end())
+	{
+		m_RegisteredKeyActions[a_ActionName] = CKeyStatus(a_RawKeyName);
 		return true;
 	}
 
+	//TODO log warning keyaction exists
 	return false;
 }
+
