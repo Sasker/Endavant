@@ -34,7 +34,7 @@ void CEventManager::Update(f64 dt)
 		Uint32 l_Code = l_Event.type;
 
 
-
+		//CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_EVENTS, "EVENT!");
 		switch(l_Event.type)
 		{
 			case SDL_QUIT:

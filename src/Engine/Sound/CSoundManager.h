@@ -11,7 +11,8 @@ struct SDL_mutex;
 
 void OnSoundStop(int a_Channel);
 
-class CSoundManager: public ISubSystem
+class CSoundManager
+		//: public ISubSystem
 {
 		/*
 public:

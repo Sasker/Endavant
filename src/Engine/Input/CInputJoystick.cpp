@@ -2,6 +2,11 @@
 #include "Input/CJoystick.h"
 #include "Events/CEventCodes.h"
 
+
+#include "Core/CCoreEngine.h"
+#include "Core/CLogManager.h"
+
+
 CInputJoystick::CInputJoystick()
 {
 
@@ -14,6 +19,7 @@ CInputJoystick::~CInputJoystick()
 
 void CInputJoystick::StartUp(void)
 {
+
 	AddEvent(EVENT_TYPE_SDL, SDL_JOYAXISMOTION);
 	AddEvent(EVENT_TYPE_SDL, SDL_JOYBALLMOTION);
 	AddEvent(EVENT_TYPE_SDL, SDL_JOYHATMOTION);
@@ -114,8 +120,12 @@ void CInputJoystick::LoadJoysticks()
 {
 	SDL_JoystickEventState(SDL_ENABLE);
 
+	CloseAllJoysticks();
+
+	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_EVENTS, "Joy ENABLED");
 	for (Uint32 index = 0; index < (Uint32)SDL_NumJoysticks(); ++index)
 	{
+		CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_EVENTS, "Joy FOUND!!!");
 		m_Joysticks.push_back(CJoystick(SDL_JoystickOpen(index)));
 	}
 }

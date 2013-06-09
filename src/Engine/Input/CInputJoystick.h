@@ -8,6 +8,7 @@
 #include "Core/ISubSystem.h"
 
 
+
 class CJoystick;
 
 class CInputJoystick : public ISubSystem, public CEventHandler
@@ -30,9 +31,9 @@ public:
 	Uint32 		GetJoystickNumButtons(Uint32 a_Index);
 	Uint32 		GetJoystickNumAxes(Uint32 a_Index);
 
+	void 		LoadJoysticks();
 private:
 	void CloseAllJoysticks();
-	void LoadJoysticks();
 
 	t_JoystickList m_Joysticks;
 

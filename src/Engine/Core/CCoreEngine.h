@@ -1,6 +1,7 @@
 #ifndef CCOREENGINE_H_
 #define CCOREENGINE_H_
 
+
 class CRenderManager;
 class CInputManager;
 class CLogManager;

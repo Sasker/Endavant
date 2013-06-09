@@ -22,6 +22,8 @@ public:
 	void UnRegisterEventManager();
 
 private:
+
+
 	t_TypeList m_TypeList;
 	bool m_Registered;
 
