@@ -17,9 +17,6 @@ typedef std::uint32_t		u32;
 typedef std::int64_t		s64;
 typedef std::uint64_t		u64;
 
-typedef std::int64_t		s64;
-typedef std::uint64_t		u64;
-
 static_assert(sizeof(float)*CHAR_BIT==32, "float is not 32 bit on this architecture, fix the f32 typedef.");
 typedef float 				f32;
 
