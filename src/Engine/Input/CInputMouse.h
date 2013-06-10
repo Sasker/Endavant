@@ -12,11 +12,8 @@
 #include <string>
 #include <map>
 
-enum E_MOUSE
+enum E_MOUSE_BUTTONS
 {
-	MOUSE_X = 0,
-	MOUSE_Y,
-	MOUSE_Z,
 	MOUSE_LB,
 	MOUSE_MB,
 	MOUSE_RB
@@ -45,7 +42,7 @@ public:
 	inline s32			GetPosRelX() 	{return m_MouseRelativePosition.x;};
 	inline s32			GetPosRelY() 	{return m_MouseRelativePosition.y;};
 	inline glm::ivec2 	GetPosRel()	{return m_MouseRelativePosition;};
-	bool 				IsButtonPressed(E_MOUSE mouse_button);
+	bool 				IsButtonPressed(E_MOUSE_BUTTONS mouse_button);
 
 
 
@@ -61,7 +58,7 @@ private:
 
 
 
-	void MouseActionUpdate(E_MOUSE a_MouseButton, bool a_ValueToUpdate);
+	void MouseActionUpdate(E_MOUSE_BUTTONS a_MouseButton, bool a_ValueToUpdate);
 
 	glm::ivec2		m_MousePosition;
 	glm::ivec2		m_MouseRelativePosition;
@@ -71,15 +68,15 @@ private:
 	bool			m_middle_mouse_pressed;
 
 	// Translation table
-	typedef	std::map<std::string, E_MOUSE>	t_MapStringToMouseType;
+	typedef	std::map<std::string, E_MOUSE_BUTTONS>	t_MapStringToMouseType;
 	t_MapStringToMouseType					m_translateStrToMouseType;
 
 	//Contains all the registered input mouse actions with their current State/Info
-	typedef std::map< std::string, E_MOUSE >	t_MouseActionsMap;
+	typedef std::map< std::string, E_MOUSE_BUTTONS >	t_MouseActionsMap;
 	t_MouseActionsMap		m_RegisteredMouseActions;
 
 	//Contains all the registered input Scancodes and their status (true = keydown, false = keyup)
-	typedef std::map< E_MOUSE, bool >			t_MouseStatusMap;
+	typedef std::map< E_MOUSE_BUTTONS, bool >			t_MouseStatusMap;
 	t_MouseStatusMap	m_RegisteredInputMouse;
 
 };

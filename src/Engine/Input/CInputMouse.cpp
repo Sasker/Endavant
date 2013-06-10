@@ -28,9 +28,6 @@ void CInputMouse::StartUp(void)
 	RegisterEventManager();
 
 	// Create Translation table
-	m_translateStrToMouseType["MOUSE_X"]	= MOUSE_X;
-	m_translateStrToMouseType["MOUSE_Y"]	= MOUSE_Y;
-	m_translateStrToMouseType["MOUSE_Z"]	= MOUSE_Z;
 	m_translateStrToMouseType["MOUSE_LB"]	= MOUSE_LB;
 	m_translateStrToMouseType["MOUSE_MB"]	= MOUSE_MB;
 	m_translateStrToMouseType["MOUSE_RB"]	= MOUSE_RB;
@@ -114,7 +111,7 @@ void CInputMouse::HandleEvent(Uint32 a_Type, Uint32 a_Code, SDL_Event* a_Event)
 }
 
 
-bool CInputMouse::IsButtonPressed(E_MOUSE mouse_button)
+bool CInputMouse::IsButtonPressed(E_MOUSE_BUTTONS mouse_button)
 {
 
 	switch(mouse_button)
@@ -185,7 +182,7 @@ bool	CInputMouse::IsActionActive(const std::string &a_ActionName)
 
 }
 
-void CInputMouse::MouseActionUpdate(E_MOUSE a_MouseButton, bool a_ValueToUpdate)
+void CInputMouse::MouseActionUpdate(E_MOUSE_BUTTONS a_MouseButton, bool a_ValueToUpdate)
 {
 	auto l_ButtonStatus = m_RegisteredInputMouse.find(a_MouseButton);
 	if (l_ButtonStatus != m_RegisteredInputMouse.end() )
