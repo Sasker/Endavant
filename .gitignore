@@ -3,6 +3,7 @@ LogOutput.txt
 Win32
 ipch
 *.prefs
+*.txt
 
 build
 bin
