@@ -6,30 +6,33 @@
 int main(int argc, char *argv[])
 {
 
-	CCoreEngine::Instance().StartUp();
+	CCoreEngine &l_core= CCoreEngine::Instance();
+	CInputManager &l_input = CCoreEngine::Instance().GetInputManager();
+	CLogManager	&l_log = CCoreEngine::Instance().GetLogManager();
 
+	l_core.StartUp();
 
 	CCoreEngine::Instance().GetInputManager().GetMouse().InsertButtonAction("PutaMare", "MOUSE_LB");
 
-	while ( CCoreEngine::Instance().IsRunning() )
+	while ( l_core.IsRunning() )
 	{
-		CCoreEngine::Instance().Update();
+		l_core.Update();
 
-		if ( CCoreEngine::Instance().GetInputManager().GetMouse().IsActionActive("PutaMare")
-				|| CCoreEngine::Instance().GetInputManager().GetMouse().IsButtonPressed(MOUSE_MB)
+		if (l_input.GetMouse().IsActionActive("PutaMare")
+				|| l_input.GetMouse().IsButtonPressed(MOUSE_MB)
 		)
 
 		{
-			CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_GAME ,"YESSSSS");
+			l_log.LogOutput( LOG_INFO, LOGSUB_GAME ,"YESSSSS");
 
 		}
 
 
 
-		CCoreEngine::Instance().Render();
+		l_core.Render();
 	}
 
-	CCoreEngine::Instance().ShutDown();
+	l_core.ShutDown();
 
 	return 0;
 }

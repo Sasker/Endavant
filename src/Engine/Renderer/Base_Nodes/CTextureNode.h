@@ -2,7 +2,7 @@
 #define CTEXTURE_H_
 
 #include "Renderer/Base_Nodes/CBaseNode.h"
-#include "Renderer/GL/CGLTexture.h"
+//#include "Renderer/GL/CGLTexture.h"
 
 #include "GLLoad/GLFuncs.h"
 
@@ -20,7 +20,7 @@ public:
 	virtual ~CTextureNode();
 
 protected:
-	CGLTexture	m_GLTexture;
+	//CGLTexture	m_GLTexture;
 
 private:
 

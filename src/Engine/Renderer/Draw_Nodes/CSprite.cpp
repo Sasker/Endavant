@@ -41,7 +41,7 @@ void CSprite::Render()
 	glRotatef( GetRotation() ,0.0f,0.0f,1.0f);
 
 
-	m_GLTexture.Bind();
+	//m_GLTexture.Bind(); TODO
 	m_VBO.BindBuffer();
 	glTexCoordPointer(2,GL_FLOAT,5 * sizeof(GLfloat), ((GLubyte *) 0) );
 	glVertexPointer(3,GL_FLOAT,5 * sizeof(GLfloat), ((GLubyte *) 0 + (2*sizeof(GLfloat))) );
@@ -54,7 +54,7 @@ void CSprite::Render()
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	m_VBO.UnBindBuffer();
-	m_GLTexture.UnBind();
+	//m_GLTexture.UnBind(); TODO
 	CBaseNode::Render();
 }
 

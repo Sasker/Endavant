@@ -21,7 +21,7 @@ enum E_MOUSE_BUTTONS
 
 
 
-class CInputMouse : public CEventHandler, public ISubSystem
+class __declspec(dllexport) CInputMouse : public CEventHandler, public ISubSystem
 {
 public:
 	CInputMouse();

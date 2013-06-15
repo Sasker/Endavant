@@ -10,7 +10,7 @@ class CEventManager;
 class CResourceManager;
 class CSoundManager;
 
-class CCoreEngine {
+class __declspec(dllexport) CCoreEngine {
 public:
 	void	StartUp();
 	void	ShutDown();
