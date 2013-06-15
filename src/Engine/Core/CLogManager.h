@@ -41,7 +41,7 @@ enum TLogSubsystem
 
 
 
-class __declspec(dllexport) CLogManager
+class CLogManager
 {
 public:
 

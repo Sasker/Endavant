@@ -15,6 +15,7 @@
 #include "GLLoad/gl_core_2_1.h"
 
 
+static const std::string VIDEO_CONFIG_XML_PATH("./Recursos/Config/video_options.xml");
 
 CRenderManager::CRenderManager():
 m_GLContext(NULL),
@@ -35,7 +36,7 @@ void	CRenderManager::StartUp()
 {
 	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"Starting Up! (LOADING VIDEO XML CONFIG)");
 
-	CXMLParserPUGI Parser(EVTENGINE::CONFIG::VIDEO_CONFIG_XML_PATH);
+	CXMLParserPUGI Parser(VIDEO_CONFIG_XML_PATH);
 	int l_WinWidth = Parser.GetIntAttributeValue("WINDOW","WinWidth");
 	int l_WinHeight = Parser.GetIntAttributeValue("WINDOW","WinHeight");
 	int l_WinPosX = Parser.GetIntAttributeValue("WINDOW","WinPosX");

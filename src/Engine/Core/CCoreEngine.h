@@ -1,6 +1,7 @@
 #ifndef CCOREENGINE_H_
 #define CCOREENGINE_H_
 
+#include "Defines.h"
 
 class CRenderManager;
 class CInputManager;
@@ -10,7 +11,7 @@ class CEventManager;
 class CResourceManager;
 class CSoundManager;
 
-class __declspec(dllexport) CCoreEngine {
+class CCoreEngine {
 public:
 	void	StartUp();
 	void	ShutDown();

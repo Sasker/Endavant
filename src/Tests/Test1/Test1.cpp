@@ -7,12 +7,12 @@ int main(int argc, char *argv[])
 {
 
 	CCoreEngine &l_core= CCoreEngine::Instance();
+
+	l_core.StartUp();
 	CInputManager &l_input = CCoreEngine::Instance().GetInputManager();
 	CLogManager	&l_log = CCoreEngine::Instance().GetLogManager();
 
-	l_core.StartUp();
-
-	CCoreEngine::Instance().GetInputManager().GetMouse().InsertButtonAction("PutaMare", "MOUSE_LB");
+	l_input.GetMouse().InsertButtonAction("PutaMare", "MOUSE_LB");
 
 	while ( l_core.IsRunning() )
 	{
