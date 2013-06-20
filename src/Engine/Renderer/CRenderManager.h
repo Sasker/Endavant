@@ -28,6 +28,13 @@ class CRenderManager: public ISubSystem
 		 */
 		void	PushScene(CScene *);
 
+		/**Suspends the execution of the running scene, pushing it on the stack of suspended scenes.
+		 * The new scene will be executed.
+		 * Try to avoid big stacks of pushed scenes to reduce memory allocation.
+		 * ONLY call it if there is a running scene.
+		 */
+		CScene * const GetCurrentScene();
+
 		/**Pops out a scene from the queue.
 		 * This scene will replace the running one.
 		 * The running scene will be deleted. If there are no more scenes in the stack the execution is terminated.

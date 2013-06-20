@@ -198,6 +198,11 @@ void CRenderManager::PushScene(CScene* l_Scene)
 
 }
 
+CScene * const CRenderManager::GetCurrentScene()
+{
+	return *m_itCurrentScene;
+}
+
 void CRenderManager::PopScene()
 {
 	m_SceneStack.pop_back();
