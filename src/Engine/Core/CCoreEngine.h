@@ -3,13 +3,13 @@
 
 #include "Defines.h"
 
-class CRenderManager;
-class CInputManager;
-class CLogManager;
-class CTimeManager;
-class CEventManager;
-class CResourceManager;
-class CSoundManager;
+#include "Renderer/CRenderManager.h"
+#include "Input/CInputManager.h"
+#include "Core/CLogManager.h"
+#include "Time/CTimeManager.h"
+#include "Events/CEventManager.h"
+#include "Resources/CResourceManager.h"
+#include "Sound/CSoundManager.h"
 
 class CCoreEngine {
 public:

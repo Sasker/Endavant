@@ -50,12 +50,9 @@ void CBaseNode::SetPosition(const glm::vec2& position)
 void CBaseNode::UpdateChildPositions( const glm::vec3& position )
 {
 	m_PositionAbsolute = m_Position + position;
-	std::vector<CBaseNode * >::iterator ChildrensIt = m_Childrens.begin();
-	while ( ChildrensIt != m_Childrens.end() )
-	{
-		(*ChildrensIt)->UpdateChildPositions( m_PositionAbsolute );
-		ChildrensIt++;
-	}
+
+	for ( auto Children: m_Childrens)
+		Children->UpdateChildPositions( m_PositionAbsolute );
 }
 
 float CBaseNode::GetRotation() const
@@ -109,12 +106,10 @@ void CBaseNode::Render()
 	// OVERRIDE ME
 	// Only use this to draw things!
 	// Always call CBaseNode::Render to render childrens
-	std::vector<CBaseNode * >::iterator ChildrensIt = m_Childrens.begin();
-	while ( ChildrensIt != m_Childrens.end() )
-	{
-		(*ChildrensIt)->Render();
-		ChildrensIt++;
-	}
+
+	for ( CBaseNode* Children: m_Childrens)
+		Children->Render();
+
 }
 
 void CBaseNode::Update(f64 dt)
@@ -122,18 +117,16 @@ void CBaseNode::Update(f64 dt)
 	// OVERRIDE ME
 	// Only use this to update game logic!
 	// Always call CBaseNode::Update to update childrens
-	std::vector<CBaseNode * >::iterator ChildrensIt = m_Childrens.begin();
-	while ( ChildrensIt != m_Childrens.end() )
-	{
-		(*ChildrensIt)->Update( dt);
-		ChildrensIt++;
-	}
+
+	for ( CBaseNode* Children: m_Childrens)
+		Children->Update(dt);
+
 }
 
 
 void CBaseNode::AddChild(CBaseNode* child)
 {
-	if (!child)
+	if (child == nullptr)
 		return;
 
 	m_Childrens.push_back(child);

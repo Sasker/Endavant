@@ -5,9 +5,6 @@
 #include "Core/ISubSystem.h"
 #include "glm/glm.hpp"
 
-//For debug purposes
-#include "Core/CCoreEngine.h"
-#include "Core/CLogManager.h"
 
 #include <string>
 #include <map>

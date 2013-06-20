@@ -2,6 +2,9 @@
 #include "CInputMouse.h"
 #include "Events/CEventCodes.h"
 
+//For debug purposes
+#include "Core/CCoreEngine.h"
+#include "Core/CLogManager.h"
 
 
 CInputMouse::CInputMouse():
