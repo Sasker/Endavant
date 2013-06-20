@@ -6,6 +6,9 @@
 #include "Renderer/Draw_Nodes/CRectangle.h"
 #include "Renderer/Draw_Nodes/CTriangle.h"
 
+
+#include "PongPlayer.h"
+
 int main(int argc, char *argv[])
 {
 
@@ -19,23 +22,18 @@ int main(int argc, char *argv[])
 
 	l_input.GetMouse().InsertButtonAction("PutaMare", "MOUSE_LB");
 
+	//Escena principal
     CScene MiEscena;
-    CTriangle MiTriangulo( glm::vec2( 0, 100), glm::vec2( -100, 0), glm::vec2( 100, 0), 0, glm::vec3(1.0,0.0,0.0) );
-    CTriangle MiTriangulo2( glm::vec2( -100, 100), glm::vec2( 100, 100), glm::vec2( 0, 0), 1, glm::vec3(1.0,0.0,1.0) );
-    CRectangle Rectangle(  glm::vec2( 100, 100), 11,glm::vec3(1.0,0.0,0.0) );
-    CRectangle Rectangle2(  glm::vec2( 100, 100), 12,glm::vec3(0.0,1.0,0.0) );
-
-    MiTriangulo.SetPosition( glm::vec2( 100, 100) );
-    MiTriangulo2.SetPosition( glm::vec2( 200, 200) );
-
-    MiEscena.SetPosition(glm::vec2(100,100));
-
-    MiEscena.AddChild( &Rectangle );
-    MiEscena.AddChild( &Rectangle2 );
-
-
-
+    MiEscena.SetPosition(glm::vec2(0,0));
 	l_render.PushScene(&MiEscena);
+
+
+	PongPlayer	l_jugador1;
+	PongPlayer	l_jugador2;
+
+
+
+
 
 	while ( l_core.IsRunning() )
 	{
