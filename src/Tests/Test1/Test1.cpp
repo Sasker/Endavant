@@ -2,6 +2,7 @@
 #include "Input/CInputManager.h"
 #include "Input/CInputMouse.h"
 #include "Core/CLogManager.h"
+#include "Time/CTimeManager.h"
 #include "Renderer/Base_Nodes/CScene.h"
 #include "Renderer/Draw_Nodes/CRectangle.h"
 #include "Renderer/Draw_Nodes/CTriangle.h"
@@ -16,9 +17,9 @@ int main(int argc, char *argv[])
 	l_core.StartUp();
 
 	auto	&l_input = CCoreEngine::Instance().GetInputManager();
-	auto	&l_log = CCoreEngine::Instance().GetLogManager();
+	//auto	&l_log = CCoreEngine::Instance().GetLogManager();
 	auto	&l_render = CCoreEngine::Instance().GetRenderManager();
-
+	auto	&l_timer = CCoreEngine::Instance().GetTimerManager();
 
 	l_input.GetMouse().InsertButtonAction("PutaMare", "MOUSE_LB");
 
@@ -28,7 +29,10 @@ int main(int argc, char *argv[])
 	l_render.PushScene(&MiEscena);
 
 
+	//Jugadors
 	PongPlayer	l_jugador1;
+
+
 	PongPlayer	l_jugador2;
 
 
@@ -37,12 +41,16 @@ int main(int argc, char *argv[])
 
 	while ( l_core.IsRunning() )
 	{
+		// Actualitzo l'engine
 		l_core.Update();
 
-		if (l_input.GetMouse().IsActionActive("PutaMare") || l_input.GetMouse().IsButtonPressed(MOUSE_MB))
-			l_log.LogOutput( LOG_INFO, LOGSUB_GAME ,"YESSSSS");
 
+		// Actualitzo els jugadors
+		auto dt = l_timer.GetElapsedTime();
+		l_jugador1.Update(dt);
+		//l_jugador2.Update(dt);
 
+		// Pinto
 		l_core.Render();
 	}
 

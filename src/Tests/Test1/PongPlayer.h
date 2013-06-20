@@ -13,7 +13,7 @@ public:
 	PongPlayer();
 
 	void Update(f64 dt);
-	void Render();
+
 	~PongPlayer();
 
 	glm::vec2	m_position;
