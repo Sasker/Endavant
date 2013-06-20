@@ -29,6 +29,8 @@ public:
 	virtual const 					float& GetZOrder() const;
 	virtual void 					SetPosition(const glm::vec3& position);
 	virtual void 					SetPosition(const glm::vec2& position);
+	virtual void 					IncPosition(const glm::vec3& position);
+	virtual void 					IncPosition(const glm::vec2& position);
 	virtual void 					UpdateChildPositions(const glm::vec3& position);
 
 	virtual float 					GetRotation() const;

@@ -47,11 +47,27 @@ void CBaseNode::SetPosition(const glm::vec2& position)
 	UpdateChildPositions( m_PositionAbsolute );
 }
 
+void CBaseNode::IncPosition(const glm::vec3& position)
+{
+	m_PositionAbsolute -= m_Position;
+	m_Position += position;
+	UpdateChildPositions( m_PositionAbsolute );
+}
+
+void CBaseNode::IncPosition(const glm::vec2& position)
+{
+	m_PositionAbsolute -= m_Position;
+	m_Position.x += position.x;
+	m_Position.y += position.y;
+	UpdateChildPositions( m_PositionAbsolute );
+
+}
+
 void CBaseNode::UpdateChildPositions( const glm::vec3& position )
 {
 	m_PositionAbsolute = m_Position + position;
 
-	for ( auto Children: m_Childrens)
+	for ( CBaseNode * Children: m_Childrens)
 		Children->UpdateChildPositions( m_PositionAbsolute );
 }
 
