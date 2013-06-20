@@ -41,6 +41,7 @@ void CInputKeyboard::HandleEvent(Uint32 a_Type, Uint32 a_Code, SDL_Event* a_Even
 	{
 		case SDL_KEYDOWN:
 			KeyScancodeDown(a_Event->key.keysym.scancode);
+		break;
 		case SDL_KEYUP:
 			KeyScancodeUp(a_Event->key.keysym.scancode);
 		break;
@@ -87,10 +88,14 @@ bool CInputKeyboard::InsertKeyAction(const std::string &a_ActionName, const std:
 		if (m_RegisteredInputScancodes.find(l_scancode) == m_RegisteredInputScancodes.end())
 			m_RegisteredInputScancodes[l_scancode] = false;
 
+		CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_INPUT,"CInputKeyboard::InsertKeyAction ADDED -> Action: %s  SDL_ScanCode: %d",
+				a_ActionName.c_str(),l_scancode);
 
 		return true;
 	}
 
+	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_WARNING, LOGSUB_INPUT,"CInputKeyboard::InsertKeyAction ACTION-> Action: %s Exists!!  SDL_ScanCode: %d",
+			a_ActionName.c_str(),l_scancode);
 
 	return false;
 }
@@ -102,6 +107,8 @@ bool	CInputKeyboard::IsActionKeyPressed(const std::string &a_ActionName)
 	if ( l_Action != m_RegisteredKeyActions.end())
 		return m_RegisteredInputScancodes[l_Action->second];
 
+	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_INPUT,"CInputKeyboard::IsActionKeyPressed -> Action: %s  Not exists!",
+					a_ActionName.c_str());
 	//If not exists return false;
 	return false;
 
