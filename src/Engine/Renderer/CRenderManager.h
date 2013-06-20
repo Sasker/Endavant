@@ -28,10 +28,8 @@ class CRenderManager: public ISubSystem
 		 */
 		void	PushScene(CScene *);
 
-		/**Suspends the execution of the running scene, pushing it on the stack of suspended scenes.
-		 * The new scene will be executed.
-		 * Try to avoid big stacks of pushed scenes to reduce memory allocation.
-		 * ONLY call it if there is a running scene.
+		/**
+		 * Returns a const pointer to the current scene being rendered
 		 */
 		CScene * const GetCurrentScene();
 
