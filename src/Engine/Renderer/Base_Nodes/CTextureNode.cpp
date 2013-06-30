@@ -1,9 +1,10 @@
 #include "CTextureNode.h"
-//TODO
-//#include <SDL2/SDL_image.h>
+#include <SDL2/SDL.h>
 
-// TODO: mipmaps
-// TODO: Check power of 2 ?
+// TODO: Load more than bitmaps (BMP)
+// TODO: mipmaps?
+
+
 CTextureNode::CTextureNode():
 CBaseNode(),
 m_PathToTexture(""),
@@ -18,15 +19,22 @@ CTextureNode::~CTextureNode()
 
 bool CTextureNode::LoadTexture(const std::string& a_PathToTexture)
 {
-	// TODO
-	/*
-	GLenum TextureFormat;
-	//SDL_Surface* Surface = IMG_Load(a_PathToTexture.c_str());
+
+
+
+	SDL_Surface* Surface = SDL_LoadBMP(a_PathToTexture.c_str());
 	if (!Surface)
+	{
 		return false;
+	}
+
+
 
 	m_Width = Surface->w;
 	m_Height = Surface->h;
+
+
+	GLenum TextureFormat;
 
 	switch(Surface->format->BytesPerPixel)
 	{
@@ -50,7 +58,7 @@ bool CTextureNode::LoadTexture(const std::string& a_PathToTexture)
 
 	m_GLTexture.InitWithData(Surface->pixels,Surface->format->BytesPerPixel,m_Width,m_Height,TextureFormat);
 	SDL_FreeSurface(Surface);
-*/
+
 	return true;
 }
 

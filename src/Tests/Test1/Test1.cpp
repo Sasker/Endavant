@@ -6,6 +6,7 @@
 #include "Renderer/Base_Nodes/CScene.h"
 #include "Renderer/Draw_Nodes/CRectangle.h"
 #include "Renderer/Draw_Nodes/CTriangle.h"
+#include "Renderer/Draw_Nodes/CSprite.h"
 
 
 #include "PongPlayer.h"
@@ -37,6 +38,15 @@ int main(int argc, char *argv[])
 	l_input.GetKeyboard().InsertKeyAction("P2Up", "Q");
 	l_input.GetKeyboard().InsertKeyAction("P2Down", "A");
 	PongPlayer	l_jugador2(glm::vec2(l_render.GetWindowSize().x - 100, l_render.GetWindowSize().y / 2),"P2Up", "P2Down");
+
+	CTriangle	testtriangle(glm::vec2(100,0), glm::vec2(50,50),glm::vec2(0,0),12,glm::vec3(1,0,0) );
+	CCoreEngine::Instance().GetRenderManager().GetCurrentScene()->AddChild(&testtriangle);
+
+	CSprite		testsprite;
+	CCoreEngine::Instance().GetRenderManager().GetCurrentScene()->AddChild(&testsprite);
+	testsprite.InitSprite("exemple.bmp");
+	testsprite.SetPosition(glm::vec2(300,300));
+	testsprite.SetSpriteCurrentSize(glm::uvec2(25,25));
 
 
 

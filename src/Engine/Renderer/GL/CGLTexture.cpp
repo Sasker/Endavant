@@ -48,3 +48,11 @@ CGLTexture::~CGLTexture()
 	UnLoad();
 }
 
+bool	CGLTexture::IsLoaded()
+{
+	if (m_TextureID == GL_ZERO)
+		return false;
+	else
+		return true;
+}
+

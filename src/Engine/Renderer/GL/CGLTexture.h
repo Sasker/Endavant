@@ -16,13 +16,16 @@ class CGLTexture
 {
 public:
 	CGLTexture();
+	virtual ~CGLTexture();
+
 	void	InitWithData(const GLvoid* aRawDataPixels, GLint aInternalFormat,
 								GLsizei aWidth, GLsizei aHeight, GLenum aFormat);
 	void 	UnLoad();
-	virtual ~CGLTexture();
 
 	void	Bind();
 	void	UnBind();
+
+	bool	IsLoaded();
 
 private:
 	GLuint 		m_TextureID;
