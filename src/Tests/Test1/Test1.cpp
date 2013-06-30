@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 	auto	&l_render = CCoreEngine::Instance().GetRenderManager();
 	auto	&l_timer = CCoreEngine::Instance().GetTimerManager();
 
-	l_input.GetMouse().InsertButtonAction("PutaMare", "MOUSE_LB");
+
 
 	//Escena principal
     CScene MiEscena;
@@ -30,11 +30,13 @@ int main(int argc, char *argv[])
 
 
 	//Jugadors
-	PongPlayer	l_jugador1;
+	l_input.GetKeyboard().InsertKeyAction("P1Up", "O");
+	l_input.GetKeyboard().InsertKeyAction("P1Down", "L");
+	PongPlayer	l_jugador1(glm::vec2(100, l_render.GetWindowSize().y / 2), "P1Up", "P1Down");
 
-
-	PongPlayer	l_jugador2;
-
+	l_input.GetKeyboard().InsertKeyAction("P2Up", "Q");
+	l_input.GetKeyboard().InsertKeyAction("P2Down", "A");
+	PongPlayer	l_jugador2(glm::vec2(l_render.GetWindowSize().x - 100, l_render.GetWindowSize().y / 2),"P2Up", "P2Down");
 
 
 
@@ -48,7 +50,7 @@ int main(int argc, char *argv[])
 		// Actualitzo els jugadors
 		auto dt = l_timer.GetElapsedTime();
 		l_jugador1.Update(dt);
-		//l_jugador2.Update(dt);
+		l_jugador2.Update(dt);
 
 		// Pinto
 		l_core.Render();

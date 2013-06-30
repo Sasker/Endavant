@@ -4,23 +4,31 @@
 #define PONGPLAYER_H_
 #include "Renderer/Base_Nodes/CBaseNode.h"
 #include "Renderer/Draw_Nodes/CRectangle.h"
-#include <memory>
+#include <glm/glm.hpp>
 
+#include <string>
+#include <memory>
 class PongPlayer
 {
 public:
 
-	PongPlayer();
+	PongPlayer(const glm::vec2 &position, const std::string &ActionUp, const std::string &ActionDown);
 
 	void Update(f64 dt);
 
 	~PongPlayer();
 
-	glm::vec2	m_position;
-	std::unique_ptr<CRectangle>	m_graphicmodel;
 
 private:
-	//Autos
+	void Move(f64 dt);
+
+
+	std::string m_ActionUp, m_ActionDown;
+	std::unique_ptr<CRectangle>	m_graphicmodel;
+
+
+
+
 
 };
 
