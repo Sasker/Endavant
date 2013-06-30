@@ -14,21 +14,17 @@ public:
 	CTextureNode();
 
 	bool		LoadTexture(const std::string &aPath);
-	inline u32	GetTextureWidth() { return m_Width; }
-	inline u32	GetTextureHeight() { return m_Height; }
+	inline u32	GetTextureWidth() { return m_TextureSize.x; }
+	inline u32	GetTextureHeight() { return m_TextureSize.y; }
 
 	virtual ~CTextureNode();
 
 protected:
 	CGLTexture	m_GLTexture;
-
-private:
-
-	inline bool IsPowerOf2(int a_Value) { return !(a_Value & (a_Value - 1)); }
-
+	glm::uvec2	m_TextureSize;
 	std::string	m_PathToTexture;
-	u32			m_Width;
-	u32			m_Height;
+
+
 };
 
 #endif /* CTEXTURE_H_ */

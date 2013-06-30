@@ -7,9 +7,8 @@
 
 CTextureNode::CTextureNode():
 CBaseNode(),
-m_PathToTexture(""),
-m_Width(0),
-m_Height(0)
+m_TextureSize(0,0),
+m_PathToTexture("")
 {
 }
 
@@ -30,8 +29,6 @@ bool CTextureNode::LoadTexture(const std::string& a_PathToTexture)
 
 
 
-	m_Width = Surface->w;
-	m_Height = Surface->h;
 
 
 	GLenum TextureFormat;
@@ -56,7 +53,10 @@ bool CTextureNode::LoadTexture(const std::string& a_PathToTexture)
 		return false;
 	}
 
-	m_GLTexture.InitWithData(Surface->pixels,Surface->format->BytesPerPixel,m_Width,m_Height,TextureFormat);
+	m_TextureSize.x = Surface->w;
+	m_TextureSize.y = Surface->h;
+
+	m_GLTexture.InitWithData(Surface->pixels,Surface->format->BytesPerPixel,m_TextureSize.x,m_TextureSize.y,TextureFormat);
 	SDL_FreeSurface(Surface);
 
 	return true;

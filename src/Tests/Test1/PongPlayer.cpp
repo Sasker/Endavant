@@ -12,11 +12,12 @@
 #include "Input/CInputManager.h"
 #include "Input/CInputMouse.h"
 
-PongPlayer::PongPlayer(const glm::vec2 &position, const std::string &ActionUp, const std::string &ActionDown):
+PongPlayer::PongPlayer(const glm::vec2 &position, const std::string &ActionUp, const std::string &ActionDown, const std::string &TexFile):
 m_ActionUp(ActionUp),
 m_ActionDown(ActionDown)
 {
-	m_graphicmodel = (decltype(m_graphicmodel)) (new CRectangle ( glm::vec2( 10, 120), 12,glm::vec3(0.0,1.0,0.0) ));
+	m_graphicmodel = (decltype(m_graphicmodel)) (new CSprite());
+	m_graphicmodel->InitSprite(TexFile);
 	m_graphicmodel->SetPosition(position);
 	CCoreEngine::Instance().GetRenderManager().GetCurrentScene()->AddChild(m_graphicmodel.get());
 

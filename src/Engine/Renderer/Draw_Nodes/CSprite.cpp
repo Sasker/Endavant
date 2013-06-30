@@ -4,20 +4,16 @@
 
 CSprite::CSprite():
 CTextureNode(),
+m_SpriteSize(0,0),
 m_VBO(GL_ARRAY_BUFFER)
 {
-	m_OriginalSpriteSize = glm::uvec2(0,0);
-	m_CurrentSpriteSize	 = m_OriginalSpriteSize;
 }
 
 void CSprite::InitSprite(const std::string& aPathToTexture)
 {
 	if ( LoadTexture(aPathToTexture) )
 	{
-		m_OriginalSpriteSize.x = GetTextureWidth();
-		m_OriginalSpriteSize.y = GetTextureHeight();
-
-		SetSpriteCurrentSize( m_OriginalSpriteSize );
+		SetSpriteSize( m_TextureSize );
 	}
 }
 
@@ -56,26 +52,21 @@ void CSprite::Render()
 	CBaseNode::Render();
 }
 
-void CSprite::SetSpriteCurrentSize(const glm::uvec2& aSize)
+void CSprite::SetSpriteSize(const glm::uvec2& aSize)
 {
-	m_CurrentSpriteSize = aSize;
+	m_SpriteSize = aSize;
 	SetBufferData();
 }
 
-glm::uvec2 CSprite::GetSpriteCurrentSize()
+glm::uvec2 CSprite::GetSpriteSize()
 {
-	return m_CurrentSpriteSize;
-}
-
-glm::uvec2 CSprite::GetSpriteOriginalSize()
-{
-	return m_OriginalSpriteSize;
+	return m_SpriteSize;
 }
 
 void CSprite::SetBufferData()
 {
-	const f32 w = (m_CurrentSpriteSize.x/2);
-	const f32 h = (m_CurrentSpriteSize.y/2);
+	const f32 w = (m_SpriteSize.x/2);
+	const f32 h = (m_SpriteSize.y/2);
 
 	m_QuadData.m_TopLeft 		=	D5_T2F_V3F(glm::vec2(0,0), glm::vec3(-w,h,1));
 	m_QuadData.m_BottomLeft 	=	D5_T2F_V3F(glm::vec2(0,1), glm::vec3(-w,-h,1));
