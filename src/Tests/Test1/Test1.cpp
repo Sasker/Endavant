@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 
 	CSprite		testsprite;
 	CCoreEngine::Instance().GetRenderManager().GetCurrentScene()->AddChild(&testsprite);
-	testsprite.InitSprite("exemple.bmp");
+	testsprite.InitSprite("src/Tests/Test1/Textures/Exemple.bmp");
 	testsprite.SetPosition(glm::vec2(300,300));
 	testsprite.SetSpriteCurrentSize(glm::uvec2(25,25));
 
