@@ -35,11 +35,11 @@ int main(int argc, char *argv[])
 	//Jugadors
 	l_input.GetKeyboard().InsertKeyAction("P1Up", "Q");
 	l_input.GetKeyboard().InsertKeyAction("P1Down", "A");
-	PongPlayer	l_jugador1(glm::vec2(100, l_render.GetWindowSize().y / 2), "P1Up", "P1Down", s_PathToTextures + "Exemple.bmp");
+	PongPlayer	l_jugador1(glm::vec2(100, l_render.GetWindowSize().y / 2), "P1Up", "P1Down", s_PathToTextures + "pala1.bmp");
 
 	l_input.GetKeyboard().InsertKeyAction("P2Up", "O");
 	l_input.GetKeyboard().InsertKeyAction("P2Down", "L");
-	PongPlayer	l_jugador2(glm::vec2(l_render.GetWindowSize().x - 100, l_render.GetWindowSize().y / 2),"P2Up", "P2Down", s_PathToTextures + "Exemple.bmp");
+	PongPlayer	l_jugador2(glm::vec2(l_render.GetWindowSize().x - 100, l_render.GetWindowSize().y / 2),"P2Up", "P2Down", s_PathToTextures + "pala2.bmp");
 
 	CTriangle	testtriangle(glm::vec2(100,0), glm::vec2(50,50),glm::vec2(0,0),12,glm::vec3(1,0,0) );
 	CCoreEngine::Instance().GetRenderManager().GetCurrentScene()->AddChild(&testtriangle);
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 	CCoreEngine::Instance().GetRenderManager().GetCurrentScene()->AddChild(&testsprite);
 	testsprite.InitSprite("src/Tests/Test1/Textures/Exemple.bmp");
 	testsprite.SetPosition(glm::vec2(300,300));
-	testsprite.SetSpriteSize(glm::uvec2(25,25));
+	testsprite.SetSpriteSize(glm::uvec2(250,250));
 
 
 
