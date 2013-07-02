@@ -40,7 +40,7 @@ if(WIN32)
 		TARGET_LINK_LIBRARIES(${PROJECT_NAME} sdlmain sdl opengl32 )
 	else(WIN32 AND NOT MINGW)
 		#TARGET_LINK_LIBRARIES(${PROJECT_NAME} mingw32 sdl2main sdl2 sdl2_mixer sdl2_image opengl32 GLEW)
-		TARGET_LINK_LIBRARIES(${PROJECT_NAME} mingw32 sdl2main sdl2 opengl32 )
+		TARGET_LINK_LIBRARIES(${PROJECT_NAME} mingw32 sdl2main sdl2 SDL2_image SDL2_ttf opengl32 )
 	endif()
 elseif(UNIX AND NOT APPLE)
 	#TARGET_LINK_LIBRARIES(${PROJECT_NAME} SDL2 SDL2_mixer SDL2_image GL GLEW)
@@ -48,9 +48,6 @@ elseif(UNIX AND NOT APPLE)
 else(UNIX AND NOT APPLE)
 	TARGET_LINK_LIBRARIES(${PROJECT_NAME} SDL2 GL)
 endif()
-
-
-
 
 
 
