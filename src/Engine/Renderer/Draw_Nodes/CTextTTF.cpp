@@ -20,7 +20,6 @@ void CTextTTF::SetTextTTF(const std::string& aText, const EV_Color &aColor)
 {
 	SDL_Surface *l_surface = m_TTFont.GetTextSurface(aText, aColor);
 	LoadTextureFromSurface(*l_surface);
-	SetSpriteSize(m_TextureSize);// <- MERDERADA
 	SDL_FreeSurface(l_surface);
 }
 
