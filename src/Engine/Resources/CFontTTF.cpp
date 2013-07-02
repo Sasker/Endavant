@@ -5,7 +5,7 @@
 CFontTTF::CFontTTF():
 m_FontFile(""),
 m_pTTFont(nullptr),
-m_PointSize(10)
+m_PointSize(20)
 {
 }
 
@@ -34,6 +34,7 @@ bool CFontTTF::FontLoad(const std::string& FontFile)
 SDL_Surface* CFontTTF::GetTextSurface(const std::string &Text,const EV_Color &aColor)
 {
 	SDL_Surface * l_surface = TTF_RenderUTF8_Blended(m_pTTFont, Text.c_str(), aColor);
+	//SDL_Surface * l_surface = TTF_RenderUTF8_Solid(m_pTTFont, Text.c_str(), aColor);
 	return l_surface;
 }
 
