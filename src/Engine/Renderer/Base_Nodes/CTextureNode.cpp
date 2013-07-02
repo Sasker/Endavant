@@ -16,7 +16,7 @@ CTextureNode::~CTextureNode()
 {
 }
 
-bool CTextureNode::LoadTexture(const std::string& a_PathToTexture)
+bool CTextureNode::LoadTextureFromFile(const std::string& a_PathToTexture)
 {
 
 
@@ -27,23 +27,27 @@ bool CTextureNode::LoadTexture(const std::string& a_PathToTexture)
 		return false;
 	}
 
+	bool retval = LoadTextureFromSurface(*Surface);
+	SDL_FreeSurface(Surface);
+	return retval;
+}
 
 
-
-
+bool CTextureNode::LoadTextureFromSurface(const SDL_Surface &aSurface)
+{
 	GLenum TextureFormat;
 
-	switch(Surface->format->BytesPerPixel)
+	switch(aSurface.format->BytesPerPixel)
 	{
 	case 3:
-		if (Surface->format->Rmask == 0x000000ff)
+		if (aSurface.format->Rmask == 0x000000ff)
 			TextureFormat = GL_RGB;
 		else
 			TextureFormat = GL_BGR;
 		break;
 
 	case 4:
-		if (Surface->format->Rmask == 0x000000ff)
+		if (aSurface.format->Rmask == 0x000000ff)
 			TextureFormat = GL_RGBA;
 		else
 			TextureFormat = GL_BGRA;
@@ -53,12 +57,12 @@ bool CTextureNode::LoadTexture(const std::string& a_PathToTexture)
 		return false;
 	}
 
-	m_TextureSize.x = Surface->w;
-	m_TextureSize.y = Surface->h;
+	m_TextureSize.x = aSurface.w;
+	m_TextureSize.y = aSurface.h;
 
-	m_GLTexture.InitWithData(Surface->pixels,Surface->format->BytesPerPixel,m_TextureSize.x,m_TextureSize.y,TextureFormat);
-	SDL_FreeSurface(Surface);
-
+	m_GLTexture.InitWithData(aSurface.pixels,aSurface.format->BytesPerPixel,m_TextureSize.x,m_TextureSize.y,TextureFormat);
 	return true;
-}
 
+
+
+}

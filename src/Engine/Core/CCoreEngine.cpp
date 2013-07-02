@@ -10,6 +10,7 @@
 
 //
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include "Defines.h"
 
 CCoreEngine::CCoreEngine():
@@ -101,6 +102,13 @@ bool	CCoreEngine::StartUpSDL()
 		std::cout<<"ERROR! Unable to initialize SDL: "<<SDL_GetError();
 		return false;
     }
+
+	if (TTF_Init() == -1)
+	{
+		std::cout<<"ERROR! Unable to initialize SDL_TTF: "<< TTF_GetError();
+		return false;
+	}
+
 	return true;
 }
 

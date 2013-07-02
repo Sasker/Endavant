@@ -11,7 +11,7 @@ m_VBO(GL_ARRAY_BUFFER)
 
 void CSprite::InitSprite(const std::string& aPathToTexture)
 {
-	if ( LoadTexture(aPathToTexture) )
+	if ( LoadTextureFromFile(aPathToTexture) )
 	{
 		SetSpriteSize( m_TextureSize );
 	}
