@@ -8,13 +8,19 @@
 
 #include <string>
 #include <map>
+#include <array>
 
-enum E_MOUSE_BUTTONS
+enum EV_MOUSE_BUTTON
 {
-	MOUSE_LB,
-	MOUSE_MB,
-	MOUSE_RB
+	EV_MOUSE_LB = SDL_BUTTON_LEFT,
+	EV_MOUSE_MB = SDL_BUTTON_MIDDLE,
+	EV_MOUSE_RB = SDL_BUTTON_RIGHT,
+	EV_MOUSE_X1 = SDL_BUTTON_X1,
+	EV_MOUSE_X2 = SDL_BUTTON_X2,
+
+	EV_MOUSE_MAXBUTTONS = 5
 };
+
 
 
 
@@ -27,8 +33,14 @@ public:
 	// Insert an action to the associated E_MOUSE
 	bool	InsertButtonAction(const std::string &a_ActionName, const std::string &a_RawKeyName );
 
-	//Returns true if the key for the given action is down / false if the key is up
-	bool	IsActionActive(const std::string &a_ActionName);
+	//Returns true if the key for the given action is pressed down / false if the key isn't
+	bool	IsActionButtonPushed(const std::string &a_ActionName);
+
+	//Returns true if the key for the given action is Key Up
+	bool	IsActionButtonUp(const std::string &a_ActionName);
+
+	//Returns true if the key for the given is first keydown
+	bool	IsActionButtonDown(const std::string &a_ActionName);
 
 
 
@@ -38,8 +50,8 @@ public:
 	inline glm::ivec2 	GetPos()		{return m_MousePosition;};
 	inline s32			GetPosRelX() 	{return m_MouseRelativePosition.x;};
 	inline s32			GetPosRelY() 	{return m_MouseRelativePosition.y;};
-	inline glm::ivec2 	GetPosRel()	{return m_MouseRelativePosition;};
-	bool 				IsButtonPressed(E_MOUSE_BUTTONS mouse_button);
+	inline glm::ivec2 	GetPosRel()		{return m_MouseRelativePosition;};
+
 
 
 
@@ -53,28 +65,32 @@ public:
 
 private:
 
+	typedef enum
+	{
+		EV_MOUSEBUTTON_UP = 0,
+		EV_MOUSEBUTTON_DOWN,
+		EV_MOUSEBUTTON_PUSHREPEAT
 
+	}EV_MOUSE_BUTTON_STATUS;
 
-	void MouseActionUpdate(E_MOUSE_BUTTONS a_MouseButton, bool a_ValueToUpdate);
+	bool IsActionButtonStatus(const std::string &a_ActionName, const EV_MOUSE_BUTTON_STATUS a_ButtonStatus);
+	void MouseActionUpdate(EV_MOUSE_BUTTON a_MouseButton, bool a_ValueToUpdate);
 
+	// Current button state
+	std::array<EV_MOUSE_BUTTON_STATUS,EV_MOUSE_MAXBUTTONS> 	m_MouseButtonsState;
+
+	// Current mouse position
 	glm::ivec2		m_MousePosition;
 	glm::ivec2		m_MouseRelativePosition;
 
-	bool			m_left_mouse_pressed;
-	bool			m_right_mouse_pressed;
-	bool			m_middle_mouse_pressed;
-
 	// Translation table
-	typedef	std::map<std::string, E_MOUSE_BUTTONS>	t_MapStringToMouseType;
+	typedef	std::map<std::string, EV_MOUSE_BUTTON>	t_MapStringToMouseType;
 	t_MapStringToMouseType					m_translateStrToMouseType;
 
 	//Contains all the registered input mouse actions with their current State/Info
-	typedef std::map< std::string, E_MOUSE_BUTTONS >	t_MouseActionsMap;
+	typedef std::map< std::string, EV_MOUSE_BUTTON >	t_MouseActionsMap;
 	t_MouseActionsMap		m_RegisteredMouseActions;
 
-	//Contains all the registered input Scancodes and their status (true = keydown, false = keyup)
-	typedef std::map< E_MOUSE_BUTTONS, bool >			t_MouseStatusMap;
-	t_MouseStatusMap	m_RegisteredInputMouse;
 
 };
 
