@@ -4,7 +4,8 @@
 #include "Core/CCoreEngine.h"
 #include "Core/CLogManager.h"
 
-CInputKeyboard::CInputKeyboard()
+CInputKeyboard::CInputKeyboard():
+m_KeyBoardState(nullptr)
 {
 }
 
@@ -15,61 +16,36 @@ CInputKeyboard::~CInputKeyboard()
 void CInputKeyboard::StartUp(void)
 {
 	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_INPUT,"Starting Up CInputKeyboard!");
-	AddEvent(EVENT_TYPE_SDL, SDL_KEYUP);
-	AddEvent(EVENT_TYPE_SDL, SDL_KEYDOWN);
-
-	RegisterEventManager();
 }
 
 void CInputKeyboard::ShutDown(void)
 {
 	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_INPUT,"Shutting Down CInputKeyboard!");
-	UnRegisterEventManager();
 }
 
 void CInputKeyboard::Update(f64 dt)
 {
+	//Get the current keyboardstate
+	m_KeyBoardState = SDL_GetKeyboardState(NULL);
+
+	UpdateKeyActions();
 }
 
-void CInputKeyboard::HandleEvent(Uint32 a_Type, Uint32 a_Code, SDL_Event* a_Event)
+void CInputKeyboard::UpdateKeyActions()
 {
-	if (a_Event == NULL)
-		return;
-
-
-	switch(a_Event->type)
+	for (auto &l_action: m_RegisteredInputScancodes)
 	{
-		case SDL_KEYDOWN:
-			KeyScancodeDown(a_Event->key.keysym.scancode);
-		break;
-		case SDL_KEYUP:
-			KeyScancodeUp(a_Event->key.keysym.scancode);
-		break;
+		if ( m_KeyBoardState[l_action.first] )
+		{
+			if (l_action.second == EV_KEY_UP)
+				l_action.second = EV_KEY_DOWN;
+			else
+				l_action.second = EV_KEY_PUSHREPEAT;
+		}
+		else
+			l_action.second = EV_KEY_UP;
 
-		default:
-			// TODO
-			break;
 	}
-}
-
-void CInputKeyboard::KeyScancodeDown(SDL_Scancode a_Scancode)
-{
-	KeyScancodeUpdate(a_Scancode,true);
-}
-
-void CInputKeyboard::KeyScancodeUp(SDL_Scancode a_Scancode)
-{
-	KeyScancodeUpdate(a_Scancode,false);
-}
-
-void CInputKeyboard::KeyScancodeUpdate(SDL_Scancode a_Scancode, bool a_ScancodeState)
-{
-	auto l_SCode = m_RegisteredInputScancodes.find(a_Scancode);
-
-	//Update the keyscancode state if exists
-	if ( l_SCode != m_RegisteredInputScancodes.end())
-		l_SCode->second = a_ScancodeState;
-
 }
 
 bool CInputKeyboard::InsertKeyAction(const std::string &a_ActionName, const std::string &a_RawKeyName )
@@ -86,7 +62,7 @@ bool CInputKeyboard::InsertKeyAction(const std::string &a_ActionName, const std:
 
 		//Init the scancode to false (Keyup) if not exists
 		if (m_RegisteredInputScancodes.find(l_scancode) == m_RegisteredInputScancodes.end())
-			m_RegisteredInputScancodes[l_scancode] = false;
+			m_RegisteredInputScancodes[l_scancode] = EV_KEY_UP;
 
 		CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_INPUT,"CInputKeyboard::InsertKeyAction ADDED -> Action: %s  SDL_ScanCode: %d",
 				a_ActionName.c_str(),l_scancode);
@@ -100,16 +76,36 @@ bool CInputKeyboard::InsertKeyAction(const std::string &a_ActionName, const std:
 	return false;
 }
 
-bool	CInputKeyboard::IsActionKeyPressed(const std::string &a_ActionName)
+bool	CInputKeyboard::IsActionKeyPushed(const std::string &a_ActionName)
+{
+	// tambe comprovem el KEY_DOWN, sino saltem 1 frame (i la tecla si k esta apretada)
+	return IsActionKeyStatus(a_ActionName, EV_KEY_PUSHREPEAT) || IsActionKeyStatus(a_ActionName, EV_KEY_DOWN);
+}
+
+bool CInputKeyboard::IsActionKeyUp(const std::string& a_ActionName)
+{
+	return IsActionKeyStatus(a_ActionName, EV_KEY_UP);
+}
+
+bool CInputKeyboard::IsActionKeyDown(const std::string& a_ActionName)
+{
+	return IsActionKeyStatus(a_ActionName, EV_KEY_DOWN);
+}
+
+bool CInputKeyboard::IsActionKeyStatus(const std::string& a_ActionName, EV_KeyStatus a_KeyStatus)
 {
 	auto l_Action = m_RegisteredKeyActions.find(a_ActionName);
 
 	if ( l_Action != m_RegisteredKeyActions.end())
-		return m_RegisteredInputScancodes[l_Action->second];
+	{
+		if (m_RegisteredInputScancodes[l_Action->second] == a_KeyStatus)
+			return true;
+		else
+			return false;
+	}
 
-	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_INPUT,"CInputKeyboard::IsActionKeyPressed -> Action: %s  Not exists!",
-					a_ActionName.c_str());
+	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_INPUT,"CInputKeyboard::IsActionKeyStatus -> Action: %s  Not exists!",
+			a_ActionName.c_str());
 	//If not exists return false;
 	return false;
-
 }
