@@ -30,14 +30,14 @@ PongPlayer::~PongPlayer()
 
 void PongPlayer::Move(f64 dt)
 {
-	if (CCoreEngine::Instance().GetInputManager().GetKeyboard().IsActionKeyPressed(m_ActionUp) )
+	if (CCoreEngine::Instance().GetInputManager().GetKeyboard().IsActionKeyPushed(m_ActionUp) )
 	{
-		m_graphicmodel->IncPosition(glm::vec2(0,1));
+		m_graphicmodel->IncPosition(glm::vec2(0,0.2));
 	}
 
-	if (CCoreEngine::Instance().GetInputManager().GetKeyboard().IsActionKeyPressed(m_ActionDown))
+	if (CCoreEngine::Instance().GetInputManager().GetKeyboard().IsActionKeyDown(m_ActionDown))
 	{
-		m_graphicmodel->IncPosition(glm::vec2(0,-1));
+		m_graphicmodel->IncPosition(glm::vec2(0,-5));
 	}
 }
 
