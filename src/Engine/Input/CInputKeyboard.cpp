@@ -51,7 +51,15 @@ void CInputKeyboard::UpdateKeyActions()
 bool CInputKeyboard::InsertKeyAction(const std::string &a_ActionName, const std::string &a_RawKeyName )
 {
 	SDL_Scancode l_scancode = SDL_GetScancodeFromName(a_RawKeyName.c_str());
-	//TODO check if this is a valid scancode
+
+	// Check if the scancode is valid
+	if ( l_scancode == SDL_SCANCODE_UNKNOWN)
+	{
+		CCoreEngine::Instance().GetLogManager().LogOutput( LOG_ERROR, LOGSUB_INPUT,"CInputKeyboard::InsertKeyAction The Scancode is UNKNOWN -> Action: %s  SDL_ScanCode: %d",
+						a_ActionName.c_str(),l_scancode);
+
+		return false;
+	}
 
 
 	//Check if that actionname exists if not exists add it to both maps
