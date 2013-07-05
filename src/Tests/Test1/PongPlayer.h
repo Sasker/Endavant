@@ -5,7 +5,7 @@
 #include "Renderer/Base_Nodes/CBaseNode.h"
 #include "Renderer/Draw_Nodes/CRectangle.h"
 #include "Renderer/Draw_Nodes/CSprite.h"
-
+#include "Time/CTimeManager.h"
 
 
 #include <string>
@@ -27,9 +27,6 @@ private:
 
 	std::string m_ActionUp, m_ActionDown;
 	std::unique_ptr<CSprite>	m_graphicmodel;
-
-
-
 
 
 };

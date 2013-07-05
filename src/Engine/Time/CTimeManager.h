@@ -41,8 +41,8 @@ public:
 	// Returns the timer identifier, which should be stored, so it is possible to kill/delete the timer with a KillTimer call.
 	EV_TimerID CreateTimer(f64 a_DurationInSeconds, bool a_looped = false, void (*a_func) (EV_TimerID ) = nullptr);
 
-	bool KillTimer(EV_TimerID id);			// Kills / Deletes a timer with the given timer identifier.
-
+	bool 	KillTimer(const EV_TimerID id);			// Kills / Deletes a timer with the given timer identifier.
+	bool	IsEndTimer(const EV_TimerID id) const;
 
 private:
 
@@ -65,7 +65,6 @@ private:
 
 
     // ********************* Timers
-
 	class EV_TimerInfo
 	{
 		public:

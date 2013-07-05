@@ -45,7 +45,7 @@ void CTimeManager::Update(f64 dt)
 
 	UpdateTimers();
 
-	CCoreEngine::Instance().GetLogManager().LogOutput(LOG_INFO, LOGSUB_TIMER,"dTime = %F  |  FPS = %F   %d", m_ElapsedTimeSeconds ,m_FramesPerSecond);
+//CCoreEngine::Instance().GetLogManager().LogOutput(LOG_INFO, LOGSUB_TIMER,"dTime = %F  |  FPS = %F   %d", m_ElapsedTimeSeconds ,m_FramesPerSecond);
 }
 
 
@@ -109,7 +109,7 @@ void CTimeManager::UpdateTimers()
 		l_Timer.second.Update(m_LastTimeInMiliseconds);
 }
 
-bool CTimeManager::KillTimer(EV_TimerID a_TimerID)
+bool CTimeManager::KillTimer(const EV_TimerID a_TimerID)
 {
 
 	auto l_itToErase =  m_TimersMap.find(a_TimerID);
@@ -123,6 +123,19 @@ bool CTimeManager::KillTimer(EV_TimerID a_TimerID)
 		m_TimersMap.erase(l_itToErase);
 		return true;
 	}
+}
+
+bool	CTimeManager::IsEndTimer(const EV_TimerID id) const
+{
+	auto l_itToErase =  m_TimersMap.find(id);
+	if (l_itToErase	== m_TimersMap.end() )
+	{
+		CCoreEngine::Instance().GetLogManager().LogOutput(LOG_ERROR, LOGSUB_TIMER,"IsTimerIDEnd - Timer Not Found!");
+		return false;
+	}
+	else
+		return l_itToErase->second.IsEnd();
+
 }
 
 void	CTimeManager::CalculateFPS()
