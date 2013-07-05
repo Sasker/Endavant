@@ -72,13 +72,12 @@ private:
 		EV_TimerInfo(EV_TimerID a_ID, u32 a_CurrentTimeInMiliseconds,f64 a_TotalTimerInSeconds,bool a_looped, void (*a_CallBackFunc)(EV_TimerID id) = nullptr )
 		{
 
-					m_ID						= a_ID;
-					m_TotalTimeInMiliseconds 	= a_TotalTimerInSeconds * 1000.0;  //Convert to mili-seconds
-					m_StartTimeInMilisconds		= a_CurrentTimeInMiliseconds;
-					m_EndTimeInMilisconds		= m_StartTimeInMilisconds + m_TotalTimeInMiliseconds;
-					m_func						= a_CallBackFunc;
-					m_looped 					= a_looped;
-					m_ended						= false;
+			m_ID						= a_ID;
+			m_TotalTimeInMiliseconds 	= a_TotalTimerInSeconds * 1000.0;  //Convert to mili-seconds
+			m_EndTimeInMilisconds		= a_CurrentTimeInMiliseconds + m_TotalTimeInMiliseconds;
+			m_func						= a_CallBackFunc;
+			m_loop 						= a_looped;
+			m_ended						= false;
 		}
 
 		void Update(u32 a_CurrentTimeInMiliseconds)
@@ -88,27 +87,33 @@ private:
 				// Timer ended?
 				if ( a_CurrentTimeInMiliseconds > m_EndTimeInMilisconds )
 				{
+					// Callback function
 					if (m_func != nullptr)
 						m_func(m_ID);
+
 					m_ended = true;
+
+					// If is a loop timer prepare the next iteration
+					if (m_loop)
+					{
+						m_EndTimeInMilisconds += m_TotalTimeInMiliseconds;	// Add the total time of the timer again
+					}
+
 				}
 			}
-			else
-			{
-
-
-			}
-
+			else //The timer looped
+				m_ended = false;
 		}
 
+		bool	IsEnd() const {return m_ended;};
+		bool	IsLoop() const {return m_loop;};
 		private:
 			EV_TimerInfo();
 
 			EV_TimerID	m_ID;
-			u32			m_TotalTimeInMiliseconds;			// Total Ticks that this timer will have to complete. (Delay + total)
-			u32			m_StartTimeInMilisconds;			// Start time of the timer
-			u32			m_EndTimeInMilisconds;				// End time of the timer
-			bool 		m_looped;							// Indicate if the timer will loop
+			u32			m_TotalTimeInMiliseconds;			// Total Ticks that this timer will have to complete.
+			u32			m_EndTimeInMilisconds;				// End tick time of the timer
+			bool 		m_loop;								// Indicate if the timer will loop
 			bool		m_ended;							// Indicate if the timer ended
 
 			void (*m_func) (EV_TimerID id);					// Optional pointer to a function which should be called after the timer is expired

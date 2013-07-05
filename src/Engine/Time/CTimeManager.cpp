@@ -94,6 +94,17 @@ EV_TimerID CTimeManager::CreateTimer(const f64 a_DurationInSeconds,const bool a_
 
 void CTimeManager::UpdateTimers()
 {
+	// How many timers finished?
+	std::vector<EV_TimerID >	l_TimersExpired;
+	for (auto &l_Timer: m_TimersMap )
+		if (l_Timer.second.IsEnd() && !l_Timer.second.IsLoop())
+			l_TimersExpired.push_back(l_Timer.first);
+
+	// Delete expired timers
+	for (auto &l_IDToDelete: l_TimersExpired )
+		m_TimersMap.erase(l_IDToDelete);
+
+	// Update remaining timers
 	for (auto &l_Timer: m_TimersMap )
 		l_Timer.second.Update(m_LastTimeInMiliseconds);
 }
