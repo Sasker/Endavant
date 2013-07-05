@@ -153,7 +153,7 @@ void	CCoreEngine::Update()
 		// UPDATES
 		f64 dt = 0.0F;
 		m_timermngr->Update(dt);
-		dt = m_timermngr->GetElapsedTime();
+		dt = m_timermngr->GetElapsedTimeSeconds();
 
 
 		m_inputmngr->Update(dt);

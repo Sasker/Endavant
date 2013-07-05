@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 
 
 		// Actualitzo els jugadors
-		auto dt = l_timer.GetElapsedTime();
+		auto dt = l_timer.GetElapsedTimeSeconds();
 		l_jugador1.Update(dt);
 		l_jugador2.Update(dt);
 

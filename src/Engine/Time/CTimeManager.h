@@ -16,43 +16,7 @@
 #include <memory>
 #include <array>
 
-typedef u32 TimerID;
-
-
-class ITimerListener
-{
-public:
-	virtual void OnTimer(TimerID id) = 0;
-	virtual ~ITimerListener();
-};
-
-
-struct TimerInfo
-{
-	TimerID m_id;				// unsigned integer timer identifier, set by CTimeManager
-	bool 	m_delayed;				// indicates if a timer is a delayed timer, set by CTimeManager
-	bool 	m_started;				// indicates if a delayed timer is already started, set by CTimeManager
-	f64 	m_startTicks;			// actual start time of the timer in Ticks, set by CTimeManager
-	f64 	m_delay;				// time (in seconds) after which a delayed timer starts automatically
-	f64 	m_duration;				// duration of the timer in seconds
-
-	void (*m_func) (TimerID id);// optional pointer to a function which should be called after the timer is expired
-	bool m_looped;				// indicates if it is a looped timer
-	ITimerListener const* m_listener;	// the listener this timer belongs to
-
-	TimerInfo()
-	{
-		m_id			= 0;
-		m_duration		= 0.0f;
-		m_delayed		= false;
-		m_started		= false;
-		m_startTicks	= 0.0;
-		m_func			= nullptr;
-		m_delay			= 0.0f;
-		m_looped        = false;
-		m_listener		= nullptr;
-	}
-};
+typedef u32 EV_TimerID;
 
 class CTimeManager: public ISubSystem
 {
@@ -67,61 +31,99 @@ public:
 	void Update(f64 dt);
 
 
-	f64 GetElapsedTime() const;		//!< Get Delta time in seconds
-	f64 GetFPS() const;				//!< Get Frames per second
+	f64 GetElapsedTimeSeconds() const;		//!< Get Delta time in seconds
+	f64 GetFPS() const;						//!< Get Frames per second
 
-	bool RegisterListener(ITimerListener* listener);		// Registers a timer listener, which gets informed after a timer is expired.
-	bool UnregisterListener(ITimerListener* listener);		// Unregisters / Deletes a timer listener
-
-	bool StartDelayedTimer(TimerID id);						// Starts a delayed timer, even if it has a specified delay time.
-	bool KillTimer(TimerID id);								// Kills / Deletes a timer with the given timer identifier.
 
 	// Creates a timer with a given duration time. The function pointer is optional and the function
 	// it points to will be called after the timer is expired. If the optional parameter looped is set to true, the timer will
 	// be restarted after expiration (until the timer will be deleted with a KillTimer call).
 	// Returns the timer identifier, which should be stored, so it is possible to kill/delete the timer with a KillTimer call.
-	TimerID CreateTimer(ITimerListener const*  a_pListener,const f64 a_duration,const bool a_looped = false, void (*a_func)(TimerID id) = nullptr);
-    TimerID CreateTimer(float duration, bool looped = false, void (*func) (TimerID id) = NULL)
-	{
-		return CreateTimer(NULL, duration, looped, func);
-	};
+	EV_TimerID CreateTimer(f64 a_DurationInSeconds, bool a_looped = false, void (*a_func) (EV_TimerID ) = nullptr);
 
-	// Creates a delayed timer, which is either started automatically after the optional delay time is expired or
-	// (if the delay time is set to 0.0f) will be started after a StartDelayedTimer call.
-    TimerID CreateDelayedTimer(ITimerListener const*  a_pListener,const f64 a_duration,const bool a_looped = false, const float delay = 0.0f, void (*a_func)(TimerID id) = nullptr);
-	TimerID CreateDelayedTimer(float duration, bool looped = false, float delay = 0.0f, void (*func) (TimerID id) = NULL)
-	{
-		return CreateDelayedTimer(NULL, duration, looped, delay, func);
-	};
+	bool KillTimer(EV_TimerID id);			// Kills / Deletes a timer with the given timer identifier.
+
 
 private:
 
-    // TIME
+    // ********************* Elapsed Time
 	void	CalculateElapsedTime();
-	void	CalculateFPS();
+
 	static const u32 FRAME_SAMPLES_COUNT = 1;
 	typedef std::array<f64,FRAME_SAMPLES_COUNT> t_LastFramesArray;
-
-    f64 m_currentElapsedTime;
-    f64 m_TotalTimeInSeconds;
-	u32 m_LastTicks;
 	t_LastFramesArray					m_LastFrameTimeArray;
 	t_LastFramesArray::iterator			m_itLastFrame;
 
-	// FPS
-	u32 m_FPScount;
-	f64 m_FPStime;
-	f64 m_FPS;
-
-    // TIMERS
-    typedef std::set<ITimerListener*>			ITimerListener_ptr;
-    ITimerListener_ptr							m_Listeners;
+    f64 m_ElapsedTimeSeconds;			//!< Elapsed time in seconds of the last frame
+	u32 m_LastTimeInMiliseconds;		//!< Last accumulative time in miliseconds
 
 
-    typedef std::map<TimerID, TimerInfo>		t_TimersInfoMap;
+	// ********************* FPS
+	void	CalculateFPS();
+
+	f64 m_FramesPerSecond;
+
+
+    // ********************* Timers
+
+	class EV_TimerInfo
+	{
+		public:
+		EV_TimerInfo(EV_TimerID a_ID, u32 a_CurrentTimeInMiliseconds,f64 a_TotalTimerInSeconds,bool a_looped, void (*a_CallBackFunc)(EV_TimerID id) = nullptr )
+		{
+
+					m_ID						= a_ID;
+					m_TotalTimeInMiliseconds 	= a_TotalTimerInSeconds * 1000.0;  //Convert to mili-seconds
+					m_StartTimeInMilisconds		= a_CurrentTimeInMiliseconds;
+					m_EndTimeInMilisconds		= m_StartTimeInMilisconds + m_TotalTimeInMiliseconds;
+					m_func						= a_CallBackFunc;
+					m_looped 					= a_looped;
+					m_ended						= false;
+		}
+
+		void Update(u32 a_CurrentTimeInMiliseconds)
+		{
+			if (!m_ended)
+			{
+				// Timer ended?
+				if ( a_CurrentTimeInMiliseconds > m_EndTimeInMilisconds )
+				{
+					if (m_func != nullptr)
+						m_func(m_ID);
+					m_ended = true;
+				}
+			}
+			else
+			{
+
+
+			}
+
+		}
+
+		private:
+			EV_TimerInfo();
+
+			EV_TimerID	m_ID;
+			u32			m_TotalTimeInMiliseconds;			// Total Ticks that this timer will have to complete. (Delay + total)
+			u32			m_StartTimeInMilisconds;			// Start time of the timer
+			u32			m_EndTimeInMilisconds;				// End time of the timer
+			bool 		m_looped;							// Indicate if the timer will loop
+			bool		m_ended;							// Indicate if the timer ended
+
+			void (*m_func) (EV_TimerID id);					// Optional pointer to a function which should be called after the timer is expired
+
+
+
+	};
+
+
+    typedef std::map<EV_TimerID, EV_TimerInfo>		t_TimersInfoMap;
 	t_TimersInfoMap								m_TimersMap;
 
-	TimerID										m_CurrentTimerID;
+	EV_TimerID									m_CurrentTimerID;
+
+	void UpdateTimers();
 };
 
 
