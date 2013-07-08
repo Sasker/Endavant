@@ -32,6 +32,7 @@ enum TLogSubsystem
 	LOGSUB_EVENTS	= (1 << 7),
 	LOGSUB_TIMER	= (1 << 8),
 	LOGSUB_RESOURCES= (1 << 9),
+	LOGSUB_STATE	= (1 << 0xA),
 
 	LOGSUB_ALL		= 0xFFFF
 };

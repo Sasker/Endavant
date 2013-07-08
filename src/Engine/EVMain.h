@@ -28,6 +28,10 @@
 // TIMER INCLUDES
 #include "Time/CTimeManager.h"
 
+// STATE INCLUDES
+#include "State/CState.h"
+#include "State/CStateManager.h"
+
 
 #endif /* EVMAIN_H_ */
 

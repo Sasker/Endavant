@@ -10,6 +10,7 @@
 #include "Events/CEventManager.h"
 #include "Resources/CResourceManager.h"
 #include "Sound/CSoundManager.h"
+#include "State/CStateManager.h"
 
 class CCoreEngine {
 public:
@@ -20,13 +21,14 @@ public:
 
 	static CCoreEngine &Instance();
 
-	CRenderManager		&GetRenderManager(); //retorna la direccio del VideoManager
-	CInputManager		&GetInputManager(); //retorna la direccio de l'inputmanager
-	CLogManager			&GetLogManager(); 	//retorna la direccio del LogManager
-	CTimeManager		&GetTimerManager(); //Retorna la direccio del Timer
-	CEventManager		&GetEventManager();	//Retorna la direccio del gestor d'events
-	CResourceManager	&GetResourceManager(); //Retorna la direccio del gestor de recursos
-	CSoundManager		&GetSoundManager(); ////Retorna la direccio del manager d'audio
+	CRenderManager		&GetRenderManager(); 		//retorna la direccio del VideoManager
+	CInputManager		&GetInputManager(); 		//retorna la direccio de l'inputmanager
+	CLogManager			&GetLogManager(); 			//retorna la direccio del LogManager
+	CTimeManager		&GetTimerManager(); 		//Retorna la direccio del Timer
+	CEventManager		&GetEventManager();			//Retorna la direccio del gestor d'events
+	CResourceManager	&GetResourceManager(); 		//Retorna la direccio del gestor de recursos
+	CSoundManager		&GetSoundManager(); 		//Retorna la direccio del manager d'audio
+	CStateManager		&GetStateManager(); 		//Retorna la direccio del manager d'estats
 
 	bool	IsRunning();
 	void	StopCore();
@@ -45,6 +47,7 @@ private:
 	CEventManager		*m_eventmngr;
 	CResourceManager 	*m_resourcemngr;
 	CSoundManager		*m_soundmngr;
+	CStateManager		*m_statemngr;
 
 	bool	StartUpSDL();
 };

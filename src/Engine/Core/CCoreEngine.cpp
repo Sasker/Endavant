@@ -21,7 +21,8 @@ m_logmngr(nullptr),
 m_timermngr(nullptr),
 m_eventmngr(nullptr),
 m_resourcemngr(nullptr),
-m_soundmngr(nullptr)
+m_soundmngr(nullptr),
+m_statemngr(nullptr)
 {
 }
 
@@ -35,6 +36,7 @@ CCoreEngine::~CCoreEngine()
 	delete m_eventmngr;
 	delete m_resourcemngr;
 	delete m_soundmngr;
+	delete m_statemngr;
 }
 
 //Singleton
@@ -76,6 +78,10 @@ CSoundManager &CCoreEngine::GetSoundManager()
 	return *m_soundmngr;
 }
 
+CStateManager& CCoreEngine::GetStateManager()
+{
+	return *m_statemngr;
+}
 bool CCoreEngine::IsRunning()
 {
 	return m_run;
@@ -85,6 +91,8 @@ void CCoreEngine::StopCore()
 {
 	m_run = false;
 }
+
+
 
 bool	CCoreEngine::StartUpSDL()
 {
@@ -121,6 +129,9 @@ void	CCoreEngine::StartUp()
 	m_logmngr = new CLogManager();
 	m_logmngr->StartUp();
 
+	m_statemngr = new CStateManager();
+	m_statemngr->StartUp();
+
 	m_rendermngr = new CRenderManager();
 	m_rendermngr->StartUp();
 
@@ -150,17 +161,21 @@ void	CCoreEngine::Update()
 {
 	if (m_run)
 	{
-		// UPDATES
+
 		f64 dt = 0.0F;
 		m_timermngr->Update(dt);
 		dt = m_timermngr->GetElapsedTimeSeconds();
 
-
+		// Engine Update
 		m_inputmngr->Update(dt);
 		m_eventmngr->Update(dt);
 		//m_soundmngr->Update(dt);
 		//m_resourcemngr->Update(dt);
 
+		// Game Update Logic
+		m_statemngr->Update(dt);
+
+		// Engine Render
 		m_rendermngr->Update(dt);
 
 	}
@@ -178,6 +193,8 @@ void	CCoreEngine::ShutDown()
 {
 	//EN ORDRE INVERS AL DE CREACIO
 	m_logmngr->LogOutput( LOG_INFO, LOGSUB_ENGINE,"ShutDown all subsystems:  ");
+
+
 	m_timermngr->ShutDown();
 	//TODO
 	//m_inputmngr->ShutDown();
@@ -185,6 +202,7 @@ void	CCoreEngine::ShutDown()
 	//m_resourcemngr->ShutDown();
 	//m_soundmngr->ShutDown();
 	m_rendermngr->ShutDown();
+	m_statemngr->ShutDown();
 	m_logmngr->ShutDown();
 
 	SDL_Quit();
