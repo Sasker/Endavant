@@ -11,6 +11,28 @@ m_SpriteSize(0,0)
 void CSpriteAnimated::InitSprite(const std::string& aPathToTexture)
 {
 	LoadTextureFromFile(aPathToTexture);
+	m_indexAnimation = 0;
+	m_filas = 0;
+	m_columnas = 0;
+	m_speedAnimation = 0.0f;
+}
+
+void CSpriteAnimated::InitSprite(const std::string& aPathToTexture, int filas, int columnas)
+{
+	LoadTextureFromFile(aPathToTexture);
+	m_indexAnimation = 0;
+	m_filas = filas;
+	m_columnas = columnas;
+	m_speedAnimation = 0.1f;
+}
+
+void CSpriteAnimated::InitSprite(const std::string& aPathToTexture, int filas, int columnas, float speed)
+{
+	LoadTextureFromFile(aPathToTexture);
+	m_indexAnimation = 0;
+	m_filas = filas;
+	m_columnas = columnas;
+	m_speedAnimation = speed;
 }
 
 CSpriteAnimated::~CSpriteAnimated()
