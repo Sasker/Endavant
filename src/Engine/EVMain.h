@@ -21,6 +21,7 @@
 #include "Renderer/Base_Nodes/CLayer.h"
 #include "Renderer/Base_Nodes/CScene.h"
 #include "Renderer/Draw_Nodes/CSprite.h"
+#include "Renderer/Draw_Nodes/CSpriteAnimated.h"
 #include "Renderer/Draw_Nodes/CRectangle.h"
 #include "Renderer/Draw_Nodes/CTriangle.h"
 #include "Renderer/Draw_Nodes/CTextTTF.h"

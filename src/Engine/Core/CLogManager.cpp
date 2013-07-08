@@ -219,6 +219,10 @@ TLogSubsystem CLogManager::ParseLogSubSystemOptions(std::string strLogSubSystemO
 		if ( *TokenIt == "GAME" ) 	l_LogSubsystems = (TLogSubsystem)(l_LogSubsystems | LOGSUB_GAME);
 		if ( *TokenIt == "SOUND" ) 	l_LogSubsystems = (TLogSubsystem)(l_LogSubsystems | LOGSUB_SOUND);
 		if ( *TokenIt == "ENGINE" )	l_LogSubsystems = (TLogSubsystem)(l_LogSubsystems | LOGSUB_ENGINE);
+		if ( *TokenIt == "EVENTS" )	l_LogSubsystems = (TLogSubsystem)(l_LogSubsystems | LOGSUB_EVENTS);
+		if ( *TokenIt == "TIMER" )	l_LogSubsystems = (TLogSubsystem)(l_LogSubsystems | LOGSUB_TIMER);
+		if ( *TokenIt == "RESOURCES" )	l_LogSubsystems = (TLogSubsystem)(l_LogSubsystems | LOGSUB_RESOURCES);
+		if ( *TokenIt == "STATE" )	l_LogSubsystems = (TLogSubsystem)(l_LogSubsystems | LOGSUB_STATE);
 		if ( *TokenIt == "ALL" ) 	l_LogSubsystems = (TLogSubsystem)(l_LogSubsystems | LOGSUB_ALL);
 		TokenIt++;
 	}
