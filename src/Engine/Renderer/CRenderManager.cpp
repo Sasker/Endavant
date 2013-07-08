@@ -10,10 +10,8 @@
 // FOR OPENGL DEBUG ONLY
 #include "Renderer/GL/CGLError.h"
 
-
 #include "GLLoad/GLFuncs.h"
 #include "GLLoad/gl_core_2_1.h"
-
 
 static const std::string VIDEO_CONFIG_XML_PATH("./Recursos/Config/video_options.xml");
 
@@ -70,6 +68,7 @@ void	CRenderManager::StartUp()
 	CreateGLContext();
 
 	InitGL();
+
 }
 
 const glm::vec2 CRenderManager::GetWindowSize()

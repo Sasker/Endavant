@@ -1,5 +1,8 @@
 #include "CTextureNode.h"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include "Core/CCoreEngine.h"
+#include "Core/CLogManager.h"
 
 // TODO: Load more than bitmaps (BMP)
 // TODO: mipmaps?
@@ -20,9 +23,11 @@ CTextureNode::~CTextureNode()
 
 bool CTextureNode::LoadTextureFromFile(const std::string& a_PathToTexture)
 {
-	SDL_Surface* Surface = SDL_LoadBMP(a_PathToTexture.c_str());
+//	SDL_Surface* Surface = SDL_LoadBMP(a_PathToTexture.c_str());
+	SDL_Surface* Surface = IMG_Load(a_PathToTexture.c_str());
 	if (!Surface)
 	{
+		CCoreEngine::Instance().GetLogManager().LogOutput( LOG_ERROR, LOGSUB_RESOURCES, "FAILED LOADING %s", a_PathToTexture.c_str() );
 		return false;
 	}
 

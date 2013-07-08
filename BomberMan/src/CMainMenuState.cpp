@@ -14,14 +14,15 @@ void CMainMenuState::Init()
 	m_graphicmodel->InitSprite("BomberMan/Textures/Exemple.bmp");
 	m_graphicmodel->SetPosition(glm::vec2(150,150));
 
+	m_graphicmodel2 =std::unique_ptr<CSprite>( new CSprite());
+	m_graphicmodel2->InitSprite("BomberMan/Textures/privado.png");
+	m_graphicmodel2->SetPosition(glm::vec2(350,250));
 
 	m_menuscene	  = std::unique_ptr<CScene>(new CScene());
 	m_menuscene->AddChild(m_graphicmodel.get());
-
+	m_menuscene->AddChild(m_graphicmodel2.get());
 
 	CCoreEngine::Instance().GetRenderManager().PushScene(m_menuscene.get());
-
-
 }
 
 void CMainMenuState::Cleanup()

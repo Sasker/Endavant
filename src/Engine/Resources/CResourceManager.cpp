@@ -6,6 +6,12 @@
 #include "CSoundEffect.h"
 #include "CMusicTrack.h"
 
+#include "Core/CCoreEngine.h"
+#include "Core/CLogManager.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+
+
 CResourceManager::CResourceManager()
 {
 
@@ -18,6 +24,16 @@ CResourceManager::~CResourceManager()
 
 void CResourceManager::StartUp(void)
 {
+	//SDL_Image
+	if ( !IMG_Init(IMG_INIT_PNG) )
+	{
+		CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_RESOURCES,"Starting Up! (FAILED LOADING SDL_Image)");
+	}
+	else
+	{
+		CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_RESOURCES,"Starting Up! SDL_Image Loaded!");
+	}
+
 	LoadTextures();
 	LoadAudio();
 }

@@ -2,6 +2,7 @@
 #include <ctime>
 #include "Utils/CXMLParserPUGI.h"
 #include "Utils/CConversions.h"
+#include <stdarg.h>
 
 using namespace std;
 
@@ -125,6 +126,12 @@ void	CLogManager::LogOutput(TLogLevel _level, TLogSubsystem _subs, std::string _
 				break;
 			case LOGSUB_TIMER:
 				l_msgbuffer+="[TIMER]";
+				break;
+			case LOGSUB_RESOURCES:
+				l_msgbuffer+="[RESOURCE]";
+				break;
+			case LOGSUB_STATE:
+				l_msgbuffer+="[STATE]";
 				break;
 			default:
 				l_msgbuffer+="[UNDEF]";
