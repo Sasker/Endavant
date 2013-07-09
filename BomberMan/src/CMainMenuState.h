@@ -24,8 +24,10 @@ public:
 	virtual ~CMainMenuState();
 
 private:
-	std::unique_ptr<CSprite>	m_graphicmodel;
-	std::unique_ptr<CScene>		m_menuscene;
+	std::unique_ptr<CSprite>			m_graphicmodel;
+	std::unique_ptr<CSprite>			m_graphicmodel2;
+	std::unique_ptr<CSpriteAnimated>	m_graphicbomberman;
+	std::unique_ptr<CScene>				m_menuscene;
 };
 
 #endif /* CMAINMENUSTATE_H_ */

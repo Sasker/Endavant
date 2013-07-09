@@ -138,8 +138,8 @@ void	CCoreEngine::StartUp()
 	//m_soundmngr = new CSoundManager();
 	//m_soundmngr->StartUp();
 
-	//m_resourcemngr = new CResourceManager();
-	//m_resourcemngr->StartUp();
+	m_resourcemngr = new CResourceManager();
+	m_resourcemngr->StartUp();
 
 	//m_soundmngr = new SoundManager();
 	//m_soundmngr->StartUp();
