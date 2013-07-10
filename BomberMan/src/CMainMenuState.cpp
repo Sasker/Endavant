@@ -19,7 +19,7 @@ void CMainMenuState::Init()
 	m_graphicmodel2->SetPosition(glm::vec2(350,250));
 
 	m_graphicbomberman =std::unique_ptr<CSpriteAnimated>( new CSpriteAnimated());
-	m_graphicbomberman->InitSprite("Textures/down.png");
+	m_graphicbomberman->InitSprite("Textures/down.png", 6);
 	m_graphicbomberman->SetPosition(glm::vec2(250,450));
 
 	m_menuscene	  = std::unique_ptr<CScene>(new CScene());

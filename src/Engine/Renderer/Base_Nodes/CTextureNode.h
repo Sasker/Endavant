@@ -22,7 +22,8 @@ public:
 	bool				LoadTextureFromFile(const std::string &aPath);
 	bool				LoadTextureFromFile(const std::string &aPath, const glm::uvec2 aSize);
 	bool				LoadTextureFromFile(const std::string &aPath, const glm::uvec2 aSize, const u32 aCols, const u32 aRows, const u32 aNumFrames );
-	bool				LoadTextureFromFile(const std::string &aPath, const glm::uvec2 aSize, const u32 aNumFrames, const std::vector<glm::uvec4> &aFrameData );
+	bool				LoadTextureFromFile(const std::string &aPath, const u32 aCols, const u32 aRows, const u32 aNumFrames );
+	bool				LoadTextureFromFile(const std::string &aPath, const u32 aNumFrames, const std::vector<glm::vec4> &aFrameData );
 
 	// Current Size
 	inline u32			GetTextureWidth() const { return m_TextureSize.x; }
@@ -46,7 +47,7 @@ protected:
 	bool				LoadTextureFromSurface(const SDL_Surface &aSurface); // Convert SDL_Surface and upload texture data to the GPU
 
 private:
-	void				SetVBOData( u32 aFrame = 0, f32 aU_i = 0.0f, f32 aU_f = 1.0f, f32 aV_i = 0.0f, f32 aV_f = 1.0f );	// Upload Vertex Data to the GPU
+	void				SetVBOData( const u32 aFrame = 0, const u32 aW = 0, const u32 aH = 0, const f32 aU_i = 0.0f, const f32 aU_f = 1.0f, const f32 aV_i = 0.0f, const f32 aV_f = 1.0f );	// Upload Vertex Data to the GPU
 	bool				LoadInternalTextureFromFile(const std::string &aPath);
 
 	CGLTexture	m_GLTexture;
