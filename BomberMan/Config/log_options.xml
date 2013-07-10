@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!---
+	Comma separated
+	LOG TYPES: 	NONE,INFO,WARNING,ERROR,DEVEL,ALL
+	LOG SYSTEMS: NONE,VIDEO,INPUT,PARSER,GUI,GAME,SOUND,ENGINE,ALL
+-->
+<LOGSYSTEM>
+	<LOGGER Mode="Console" Name="" Types="ALL" Systems="ALL" />
+	<LOGGER Mode="File" Name="LogOutput_Info.txt" Types="INFO" Systems="ALL" />
+	<LOGGER Mode="File" Name="LogOutput_Warnings.txt" Types="WARNING" Systems="ALL" />
+	<LOGGER Mode="File" Name="LogOutput_Problems.txt" Types="WARNING,ERROR" Systems="ALL" />
+</LOGSYSTEM>	

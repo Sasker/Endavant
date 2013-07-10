@@ -13,7 +13,7 @@
 #include "GLLoad/GLFuncs.h"
 #include "GLLoad/gl_core_2_1.h"
 
-static const std::string VIDEO_CONFIG_XML_PATH("./Recursos/Config/video_options.xml");
+static const std::string VIDEO_CONFIG_XML_PATH("./Config/video_options.xml");
 
 CRenderManager::CRenderManager():
 m_GLContext(NULL),

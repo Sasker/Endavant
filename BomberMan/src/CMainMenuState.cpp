@@ -11,15 +11,15 @@ void CMainMenuState::Init()
 {
 
 	m_graphicmodel =std::unique_ptr<CSprite>( new CSprite());
-	m_graphicmodel->InitSprite("BomberMan/Textures/Exemple.bmp");
+	m_graphicmodel->InitSprite("Textures/Exemple.bmp");
 	m_graphicmodel->SetPosition(glm::vec2(150,150));
 
 	m_graphicmodel2 =std::unique_ptr<CSprite>( new CSprite());
-	m_graphicmodel2->InitSprite("BomberMan/Textures/privado.png");
+	m_graphicmodel2->InitSprite("Textures/privado.png");
 	m_graphicmodel2->SetPosition(glm::vec2(350,250));
 
 	m_graphicbomberman =std::unique_ptr<CSpriteAnimated>( new CSpriteAnimated());
-	m_graphicbomberman->InitSprite("BomberMan/Textures/down.png");
+	m_graphicbomberman->InitSprite("Textures/down.png", 6);
 	m_graphicbomberman->SetPosition(glm::vec2(250,450));
 
 	m_menuscene	  = std::unique_ptr<CScene>(new CScene());

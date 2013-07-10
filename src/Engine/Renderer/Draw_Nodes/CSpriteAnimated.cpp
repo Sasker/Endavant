@@ -1,38 +1,39 @@
 #include "CSpriteAnimated.h"
 #include "GLLoad/GLFuncs.h"
 
+#include "Core/CCoreEngine.h"
+#include "Core/CLogManager.h"
 
 CSpriteAnimated::CSpriteAnimated():
 CTextureNode(),
 m_SpriteSize(0,0)
 {
+	m_indexAnimation = 0;
+	m_speedAnimation = 0.0f;
 }
 
 void CSpriteAnimated::InitSprite(const std::string& aPathToTexture)
 {
 	LoadTextureFromFile(aPathToTexture);
-	m_indexAnimation = 0;
-	m_filas = 0;
-	m_columnas = 0;
-	m_speedAnimation = 0.0f;
 }
 
-void CSpriteAnimated::InitSprite(const std::string& aPathToTexture, int filas, int columnas)
+void CSpriteAnimated::InitSprite(const std::string& aPathToTexture, const u32 aNumFrames)
 {
-	LoadTextureFromFile(aPathToTexture);
-	m_indexAnimation = 0;
-	m_filas = filas;
-	m_columnas = columnas;
+	LoadTextureFromFile(aPathToTexture, aNumFrames, 1, aNumFrames);
+	m_speedAnimation = 0.1f;
+	CCoreEngine::Instance().GetTimerManager().CreateTimer(m_speedAnimation,true, &(CSpriteAnimated::FrameTimer) );
+}
+
+void CSpriteAnimated::InitSprite(const std::string& aPathToTexture, const u32 aCols, const u32 aRows, const u32 aNumFrames)
+{
+	LoadTextureFromFile(aPathToTexture, aCols, aRows, aNumFrames);
 	m_speedAnimation = 0.1f;
 }
 
-void CSpriteAnimated::InitSprite(const std::string& aPathToTexture, int filas, int columnas, float speed)
+void CSpriteAnimated::InitSprite(const std::string& aPathToTexture, const u32 aCols, const u32 aRows, const u32 aNumFrames, const f32 aSpeed)
 {
-	LoadTextureFromFile(aPathToTexture);
-	m_indexAnimation = 0;
-	m_filas = filas;
-	m_columnas = columnas;
-	m_speedAnimation = speed;
+	LoadTextureFromFile(aPathToTexture, aCols, aRows, aNumFrames);
+	m_speedAnimation = aSpeed;
 }
 
 CSpriteAnimated::~CSpriteAnimated()
@@ -49,4 +50,6 @@ glm::uvec2 CSpriteAnimated::GetSpriteSize()
 	return m_SpriteSize;
 }
 
-
+void CSpriteAnimated::FrameTimer(EV_TimerID aTimerID)
+{
+}
