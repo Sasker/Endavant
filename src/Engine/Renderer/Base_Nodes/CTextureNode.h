@@ -18,6 +18,7 @@ public:
 	CTextureNode();
 	virtual 			~CTextureNode();
 	void				Render();
+	virtual void		Update(f64 dt);
 
 	bool				LoadTextureFromFile(const std::string &aPath);
 	bool				LoadTextureFromFile(const std::string &aPath, const glm::uvec2 aSize);

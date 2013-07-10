@@ -185,7 +185,10 @@ void CRenderManager::Render(void)
 
 void CRenderManager::Update(f64 dt)
 {
-
+	if ( m_itCurrentScene != m_SceneStack.end() )
+	{
+		(*m_itCurrentScene)->Update( dt);
+	}
 }
 
 void CRenderManager::PushScene(CScene* l_Scene)

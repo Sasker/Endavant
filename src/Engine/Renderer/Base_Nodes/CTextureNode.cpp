@@ -230,7 +230,6 @@ void CTextureNode::Render()
 	glTranslatef( m_PositionAbsolute.x, m_PositionAbsolute.y, m_PositionAbsolute.z);
 	glRotatef( GetRotation() ,0.0f,0.0f,1.0f);
 
-
 	m_GLTexture.Bind();
 	m_VBO[m_FrameNum].BindBuffer();
 	glTexCoordPointer(2,GL_FLOAT,5 * sizeof(GLfloat), ((GLubyte *) 0) );
@@ -246,5 +245,10 @@ void CTextureNode::Render()
 	m_VBO[m_FrameNum].UnBindBuffer();
 	m_GLTexture.UnBind();
 	CBaseNode::Render();
+}
+
+void CTextureNode::Update(f64 dt)
+{
+	CBaseNode::Update( dt);
 }
 
