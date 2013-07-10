@@ -8,7 +8,7 @@ using namespace std;
 
 
 
-static const std::string LOG_CONFIG_XML_PATH("./Recursos/Config/log_options.xml");
+static const std::string LOG_CONFIG_XML_PATH("./Config/log_options.xml");
 
 CLogManager::CLogManager()
 {
