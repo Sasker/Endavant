@@ -43,55 +43,98 @@ bool CTextureNode::LoadTextureFromFile(const std::string& aPath)
 {
 	bool retval = LoadInternalTextureFromFile( aPath);
 
-	m_TextureSize = m_TextureRawSize;
-	SetVBOData();
-
-	return retval;
-}
-
-bool CTextureNode::LoadTextureFromFile(const std::string& aPath, glm::uvec2 aSize)
-{
-	bool retval = LoadInternalTextureFromFile( aPath);
-
-	m_TextureSize.x = aSize.x;
-	m_TextureSize.y = aSize.y;
-	SetVBOData();
-
-	return retval;
-}
-
-bool CTextureNode::LoadTextureFromFile(const std::string& aPath, glm::uvec2 aSize, u32 aCols, u32 aRows, u32 aNumFrames)
-{
-	bool retval = LoadInternalTextureFromFile( aPath);
-	u32 ActualCol = 0;
-	u32 ActualRow = 0;
-
-	f32 ColSize = ((f32)m_TextureRawSize.x / (f32)aCols) / (f32)m_TextureRawSize.x;
-	f32 RowSize = ((f32)m_TextureRawSize.y / (f32)aRows) / (f32)m_TextureRawSize.y;
-
-	m_TextureSize.x = aSize.x;
-	m_TextureSize.y = aSize.y;
-	m_VBO.clear();
-	while (	m_VBO.size() < aNumFrames )
+	if (retval)
 	{
-		CGLBufferObject< D5_QUAD<D5_T2F_V3F> > m_VBO_Element(GL_ARRAY_BUFFER);
-		m_VBO.push_back( m_VBO_Element );
+		m_TextureSize = m_TextureRawSize;
+		SetVBOData();
+	}
+	return retval;
+}
 
-		//u-v calculations
-		f32 u_i = ColSize * ActualCol;
-		f32 u_f = ColSize * (ActualCol + 1);
-		f32 v_i = RowSize * ActualRow;
-		f32 v_f = RowSize * (ActualRow + 1);
+bool CTextureNode::LoadTextureFromFile(const std::string& aPath, const glm::uvec2 aSize)
+{
+	bool retval = LoadInternalTextureFromFile( aPath);
 
-		SetVBOData( (m_VBO.size() - 1), u_i, u_f, v_i, v_f );
+	if (retval)
+	{
+		m_TextureSize.x = aSize.x;
+		m_TextureSize.y = aSize.y;
+		SetVBOData();
+	}
 
-		ActualCol++;
-		if ( ActualCol >= aCols )
+	return retval;
+}
+
+bool CTextureNode::LoadTextureFromFile(const std::string& aPath, const glm::uvec2 aSize, const u32 aCols, const u32 aRows, const u32 aNumFrames)
+{
+	bool retval = LoadInternalTextureFromFile( aPath);
+
+	if (retval)
+	{
+		u32 ActualCol = 0;
+		u32 ActualRow = 0;
+
+		f32 ColSize = ((f32)m_TextureRawSize.x / (f32)aCols) / (f32)m_TextureRawSize.x;
+		f32 RowSize = ((f32)m_TextureRawSize.y / (f32)aRows) / (f32)m_TextureRawSize.y;
+
+		m_TextureSize.x = aSize.x;
+		m_TextureSize.y = aSize.y;
+		m_VBO.clear();
+		while (	m_VBO.size() < aNumFrames )
 		{
-			ActualCol = 0;
-			ActualRow++;
+			CGLBufferObject< D5_QUAD<D5_T2F_V3F> > m_VBO_Element(GL_ARRAY_BUFFER);
+			m_VBO.push_back( m_VBO_Element );
+
+			//u-v calculations
+			f32 u_i = ColSize * ActualCol;
+			f32 u_f = ColSize * (ActualCol + 1);
+			f32 v_i = RowSize * ActualRow;
+			f32 v_f = RowSize * (ActualRow + 1);
+
+			SetVBOData( (m_VBO.size() - 1), u_i, u_f, v_i, v_f );
+
+			ActualCol++;
+			if ( ActualCol >= aCols )
+			{
+				ActualCol = 0;
+				ActualRow++;
+			}
 		}
 	}
+	return retval;
+}
+
+bool CTextureNode::LoadTextureFromFile(const std::string& aPath, const glm::uvec2 aSize, const u32 aNumFrames, const std::vector<glm::uvec4>& aFrameData)
+{
+	if (aFrameData.size() < aNumFrames )
+	{
+		return false;
+	}
+
+	bool retval = LoadInternalTextureFromFile( aPath);
+
+	if (retval)
+	{
+		m_TextureSize.x = aSize.x;
+		m_TextureSize.y = aSize.y;
+		m_VBO.clear();
+		while (	m_VBO.size() < aNumFrames )
+		{
+			CGLBufferObject< D5_QUAD<D5_T2F_V3F> > m_VBO_Element(GL_ARRAY_BUFFER);
+			m_VBO.push_back( m_VBO_Element );
+
+			u32 NumFrame = m_VBO.size() - 1;
+
+			//u-v calculations
+			f32 u_i = ((f32)aFrameData[NumFrame].x) / (f32)m_TextureRawSize.x ;
+			f32 u_f = ((f32)aFrameData[NumFrame].z) / (f32)m_TextureRawSize.x ;
+			f32 v_i = ((f32)aFrameData[NumFrame].y) / (f32)m_TextureRawSize.y ;
+			f32 v_f = ((f32)aFrameData[NumFrame].w) / (f32)m_TextureRawSize.y ;
+
+			SetVBOData( (m_VBO.size() - 1), u_i, u_f, v_i, v_f );
+		}
+	}
+
 	return retval;
 }
 

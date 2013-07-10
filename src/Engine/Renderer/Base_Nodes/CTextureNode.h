@@ -20,8 +20,9 @@ public:
 	void				Render();
 
 	bool				LoadTextureFromFile(const std::string &aPath);
-	bool				LoadTextureFromFile(const std::string &aPath, glm::uvec2 aSize);
-	bool				LoadTextureFromFile(const std::string &aPath, glm::uvec2 aSize, u32 aCols, u32 aRows, u32 aNumFrames );
+	bool				LoadTextureFromFile(const std::string &aPath, const glm::uvec2 aSize);
+	bool				LoadTextureFromFile(const std::string &aPath, const glm::uvec2 aSize, const u32 aCols, const u32 aRows, const u32 aNumFrames );
+	bool				LoadTextureFromFile(const std::string &aPath, const glm::uvec2 aSize, const u32 aNumFrames, const std::vector<glm::uvec4> &aFrameData );
 
 	// Current Size
 	inline u32			GetTextureWidth() const { return m_TextureSize.x; }
