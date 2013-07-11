@@ -10,6 +10,7 @@ public:
 
 	void		InitSprite(const std::string &aPathToTexture);
 	void		InitSprite(const std::string &aPathToTexture, const u32 aNumFrames );
+	void		InitSprite(const std::string &aPathToTexture, const u32 aNumFrames, const f32 aSpeed );
 	void		InitSprite(const std::string &aPathToTexture, const u32 aCols, const u32 aRows, const u32 aNumFrames );
 	void		InitSprite(const std::string &aPathToTexture, const u32 aCols, const u32 aRows, const u32 aNumFrames, const f32 aSpeed);
 
