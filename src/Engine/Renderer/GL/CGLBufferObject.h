@@ -13,14 +13,14 @@ public:
 	//	GL_DRAW_INDIRECT_BUFFER, GL_DISPATCH_INDIRECT_BUFFER, GL_ELEMENT_ARRAY_BUFFER, GL_PIXEL_PACK_BUFFER,
 	//	GL_PIXEL_UNPACK_BUFFER,	GL_SHADER_STORAGE_BUFFER, GL_TEXTURE_BUFFER, GL_TRANSFORM_FEEDBACK_BUFFER OR
 	//	GL_UNIFORM_BUFFER.
-	CGLBufferObject(GLenum aTarget);
+	CGLBufferObject(const GLenum aTarget);
 	~CGLBufferObject();
 
 	// aData:   Location from which to copy the data (if NULL, only reserves memory)
 	// aSizeOfData:  Number of data elements (of type TBData) in buffer
 	// @aUsage:  	Hint to the graphics system as to how the buffer will be used - one
 	//   			of 9 possible: GL_{STATIC, DYNAMIC, STREAM}_{READ, COPY, DRAW}
-	GLuint			LoadBufferData(const TBData* aData, GLsizeiptr aSizeOfData, GLenum aUsage);
+	GLuint			LoadBufferData(const TBData * const aData,const GLsizeiptr aSizeOfData,const GLenum aUsage);
 	void			DestroyBufferData();
 
 	void			BindBuffer();
@@ -36,7 +36,7 @@ private:
 };
 
 template<typename TBData>
-CGLBufferObject<TBData>::CGLBufferObject(GLenum aTarget):
+CGLBufferObject<TBData>::CGLBufferObject(const GLenum aTarget):
 m_TargetBuffer(aTarget),
 m_GLBufferID(GL_ZERO),
 m_Usage(GL_ZERO)
@@ -51,7 +51,7 @@ CGLBufferObject<TBData>::~CGLBufferObject()
 }
 
 template<typename TBData>
-GLuint CGLBufferObject<TBData>::LoadBufferData(const TBData* aData,GLsizeiptr aSizeOfData, GLenum aUsage)
+GLuint CGLBufferObject<TBData>::LoadBufferData( const TBData * const  aData,const GLsizeiptr aSizeOfData, const GLenum aUsage)
 {
 
 
