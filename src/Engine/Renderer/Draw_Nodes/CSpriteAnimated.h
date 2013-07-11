@@ -8,11 +8,8 @@ class CSpriteAnimated : public CTextureNode
 public:
 	CSpriteAnimated();
 
-	void		InitSprite(const std::string &aPathToTexture);
-	void		InitSprite(const std::string &aPathToTexture, const u32 aNumFrames );
-	void		InitSprite(const std::string &aPathToTexture, const u32 aNumFrames, const f32 aSpeed );
-	void		InitSprite(const std::string &aPathToTexture, const u32 aCols, const u32 aRows, const u32 aNumFrames );
-	void		InitSprite(const std::string &aPathToTexture, const u32 aCols, const u32 aRows, const u32 aNumFrames, const f32 aSpeed);
+	void		InitSprite(const std::string &aPathToTexture, const u32 aNumFrames = 1, const f32 aSpeed = 0.1f );
+	void		InitSprite(const std::string &aPathToTexture, const u32 aCols, const u32 aRows, const u32 aNumFrames, const f32 aSpeed = 0.1f);
 
 	void		SetSpriteSize(const glm::uvec2 &aSize);
 	glm::uvec2	GetSpriteSize();

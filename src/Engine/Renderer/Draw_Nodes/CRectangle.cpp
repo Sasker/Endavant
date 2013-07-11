@@ -26,27 +26,26 @@ CRectangle::~CRectangle()
 
 void CRectangle::Render()
 {
-	glLoadIdentity();
-	glTranslatef( m_PositionAbsolute.x, m_PositionAbsolute.y, m_PositionAbsolute.z);
-	glRotatef( GetRotation() ,0.0f,0.0f,1.0f);
+	if ( m_Visible )
+	{
+		glLoadIdentity();
+		glTranslatef( m_PositionAbsolute.x, m_PositionAbsolute.y, m_PositionAbsolute.z);
+		glRotatef( GetRotation() ,0.0f,0.0f,1.0f);
 
 
-	m_VBO.BindBuffer();
-	glColorPointer(3,GL_FLOAT,6 * sizeof(GLfloat), ((GLubyte *) 0) );
-	glVertexPointer(3,GL_FLOAT,6 * sizeof(GLfloat), ((GLubyte *) 0 + (3*sizeof(GLfloat))) );
+		m_VBO.BindBuffer();
+		glColorPointer(3,GL_FLOAT,6 * sizeof(GLfloat), ((GLubyte *) 0) );
+		glVertexPointer(3,GL_FLOAT,6 * sizeof(GLfloat), ((GLubyte *) 0 + (3*sizeof(GLfloat))) );
 
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_COLOR_ARRAY);
+		glEnableClientState(GL_VERTEX_ARRAY);
 
-	glDrawArrays(GL_TRIANGLE_STRIP,0,4);
+		glDrawArrays(GL_TRIANGLE_STRIP,0,4);
 
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	m_VBO.UnBindBuffer();
-
-
-
-
+		glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_VERTEX_ARRAY);
+		m_VBO.UnBindBuffer();
+	}
 	CBaseNode::Render();
 }
 

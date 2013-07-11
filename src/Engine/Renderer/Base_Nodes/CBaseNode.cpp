@@ -2,6 +2,8 @@
 
 CBaseNode::CBaseNode()
 {
+	m_Visible = true;
+
 	// position of the node
 	m_Position = glm::vec3(0);
 	m_PositionAbsolute = glm::vec3(0);
@@ -122,10 +124,11 @@ void CBaseNode::Render()
 	// OVERRIDE ME
 	// Only use this to draw things!
 	// Always call CBaseNode::Render to render childrens
-
-	for ( CBaseNode* Children: m_Childrens)
-		Children->Render();
-
+	if ( m_Visible )
+	{
+		for ( CBaseNode* Children: m_Childrens)
+			Children->Render();
+	}
 }
 
 void CBaseNode::Update(f64 dt)

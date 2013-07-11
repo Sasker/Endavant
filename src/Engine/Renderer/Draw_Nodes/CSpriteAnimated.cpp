@@ -12,31 +12,10 @@ m_SpriteSize(0,0)
 	m_speedAnimation = 0.1f;
 }
 
-void CSpriteAnimated::InitSprite(const std::string& aPathToTexture)
-{
-	LoadTextureFromFile(aPathToTexture);
-}
-
-void CSpriteAnimated::InitSprite(const std::string& aPathToTexture, const u32 aNumFrames)
-{
-	LoadTextureFromFile(aPathToTexture, aNumFrames, 1, aNumFrames);
-	m_speedAnimation = 0.25f;
-	if (aNumFrames > 1)
-		m_TimerID  = CCoreEngine::Instance().GetTimerManager().CreateTimer(m_speedAnimation,true );
-}
-
 void CSpriteAnimated::InitSprite(const std::string& aPathToTexture, const u32 aNumFrames, const f32 aSpeed)
 {
 	LoadTextureFromFile(aPathToTexture, aNumFrames, 1, aNumFrames);
 	m_speedAnimation = aSpeed;
-	if (aNumFrames > 1)
-		m_TimerID  = CCoreEngine::Instance().GetTimerManager().CreateTimer(m_speedAnimation,true );
-}
-
-void CSpriteAnimated::InitSprite(const std::string& aPathToTexture, const u32 aCols, const u32 aRows, const u32 aNumFrames)
-{
-	LoadTextureFromFile(aPathToTexture, aCols, aRows, aNumFrames);
-	m_speedAnimation = 0.25f;
 	if (aNumFrames > 1)
 		m_TimerID  = CCoreEngine::Instance().GetTimerManager().CreateTimer(m_speedAnimation,true );
 }

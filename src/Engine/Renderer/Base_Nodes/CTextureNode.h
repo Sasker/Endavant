@@ -40,9 +40,6 @@ public:
 	inline glm::uvec2	GetTextureRawSize() const { return m_TextureRawSize; }
 	inline void 		ResetTextureSize() { m_TextureSize = m_TextureRawSize; SetVBOData(); }
 
-	inline void			Show() { m_Visible = true; }
-	inline void			Hide() { m_Visible = false; }
-
 	inline void			FrameSet( const u32 aFrameNum  ) { m_FrameNum = aFrameNum; }
 	inline void			FrameIncrement() { m_FrameNum = (m_FrameNum >= (m_VBO.size() - 1) ? 0 : (m_FrameNum + 1) ); }
 	inline void			FrameDecrement() { m_FrameNum = (m_FrameNum < 1 ? (m_VBO.size() - 1) :(m_FrameNum - 1) ); }
@@ -56,7 +53,6 @@ private:
 	void				AddVBOData();
 	bool				LoadInternalTextureFromFile(const std::string &aPath);
 
-	bool				m_Visible;
 	CGLTexture			m_GLTexture;
 	glm::uvec2			m_TextureSize;
 	glm::uvec2			m_TextureRawSize;

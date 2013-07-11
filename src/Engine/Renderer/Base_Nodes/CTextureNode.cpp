@@ -9,7 +9,6 @@
 
 CTextureNode::CTextureNode():
 CBaseNode(),
-m_Visible(true),
 m_TextureSize(0,0),
 m_TextureRawSize(0,0),
 m_PathToTexture(""),
