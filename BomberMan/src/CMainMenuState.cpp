@@ -12,26 +12,26 @@ void CMainMenuState::Init()
 
 	m_graphicmodel =std::unique_ptr<CSprite>( new CSprite());
 	m_graphicmodel->InitSprite("Textures/Exemple.bmp");
-	m_graphicmodel->SetPosition(glm::vec2(150,150));
+	m_graphicmodel->SetPosition(glm::vec3(150,150,0));
 
 	m_graphicmodel2 =std::unique_ptr<CSprite>( new CSprite());
 	m_graphicmodel2->InitSprite("Textures/privado.png");
-	m_graphicmodel2->SetPosition(glm::vec2(350,250));
+	m_graphicmodel2->SetPosition(glm::vec3(350,250,0));
 
 	m_graphicbomberman =std::unique_ptr<CSpriteAnimated>( new CSpriteAnimated());
 	m_graphicbomberman->InitSprite("Textures/downwait.png", 4, 0.25f);
-	m_graphicbomberman->SetPosition(glm::vec2(250,450));
+	m_graphicbomberman->SetPosition(glm::vec3(250,450,1));
 
 	m_graphicbombermanwalk =std::unique_ptr<CSpriteAnimated>( new CSpriteAnimated());
 	m_graphicbombermanwalk->InitSprite("Textures/down.png", 6, 0.15f);
-	m_graphicbombermanwalk->SetPosition(glm::vec2(250,450));
+	m_graphicbombermanwalk->SetPosition(glm::vec3(250,450,1));
 	m_graphicbombermanwalk->Hide();
 
 	m_menuscene	  = std::unique_ptr<CScene>(new CScene());
-	m_menuscene->AddChild(m_graphicbomberman.get());
-	m_menuscene->AddChild(m_graphicbombermanwalk.get());
 	m_menuscene->AddChild(m_graphicmodel.get());
 	m_menuscene->AddChild(m_graphicmodel2.get());
+	m_menuscene->AddChild(m_graphicbomberman.get());
+	m_menuscene->AddChild(m_graphicbombermanwalk.get());
 
 	CCoreEngine::Instance().GetRenderManager().PushScene(m_menuscene.get());
 }
