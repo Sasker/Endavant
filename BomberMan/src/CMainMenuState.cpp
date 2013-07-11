@@ -19,7 +19,7 @@ void CMainMenuState::Init()
 	m_graphicmodel2->SetPosition(glm::vec2(350,250));
 
 	m_graphicbomberman =std::unique_ptr<CSpriteAnimated>( new CSpriteAnimated());
-	m_graphicbomberman->InitSprite("Textures/downwait.png", 4, 0.15f);
+	m_graphicbomberman->InitSprite("Textures/downwait.png", 4, 0.25f);
 	m_graphicbomberman->SetPosition(glm::vec2(250,450));
 
 	m_graphicbombermanwalk =std::unique_ptr<CSpriteAnimated>( new CSpriteAnimated());
@@ -28,10 +28,10 @@ void CMainMenuState::Init()
 	m_graphicbombermanwalk->Hide();
 
 	m_menuscene	  = std::unique_ptr<CScene>(new CScene());
-	m_menuscene->AddChild(m_graphicmodel.get());
-	m_menuscene->AddChild(m_graphicmodel2.get());
 	m_menuscene->AddChild(m_graphicbomberman.get());
 	m_menuscene->AddChild(m_graphicbombermanwalk.get());
+	m_menuscene->AddChild(m_graphicmodel.get());
+	m_menuscene->AddChild(m_graphicmodel2.get());
 
 	CCoreEngine::Instance().GetRenderManager().PushScene(m_menuscene.get());
 }
@@ -51,20 +51,28 @@ void CMainMenuState::Resume()
 void CMainMenuState::Update(f64 dt)
 {
 	static f64 mydt = 0.0f;
+	static f64 mydtwalk = 0.0f;
 
 	mydt += dt;
 
-	if ( mydt < 10.0f )
+	if ( mydt > 9.0f )
 	{
-		if ( mydt > 9.0f )
+		m_graphicbomberman->Show();
+		m_graphicbombermanwalk->Hide();
+	}
+	else if ( mydt > 4.0f )
+	{
+		if (mydtwalk == 0.0f)
 		{
-			m_graphicbomberman->Show();
-			m_graphicbombermanwalk->Hide();
-		}
-		else if ( mydt > 4.0f )
-		{
+			mydtwalk = mydt;
 			m_graphicbomberman->Hide();
 			m_graphicbombermanwalk->Show();
+		}
+		else
+		{
+			u32 distancia = ((mydt - mydtwalk) * 40);
+			m_graphicbombermanwalk->SetPosition( glm::vec2(250, (450 - distancia) ));
+			m_graphicbomberman->SetPosition( glm::vec2(250, (450 - distancia) ));
 		}
 	}
 }
