@@ -44,7 +44,17 @@ void CMainMenuState::Resume()
 
 void CMainMenuState::Update(f64 dt)
 {
+	static f64 mydt = 0.0f;
 
+	mydt += dt;
+
+	if ( mydt < 10.0f )
+	{
+		if ( mydt > 8.0f )
+			m_graphicbomberman->Show();
+		else if ( mydt > 4.0f )
+			m_graphicbomberman->Hide();
+	}
 }
 
 CMainMenuState::~CMainMenuState()

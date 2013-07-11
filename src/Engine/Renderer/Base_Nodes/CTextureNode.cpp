@@ -9,6 +9,7 @@
 
 CTextureNode::CTextureNode():
 CBaseNode(),
+m_Visible(true),
 m_TextureSize(0,0),
 m_TextureRawSize(0,0),
 m_PathToTexture(""),
@@ -233,28 +234,27 @@ void CTextureNode::SetVBOData(const u32 aFrame, const u32 aW, const u32 aH, cons
 void CTextureNode::Render()
 {
 	// Check if the texture is loaded
-	if (!m_GLTexture.IsLoaded() )
-		return;
+	if ( m_GLTexture.IsLoaded() && m_Visible )
+	{
+		glLoadIdentity();
+		glTranslatef( m_PositionAbsolute.x, m_PositionAbsolute.y, m_PositionAbsolute.z);
+		glRotatef( GetRotation() ,0.0f,0.0f,1.0f);
 
+		m_GLTexture.Bind();
+		m_VBO[m_FrameNum]->BindBuffer();
+		glTexCoordPointer(2,GL_FLOAT,5 * sizeof(GLfloat), ((GLubyte *) 0) );
+		glVertexPointer(3,GL_FLOAT,5 * sizeof(GLfloat), ((GLubyte *) 0 + (2*sizeof(GLfloat))) );
 
-	glLoadIdentity();
-	glTranslatef( m_PositionAbsolute.x, m_PositionAbsolute.y, m_PositionAbsolute.z);
-	glRotatef( GetRotation() ,0.0f,0.0f,1.0f);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		glEnableClientState(GL_VERTEX_ARRAY);
 
-	m_GLTexture.Bind();
-	m_VBO[m_FrameNum]->BindBuffer();
-	glTexCoordPointer(2,GL_FLOAT,5 * sizeof(GLfloat), ((GLubyte *) 0) );
-	glVertexPointer(3,GL_FLOAT,5 * sizeof(GLfloat), ((GLubyte *) 0 + (2*sizeof(GLfloat))) );
+		glDrawArrays(GL_TRIANGLE_STRIP,0,4);
 
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnableClientState(GL_VERTEX_ARRAY);
-
-	glDrawArrays(GL_TRIANGLE_STRIP,0,4);
-
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	m_VBO[m_FrameNum]->UnBindBuffer();
-	m_GLTexture.UnBind();
+		glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		m_VBO[m_FrameNum]->UnBindBuffer();
+		m_GLTexture.UnBind();
+	}
 	CBaseNode::Render();
 }
 
