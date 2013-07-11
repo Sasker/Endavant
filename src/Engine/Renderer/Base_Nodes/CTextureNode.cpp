@@ -9,15 +9,13 @@
 
 CTextureNode::CTextureNode():
 CBaseNode(),
+m_Visible(true),
 m_TextureSize(0,0),
 m_TextureRawSize(0,0),
 m_PathToTexture(""),
 m_FrameNum(0)
 {
-	CGLBufferObject< D5_QUAD<D5_T2F_V3F> > m_VBO_Element(GL_ARRAY_BUFFER);
-
-	m_VBO.clear();
-	m_VBO.push_back( m_VBO_Element );
+	EraseVBOData();
 }
 
 CTextureNode::~CTextureNode()
@@ -79,19 +77,16 @@ bool CTextureNode::LoadTextureFromFile(const std::string& aPath, const glm::uvec
 
 		m_TextureSize.x = aSize.x;
 		m_TextureSize.y = aSize.y;
-		m_VBO.clear();
+		EraseVBOData();
 		while (	m_VBO.size() < aNumFrames )
 		{
-			CGLBufferObject< D5_QUAD<D5_T2F_V3F> > m_VBO_Element(GL_ARRAY_BUFFER);
-			m_VBO.push_back( m_VBO_Element );
-
 			//u-v calculations
 			f32 u_i = ColSize * ActualCol;
 			f32 u_f = ColSize * (ActualCol + 1);
 			f32 v_i = RowSize * ActualRow;
 			f32 v_f = RowSize * (ActualRow + 1);
 
-			SetVBOData( (m_VBO.size() - 1), 0, 0, u_i, u_f, v_i, v_f );
+			SetVBOData( (m_VBO.size()), 0, 0, u_i, u_f, v_i, v_f );
 
 			ActualCol++;
 			if ( ActualCol >= aCols )
@@ -118,19 +113,16 @@ bool CTextureNode::LoadTextureFromFile(const std::string& aPath, const u32 aCols
 
 		m_TextureSize.x = ColSize * m_TextureRawSize.x;
 		m_TextureSize.y = RowSize * m_TextureRawSize.y;
-		m_VBO.clear();
+		EraseVBOData();
 		while (	m_VBO.size() < aNumFrames )
 		{
-			CGLBufferObject< D5_QUAD<D5_T2F_V3F> > m_VBO_Element(GL_ARRAY_BUFFER);
-			m_VBO.push_back( m_VBO_Element );
-
 			//u-v calculations
 			f32 u_i = ColSize * ActualCol;
 			f32 u_f = ColSize * (ActualCol + 1);
 			f32 v_i = RowSize * ActualRow;
 			f32 v_f = RowSize * (ActualRow + 1);
 
-			SetVBOData( (m_VBO.size() - 1), 0, 0, u_i, u_f, v_i, v_f );
+			SetVBOData( (m_VBO.size()), 0, 0, u_i, u_f, v_i, v_f );
 
 			ActualCol++;
 			if ( ActualCol >= aCols )
@@ -154,13 +146,10 @@ bool CTextureNode::LoadTextureFromFile(const std::string& aPath, const u32 aNumF
 
 	if (retval)
 	{
-		m_VBO.clear();
+		EraseVBOData();
 		while (	m_VBO.size() < aNumFrames )
 		{
-			CGLBufferObject< D5_QUAD<D5_T2F_V3F> > m_VBO_Element(GL_ARRAY_BUFFER);
-			m_VBO.push_back( m_VBO_Element );
-
-			u32 NumFrame = m_VBO.size() - 1;
+			u32 NumFrame = m_VBO.size();
 
 			//u-v calculations
 			f32 u_i = ((f32)aFrameData[NumFrame].x) / (f32)m_TextureRawSize.x ;
@@ -206,45 +195,71 @@ bool CTextureNode::LoadTextureFromSurface(const SDL_Surface &aSurface)
 	return true;
 }
 
+void CTextureNode::EraseVBOData()
+{
+	for ( u32 count = 0; count < m_VBO.size(); count++ )
+	{
+		CGLBufferObject< D5_QUAD<D5_T2F_V3F> > *m_VBO_Element = m_VBO.back();
+		delete (m_VBO_Element);
+	}
+	m_VBO.clear();
+}
+
+void CTextureNode::AddVBOData()
+{
+	CGLBufferObject< D5_QUAD<D5_T2F_V3F> > *m_VBO_Element = new CGLBufferObject< D5_QUAD<D5_T2F_V3F> >(GL_ARRAY_BUFFER);
+	m_VBO.push_back( m_VBO_Element );
+}
+
+
 void CTextureNode::SetVBOData(const u32 aFrame, const u32 aW, const u32 aH, const f32 aU_i, const f32 aU_f, const f32 aV_i, const f32 aV_f )
 {
 	const f32 w = ((aW==0?m_TextureSize.x:aW)/2);
 	const f32 h = ((aH==0?m_TextureSize.y:aH)/2);
+
+	AddVBOData();
 
 	m_QuadData.m_TopLeft 		=	D5_T2F_V3F(glm::vec2(aU_i,aV_i), glm::vec3(-w,h,1));
 	m_QuadData.m_BottomLeft 	=	D5_T2F_V3F(glm::vec2(aU_i,aV_f), glm::vec3(-w,-h,1));
 	m_QuadData.m_BottomRight 	=	D5_T2F_V3F(glm::vec2(aU_f,aV_i), glm::vec3(w,h,1));
 	m_QuadData.m_TopRight 		=	D5_T2F_V3F(glm::vec2(aU_f,aV_f), glm::vec3(w,-h,1));
 
-	m_VBO[aFrame].LoadBufferData(&m_QuadData, 1, GL_STATIC_DRAW);
+	GLuint BufferID = m_VBO[aFrame]->LoadBufferData(&m_QuadData, 1, GL_STATIC_DRAW);
+
+	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO, "VBO Object, BufferID: %u, Frame: %d, Data: (%d,%d) -> (%.02f,%.02f)(%.02f,%.02f)(%.02f,%.02f)(%.02f,%.02f)", (u32)BufferID, aFrame, (u32)(w*2), (u32)(h*2), m_QuadData.m_TopLeft.m_texCoord.x, m_QuadData.m_TopLeft.m_texCoord.y
+		, m_QuadData.m_BottomLeft.m_texCoord.x, m_QuadData.m_BottomLeft.m_texCoord.y, m_QuadData.m_BottomRight.m_texCoord.x, m_QuadData.m_BottomRight.m_texCoord.y, m_QuadData.m_TopRight.m_texCoord.x, m_QuadData.m_TopRight.m_texCoord.y);
+
 }
 
 void CTextureNode::Render()
 {
 	// Check if the texture is loaded
-	if (!m_GLTexture.IsLoaded() )
-		return;
+	if ( m_GLTexture.IsLoaded() && m_Visible )
+	{
+		glLoadIdentity();
+		glTranslatef( m_PositionAbsolute.x, m_PositionAbsolute.y, m_PositionAbsolute.z);
+		glRotatef( GetRotation() ,0.0f,0.0f,1.0f);
 
+		m_GLTexture.Bind();
+		m_VBO[m_FrameNum]->BindBuffer();
+		glTexCoordPointer(2,GL_FLOAT,5 * sizeof(GLfloat), ((GLubyte *) 0) );
+		glVertexPointer(3,GL_FLOAT,5 * sizeof(GLfloat), ((GLubyte *) 0 + (2*sizeof(GLfloat))) );
 
-	glLoadIdentity();
-	glTranslatef( m_PositionAbsolute.x, m_PositionAbsolute.y, m_PositionAbsolute.z);
-	glRotatef( GetRotation() ,0.0f,0.0f,1.0f);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		glEnableClientState(GL_VERTEX_ARRAY);
 
+		glDrawArrays(GL_TRIANGLE_STRIP,0,4);
 
-	m_GLTexture.Bind();
-	m_VBO[m_FrameNum].BindBuffer();
-	glTexCoordPointer(2,GL_FLOAT,5 * sizeof(GLfloat), ((GLubyte *) 0) );
-	glVertexPointer(3,GL_FLOAT,5 * sizeof(GLfloat), ((GLubyte *) 0 + (2*sizeof(GLfloat))) );
-
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnableClientState(GL_VERTEX_ARRAY);
-
-	glDrawArrays(GL_TRIANGLE_STRIP,0,4);
-
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	m_VBO[m_FrameNum].UnBindBuffer();
-	m_GLTexture.UnBind();
+		glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		m_VBO[m_FrameNum]->UnBindBuffer();
+		m_GLTexture.UnBind();
+	}
 	CBaseNode::Render();
+}
+
+void CTextureNode::Update(f64 dt)
+{
+	CBaseNode::Update( dt);
 }
 

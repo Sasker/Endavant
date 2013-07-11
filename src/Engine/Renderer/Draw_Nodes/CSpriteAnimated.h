@@ -6,28 +6,28 @@
 class CSpriteAnimated : public CTextureNode
 {
 public:
-		CSpriteAnimated();
+	CSpriteAnimated();
 
 	void		InitSprite(const std::string &aPathToTexture);
 	void		InitSprite(const std::string &aPathToTexture, const u32 aNumFrames );
+	void		InitSprite(const std::string &aPathToTexture, const u32 aNumFrames, const f32 aSpeed );
 	void		InitSprite(const std::string &aPathToTexture, const u32 aCols, const u32 aRows, const u32 aNumFrames );
 	void		InitSprite(const std::string &aPathToTexture, const u32 aCols, const u32 aRows, const u32 aNumFrames, const f32 aSpeed);
 
 	void		SetSpriteSize(const glm::uvec2 &aSize);
 	glm::uvec2	GetSpriteSize();
 
+	virtual void Update(f64 dt);
+
 	virtual ~CSpriteAnimated();
 
 private:
 
-	void		FrameTimer(EV_TimerID aTimerID);
-
 	// Height and width of the sprite being rendered
 	glm::uvec2	m_SpriteSize;
 
-	s32 		m_indexAnimation;
 	f32			m_speedAnimation;
-
+	EV_TimerID	m_TimerID;
 };
 
 #endif /* CSPRITE_H_ */

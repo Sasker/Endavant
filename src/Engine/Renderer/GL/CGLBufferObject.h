@@ -20,7 +20,7 @@ public:
 	// aSizeOfData:  Number of data elements (of type TBData) in buffer
 	// @aUsage:  	Hint to the graphics system as to how the buffer will be used - one
 	//   			of 9 possible: GL_{STATIC, DYNAMIC, STREAM}_{READ, COPY, DRAW}
-	void			LoadBufferData(const TBData* aData, GLsizeiptr aSizeOfData, GLenum aUsage);
+	GLuint			LoadBufferData(const TBData* aData, GLsizeiptr aSizeOfData, GLenum aUsage);
 	void			DestroyBufferData();
 
 	void			BindBuffer();
@@ -51,7 +51,7 @@ CGLBufferObject<TBData>::~CGLBufferObject()
 }
 
 template<typename TBData>
-void CGLBufferObject<TBData>::LoadBufferData(const TBData* aData,GLsizeiptr aSizeOfData, GLenum aUsage)
+GLuint CGLBufferObject<TBData>::LoadBufferData(const TBData* aData,GLsizeiptr aSizeOfData, GLenum aUsage)
 {
 
 
@@ -65,8 +65,7 @@ void CGLBufferObject<TBData>::LoadBufferData(const TBData* aData,GLsizeiptr aSiz
 	glBufferData(m_TargetBuffer, aSizeOfData * sizeof(TBData), &aData[0], m_Usage);
 	UnBindBuffer();
 
-
-
+	return m_GLBufferID;
 }
 
 

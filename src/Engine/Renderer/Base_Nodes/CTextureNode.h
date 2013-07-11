@@ -18,6 +18,7 @@ public:
 	CTextureNode();
 	virtual 			~CTextureNode();
 	void				Render();
+	virtual void		Update(f64 dt);
 
 	bool				LoadTextureFromFile(const std::string &aPath);
 	bool				LoadTextureFromFile(const std::string &aPath, const glm::uvec2 aSize);
@@ -39,6 +40,9 @@ public:
 	inline glm::uvec2	GetTextureRawSize() const { return m_TextureRawSize; }
 	inline void 		ResetTextureSize() { m_TextureSize = m_TextureRawSize; SetVBOData(); }
 
+	inline void			Show() { m_Visible = true; }
+	inline void			Hide() { m_Visible = false; }
+
 	inline void			FrameSet( const u32 aFrameNum  ) { m_FrameNum = aFrameNum; }
 	inline void			FrameIncrement() { m_FrameNum = (m_FrameNum >= (m_VBO.size() - 1) ? 0 : (m_FrameNum + 1) ); }
 	inline void			FrameDecrement() { m_FrameNum = (m_FrameNum < 1 ? (m_VBO.size() - 1) :(m_FrameNum - 1) ); }
@@ -48,15 +52,18 @@ protected:
 
 private:
 	void				SetVBOData( const u32 aFrame = 0, const u32 aW = 0, const u32 aH = 0, const f32 aU_i = 0.0f, const f32 aU_f = 1.0f, const f32 aV_i = 0.0f, const f32 aV_f = 1.0f );	// Upload Vertex Data to the GPU
+	void				EraseVBOData();
+	void				AddVBOData();
 	bool				LoadInternalTextureFromFile(const std::string &aPath);
 
-	CGLTexture	m_GLTexture;
-	glm::uvec2	m_TextureSize;
-	glm::uvec2	m_TextureRawSize;
-	std::string	m_PathToTexture;
-	u32			m_FrameNum;
+	bool				m_Visible;
+	CGLTexture			m_GLTexture;
+	glm::uvec2			m_TextureSize;
+	glm::uvec2			m_TextureRawSize;
+	std::string			m_PathToTexture;
+	u32					m_FrameNum;
 
-	std::vector< CGLBufferObject< D5_QUAD<D5_T2F_V3F> >	> 	m_VBO;
+	std::vector< CGLBufferObject< D5_QUAD<D5_T2F_V3F> > * >	m_VBO;
 	D5_QUAD<D5_T2F_V3F>										m_QuadData;
 };
 
