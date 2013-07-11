@@ -47,7 +47,12 @@ public:
 	virtual const glm::vec2& 		GetAnchor() const;
 	virtual void 					SetAnchor(const glm::vec2& anchor);
 
+	inline void						Show() { m_Visible = true; }
+	inline void						Hide() { m_Visible = false; }
+
 protected:
+	bool	m_Visible;
+
 	glm::vec3 m_Position; //XYZ pos relative to Parent (node center)
 	glm::vec3 m_PositionAbsolute; //XYZ pos absolute
 
