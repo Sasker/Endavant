@@ -10,7 +10,7 @@ class CTextTTF: public CSprite
 	public:
 		CTextTTF();
 		void		InitTextTTF(const std::string &aPathToTTF);
-		void		SetTextTTF(const std::string& aText, const EV_Color &aColor);
+		void		SetTextTTF(const std::string& aText, const EV_Color &aColor, const TTextureAlign aAlign = TEXTUREALIGN_CENTER);
 		void		SetTextSizeTTF(const u32 aTextSize);
 		virtual 	~CTextTTF();
 	private:

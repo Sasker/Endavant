@@ -24,11 +24,15 @@ public:
 	virtual ~CMainMenuState();
 
 private:
+
+	void	SetPFS();
+
 	std::unique_ptr<CSprite>			m_graphicmodel;
 	std::unique_ptr<CSprite>			m_graphicmodel2;
 	std::unique_ptr<CSpriteAnimated>	m_graphicbomberman;
 	std::unique_ptr<CSpriteAnimated>	m_graphicbombermanwalk;
 	std::unique_ptr<CTextTTF>			m_text;
+	std::unique_ptr<CTextTTF>			m_textfps;
 	std::unique_ptr<CScene>				m_menuscene;
 };
 

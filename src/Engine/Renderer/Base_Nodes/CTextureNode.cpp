@@ -43,7 +43,7 @@ bool CTextureNode::LoadTextureFromFile(const std::string& aPath)
 	if (retval)
 	{
 		m_TextureSize = m_TextureRawSize;
-		SetVBOData();
+		SetVBODataAligned( TEXTUREALIGN_CENTER );
 	}
 	return retval;
 }
@@ -56,7 +56,7 @@ bool CTextureNode::LoadTextureFromFile(const std::string& aPath, const glm::uvec
 	{
 		m_TextureSize.x = aSize.x;
 		m_TextureSize.y = aSize.y;
-		SetVBOData();
+		SetVBODataAligned( TEXTUREALIGN_CENTER );
 	}
 
 	return retval;
@@ -85,7 +85,7 @@ bool CTextureNode::LoadTextureFromFile(const std::string& aPath, const glm::uvec
 			f32 v_i = RowSize * ActualRow;
 			f32 v_f = RowSize * (ActualRow + 1);
 
-			SetVBOData( (m_VBO.size()), 0, 0, u_i, u_f, v_i, v_f );
+			SetVBODataAligned( TEXTUREALIGN_CENTER, (m_VBO.size()), 0, 0, u_i, u_f, v_i, v_f );
 
 			ActualCol++;
 			if ( ActualCol >= aCols )
@@ -121,7 +121,7 @@ bool CTextureNode::LoadTextureFromFile(const std::string& aPath, const u32 aCols
 			f32 v_i = RowSize * ActualRow;
 			f32 v_f = RowSize * (ActualRow + 1);
 
-			SetVBOData( (m_VBO.size()), 0, 0, u_i, u_f, v_i, v_f );
+			SetVBODataAligned( TEXTUREALIGN_CENTER, (m_VBO.size()), 0, 0, u_i, u_f, v_i, v_f );
 
 			ActualCol++;
 			if ( ActualCol >= aCols )
@@ -156,14 +156,14 @@ bool CTextureNode::LoadTextureFromFile(const std::string& aPath, const u32 aNumF
 			f32 v_i = ((f32)aFrameData[NumFrame].y) / (f32)m_TextureRawSize.y ;
 			f32 v_f = ((f32)aFrameData[NumFrame].w) / (f32)m_TextureRawSize.y ;
 
-			SetVBOData( NumFrame, (aFrameData[NumFrame].z - aFrameData[NumFrame].x), (aFrameData[NumFrame].w - aFrameData[NumFrame].y), u_i, u_f, v_i, v_f );
+			SetVBODataAligned( TEXTUREALIGN_CENTER, NumFrame, (aFrameData[NumFrame].z - aFrameData[NumFrame].x), (aFrameData[NumFrame].w - aFrameData[NumFrame].y), u_i, u_f, v_i, v_f );
 		}
 	}
 
 	return retval;
 }
 
-bool CTextureNode::LoadTextureFromSurface(const SDL_Surface &aSurface)
+bool CTextureNode::LoadTextureFromSurface(const SDL_Surface &aSurface, const TTextureAlign aAlign)
 {
 	bool retval = LoadInternalTextureFromSurface(aSurface);
 	//Forzamos el tamaño de la textura a partir del Surface (necesario para Texto)
@@ -173,7 +173,7 @@ bool CTextureNode::LoadTextureFromSurface(const SDL_Surface &aSurface)
 	{
 		EraseVBOData();
 
-		SetVBOData();
+		SetVBODataAligned( aAlign );
 	}
 
 	return retval;
@@ -227,23 +227,70 @@ void CTextureNode::AddVBOData()
 }
 
 
-void CTextureNode::SetVBOData(const u32 aFrame, const u32 aW, const u32 aH, const f32 aU_i, const f32 aU_f, const f32 aV_i, const f32 aV_f )
+void CTextureNode::SetVBOData(const u32 aFrame, const f32 aX_i, const f32 aX_f, const f32 aY_i, const f32 aY_f,  const f32 aU_i, const f32 aU_f, const f32 aV_i, const f32 aV_f )
 {
-	const f32 w = ((aW==0?m_TextureSize.x:aW)/2);
-	const f32 h = ((aH==0?m_TextureSize.y:aH)/2);
-
 	AddVBOData();
 
-	m_QuadData.m_TopLeft 		=	D5_T2F_V3F(glm::vec2(aU_i,aV_i), glm::vec3(-w,h,1));
-	m_QuadData.m_BottomLeft 	=	D5_T2F_V3F(glm::vec2(aU_i,aV_f), glm::vec3(-w,-h,1));
-	m_QuadData.m_BottomRight 	=	D5_T2F_V3F(glm::vec2(aU_f,aV_i), glm::vec3(w,h,1));
-	m_QuadData.m_TopRight 		=	D5_T2F_V3F(glm::vec2(aU_f,aV_f), glm::vec3(w,-h,1));
+	m_QuadData.m_TopLeft 		=	D5_T2F_V3F(glm::vec2(aU_i,aV_i), glm::vec3(aX_i,aY_f,1));
+	m_QuadData.m_BottomLeft 	=	D5_T2F_V3F(glm::vec2(aU_i,aV_f), glm::vec3(aX_i,aY_i,1));
+	m_QuadData.m_BottomRight 	=	D5_T2F_V3F(glm::vec2(aU_f,aV_i), glm::vec3(aX_f,aY_f,1));
+	m_QuadData.m_TopRight 		=	D5_T2F_V3F(glm::vec2(aU_f,aV_f), glm::vec3(aX_f,aY_i,1));
 
-	GLuint BufferID = m_VBO[aFrame]->LoadBufferData(&m_QuadData, 1, GL_STATIC_DRAW);
+	m_VBO[aFrame]->LoadBufferData(&m_QuadData, 1, GL_STATIC_DRAW);
 
-	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO, "VBO Object, BufferID: %u, Frame: %d, Data: (%d,%d) -> (%.02f,%.02f)(%.02f,%.02f)(%.02f,%.02f)(%.02f,%.02f)", (u32)BufferID, aFrame, (u32)(w*2), (u32)(h*2), m_QuadData.m_TopLeft.m_texCoord.x, m_QuadData.m_TopLeft.m_texCoord.y
-		, m_QuadData.m_BottomLeft.m_texCoord.x, m_QuadData.m_BottomLeft.m_texCoord.y, m_QuadData.m_BottomRight.m_texCoord.x, m_QuadData.m_BottomRight.m_texCoord.y, m_QuadData.m_TopRight.m_texCoord.x, m_QuadData.m_TopRight.m_texCoord.y);
+}
 
+void CTextureNode::SetVBODataAligned(const TTextureAlign aAlign, const u32 aFrame, const u32 aW, const u32 aH,  const f32 aU_i, const f32 aU_f, const f32 aV_i, const f32 aV_f )
+{
+	const f32 w = (aW==0?m_TextureSize.x:aW);
+	const f32 h = (aH==0?m_TextureSize.y:aH);
+	f32 aX_i, aX_f, aY_i, aY_f;
+
+	switch ( (aAlign & 0x0F) )	// Horizontal
+	{
+		case TEXTUREALIGN_LEFT:
+		{
+			aX_i = 0;
+			aX_f = w;
+			break;
+		}
+		case TEXTUREALIGN_RIGHT:
+		{
+			aX_i = w * -1;
+			aX_f = 0;
+			break;
+		}
+		case TEXTUREALIGN_CENTER:
+		default:
+		{
+			aX_i = (w/2) * -1;
+			aX_f = (w/2) * +1;
+			break;
+		}
+	}
+	switch ( (aAlign & 0xF0) )	// Vertical
+	{
+		case TEXTUREVALIGN_BOTTOM:
+		{
+			aY_i = 0;
+			aY_f = h;
+			break;
+		}
+		case TEXTUREVALIGN_TOP:
+		{
+			aY_i = h * -1;
+			aY_f = 0;
+			break;
+		}
+		case TEXTUREVALIGN_MIDDLE:
+		default:
+		{
+			aY_i = (h/2) * -1;
+			aY_f = (h/2) * +1;
+			break;
+		}
+	}
+	SetVBOData( aFrame, aX_i, aX_f, aY_i, aY_f, aU_i, aU_f, aV_i, aV_f );
 }
 
 void CTextureNode::Render()

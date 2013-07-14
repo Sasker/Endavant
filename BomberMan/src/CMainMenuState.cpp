@@ -23,6 +23,11 @@ void CMainMenuState::Init()
 	m_text->SetTextTTF("MIERDAA  AAAA", EV_Color{255,0,255,128});
 	m_text->SetPosition(glm::vec3(150,370,0));
 
+	m_textfps =std::unique_ptr<CTextTTF>( new CTextTTF());
+	m_textfps->InitTextTTF("Fonts/courbd.ttf");
+	m_textfps->SetTextTTF("FPS: ", EV_Color{255,255,255,255});
+	m_textfps->SetPosition(glm::vec3(10,650,2));
+
 	m_graphicbomberman =std::unique_ptr<CSpriteAnimated>( new CSpriteAnimated());
 	m_graphicbomberman->InitSpriteAnimated("Textures/downwait.png", 4, 0.25f);
 	m_graphicbomberman->SetPosition(glm::vec3(250,450,1));
@@ -38,6 +43,7 @@ void CMainMenuState::Init()
 	m_menuscene->AddChild(m_graphicbomberman.get());
 	m_menuscene->AddChild(m_graphicbombermanwalk.get());
 	m_menuscene->AddChild(m_text.get());
+	m_menuscene->AddChild(m_textfps.get());
 
 	CCoreEngine::Instance().GetRenderManager().PushScene(m_menuscene.get());
 
@@ -83,6 +89,8 @@ void CMainMenuState::Update(f64 dt)
 			m_graphicbomberman->SetPosition( glm::vec2(250, (450 - distancia) ));
 		}
 	}
+
+	SetPFS();
 }
 
 CMainMenuState::~CMainMenuState()
@@ -90,3 +98,16 @@ CMainMenuState::~CMainMenuState()
 
 }
 
+void CMainMenuState::SetPFS()
+{
+	static f64 lastfps = 0.0f;
+	f64 actfps = CCoreEngine::Instance().GetTimerManager().GetFPS();
+
+	if (lastfps != actfps )
+	{
+		char buf[80];
+		lastfps = actfps;
+		sprintf( buf, "FPS: %.02f", lastfps);
+		m_textfps->SetTextTTF( buf, EV_Color{255,255,255,255}, TEXTUREALIGN_LEFT );
+	}
+}

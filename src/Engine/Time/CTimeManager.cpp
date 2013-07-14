@@ -125,7 +125,7 @@ bool CTimeManager::KillTimer(const EV_TimerID a_TimerID)
 	}
 }
 
-bool	CTimeManager::IsEndTimer(const EV_TimerID id) const
+bool CTimeManager::IsEndTimer(const EV_TimerID id) const
 {
 	auto l_itToErase =  m_TimersMap.find(id);
 	if (l_itToErase	== m_TimersMap.end() )
@@ -138,18 +138,18 @@ bool	CTimeManager::IsEndTimer(const EV_TimerID id) const
 
 }
 
-void	CTimeManager::CalculateFPS()
+void CTimeManager::CalculateFPS()
 {
 	static u32 	l_FPScount = 0;		// Frame counter
 	static f64	l_ETAccumSeconds = 0; // Elapsed time seconds accumulation per frame
 
-
 	++l_FPScount;
 	l_ETAccumSeconds += m_ElapsedTimeSeconds;
-	m_FramesPerSecond = l_FPScount/l_ETAccumSeconds;
 
 	if(	l_ETAccumSeconds > 1.0 ) //Every second
 	{
+		m_FramesPerSecond = l_FPScount/l_ETAccumSeconds;
+
 		l_ETAccumSeconds = l_ETAccumSeconds - 1.0;
 		l_FPScount = 0;
 	}
