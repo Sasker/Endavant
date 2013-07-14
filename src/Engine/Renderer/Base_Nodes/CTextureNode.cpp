@@ -253,6 +253,7 @@ void CTextureNode::Render()
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		m_VBO[m_FrameNum]->UnBindBuffer();
 		m_GLTexture.UnBind();
+
 	}
 	CBaseNode::Render();
 }
