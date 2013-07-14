@@ -107,6 +107,15 @@ void	CRenderManager::InitGL()
 	//if (InitGLDebugFunctions())	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"OpenGL Error Checking: ENABLED");
 
 
+	int l_red, l_green, l_blue, l_alpha;
+	SDL_GL_GetAttribute(SDL_GL_RED_SIZE,&l_red);
+	SDL_GL_GetAttribute(SDL_GL_GREEN_SIZE,&l_green);
+	SDL_GL_GetAttribute(SDL_GL_BLUE_SIZE,&l_blue);
+	SDL_GL_GetAttribute(SDL_GL_ALPHA_SIZE,&l_alpha);
+	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"Framebuffer Bytes Info-> R:%d  G:%d  B:%d: A:%d",l_red, l_green, l_blue, l_alpha);
+
+
+
 	char *l_vendor = (char*) glGetString(GL_VENDOR);
 	char *l_renderer =(char*) glGetString(GL_RENDERER);
 	char *l_version = (char*)glGetString(GL_VERSION);
@@ -116,11 +125,14 @@ void	CRenderManager::InitGL()
 	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"Version: %s", l_version);
 	CCoreEngine::Instance().GetLogManager().LogOutput( LOG_INFO, LOGSUB_VIDEO,"GLSL: %s", l_glsl);
 
+
+
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
 
-	glEnable( GL_BLEND );
-	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// TODO: Set antialiasing/multisampling
 	/*glEnable( GL_MULTISAMPLE );
