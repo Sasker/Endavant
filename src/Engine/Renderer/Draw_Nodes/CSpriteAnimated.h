@@ -27,4 +27,4 @@ private:
 	EV_TimerID	m_TimerID;
 };
 
-#endif /* CSPRITE_H_ */
+#endif /* CSPRITEANIMATED_H_ */
