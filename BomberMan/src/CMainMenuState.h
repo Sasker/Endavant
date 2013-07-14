@@ -28,6 +28,7 @@ private:
 	std::unique_ptr<CSprite>			m_graphicmodel2;
 	std::unique_ptr<CSpriteAnimated>	m_graphicbomberman;
 	std::unique_ptr<CSpriteAnimated>	m_graphicbombermanwalk;
+	std::unique_ptr<CTextTTF>			m_text;
 	std::unique_ptr<CScene>				m_menuscene;
 };
 

@@ -1,5 +1,7 @@
 
 #include "CFontTTF.h"
+#include "Core/CCoreEngine.h"
+#include "Core/CLogManager.h"
 
 
 CFontTTF::CFontTTF():
@@ -22,7 +24,7 @@ bool CFontTTF::FontLoad(const std::string& FontFile)
 	m_pTTFont 	= TTF_OpenFont(m_FontFile.c_str(), m_PointSize);
 	if (m_pTTFont == nullptr)
 	{
-		printf("Unable to load font: %s %s \n", m_FontFile.c_str(), TTF_GetError());
+		CCoreEngine::Instance().GetLogManager().LogOutput( LOG_ERROR, LOGSUB_RESOURCES, "Unable to load font: %s %s \n", m_FontFile.c_str(), TTF_GetError() );
 		m_FontFile.clear();
 		return false;
 	}

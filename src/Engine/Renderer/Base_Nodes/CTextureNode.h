@@ -52,6 +52,7 @@ private:
 	void				EraseVBOData();
 	void				AddVBOData();
 	bool				LoadInternalTextureFromFile(const std::string &aPath);
+	bool 				LoadInternalTextureFromSurface(const SDL_Surface &aSurface);
 
 	CGLTexture			m_GLTexture;
 	glm::uvec2			m_TextureSize;

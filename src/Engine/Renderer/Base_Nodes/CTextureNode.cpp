@@ -30,7 +30,7 @@ bool CTextureNode::LoadInternalTextureFromFile(const std::string& aPath)
 		return false;
 	}
 
-	bool retval = LoadTextureFromSurface(*Surface);
+	bool retval = LoadInternalTextureFromSurface(*Surface);
 	SDL_FreeSurface(Surface);
 
 	return retval;
@@ -165,6 +165,22 @@ bool CTextureNode::LoadTextureFromFile(const std::string& aPath, const u32 aNumF
 
 bool CTextureNode::LoadTextureFromSurface(const SDL_Surface &aSurface)
 {
+	bool retval = LoadInternalTextureFromSurface(aSurface);
+	//Forzamos el tamaño de la textura a partir del Surface (necesario para Texto)
+	m_TextureSize.x = aSurface.w;
+	m_TextureSize.y = aSurface.h;
+	if (retval)
+	{
+		EraseVBOData();
+
+		SetVBOData();
+	}
+
+	return retval;
+}
+
+bool CTextureNode::LoadInternalTextureFromSurface(const SDL_Surface &aSurface)
+{
 	GLenum TextureFormat;
 
 	switch(aSurface.format->BytesPerPixel)
@@ -196,11 +212,11 @@ bool CTextureNode::LoadTextureFromSurface(const SDL_Surface &aSurface)
 
 void CTextureNode::EraseVBOData()
 {
-	for ( u32 count = 0; count < m_VBO.size(); count++ )
+	for (auto &VBOElement: m_VBO)
 	{
-		CGLBufferObject< D5_QUAD<D5_T2F_V3F> > *m_VBO_Element = m_VBO.back();
-		delete (m_VBO_Element);
+		delete VBOElement;
 	}
+
 	m_VBO.clear();
 }
 
