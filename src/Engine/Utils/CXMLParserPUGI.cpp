@@ -39,7 +39,7 @@ string CXMLParserPUGI::GetStringAttributeValue(const string &NodePath, const str
 	return retValue;
 }
 
-int CXMLParserPUGI::GetIntAttributeValue(const string &NodePath, const string &Attribute, const int DefaultValue)
+s32 CXMLParserPUGI::GetIntAttributeValue(const string &NodePath, const string &Attribute, const s32 DefaultValue)
 {
 	int retValue(DefaultValue);
 	pugi::xml_attribute xmlAttrib;
@@ -50,7 +50,7 @@ int CXMLParserPUGI::GetIntAttributeValue(const string &NodePath, const string &A
 	return retValue;
 }
 
-float CXMLParserPUGI::GetFloatAttributeValue(const string &NodePath, const string &Attribute, const float DefaultValue)
+f32 CXMLParserPUGI::GetFloatAttributeValue(const string &NodePath, const string &Attribute, const f32 DefaultValue)
 {
 	float retValue(DefaultValue);
 	pugi::xml_attribute xmlAttrib;

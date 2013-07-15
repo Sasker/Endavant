@@ -20,6 +20,8 @@ public:
 
 private:
 
+	bool		GetFrameDataFromXml( const std::string &aPathToTexture);
+
 	// Height and width of the sprite being rendered
 	glm::uvec2	m_SpriteSize;
 

@@ -33,7 +33,7 @@ void CMainMenuState::Init()
 	m_graphicbomberman->SetPosition(glm::vec3(250,450,1));
 
 	m_graphicbombermanwalk =std::unique_ptr<CSpriteAnimated>( new CSpriteAnimated());
-	m_graphicbombermanwalk->InitSpriteAnimated("Textures/down.png", 6, 0.15f);
+	m_graphicbombermanwalk->InitSpriteAnimated("Textures/down.xml", 6, 0.15f);
 	m_graphicbombermanwalk->SetPosition(glm::vec3(250,450,1));
 	m_graphicbombermanwalk->Hide();
 
